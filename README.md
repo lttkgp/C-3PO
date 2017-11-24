@@ -1,6 +1,6 @@
 # C-3PO
 
-When he's not flying around with the Solos and Skywalkers on the Millenium Falcon, C-3PO decided to help LTTKGP out with managing the huge amount of songs being posted each day and organising them in a database (such a nice guy!).
+When he's not flying around with the Solos and Skywalkers on the Millenium Falcon, C-3PO decided to help LTTKGP out with managing the huge amount of songs being posted each day and organising them in a database (such a nice guy!). Known for his loving nature, he feels it'd be so much better to appreciate the top OPs on the group with weekly highlights. He also promises to use his supreme knowledge of Machine Learning to analyze trends and give music recommendations.
 
 ## Contributing
 Contributions are always welcome. Your contributions could either be creating new features, fixing bugs or improving documentation and examples. Find more detailed information in [CONTRIBUTING.md](https://github.com/lttkgp/C-3PO/blob/master/CONTRIBUTING.md).
