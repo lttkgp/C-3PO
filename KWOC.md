@@ -8,6 +8,8 @@ The goal of this project would be to use Facebook's graph API to fetch all the l
 ## Technical know-how
 There are no prerequisites per se. You'll be learning about working with public REST APIs, writing utility scripts, database theory (how to best store information) & implementation and if time permits, caching and some hands-on basic machine learning.
 
+The language of choice could be either Python or Golang. Both of them are dead easy to pick up.
+
 ## Roadmap for KWoC
 - Decide the schema for storing all the data
 - Writing the main script to use the graph API to continuously fetch information from the Facebook group.
