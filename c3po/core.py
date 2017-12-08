@@ -6,6 +6,8 @@ from os.path import join
 import dotenv
 from dotenv import find_dotenv, load_dotenv
 import requests
+import json
+import codecs
 
 DOTENV_PATH = join(os.path.pardir, '.env')
 load_dotenv(DOTENV_PATH)
@@ -52,8 +54,16 @@ def get_feed():
     response = REQ_SESSION.get(request_url, params=PAYLOAD)
     if response.status_code == 400:
         refresh_short_token()
-    print(response.json())
-    return response.json()
+    dict = response.json()
+
+    while ('paging' in dict):
+        x = dict['paging']['next']
+        request_url = x + LTTK_GROUP_ID + '/feed'
+        response = REQ_SESSION.get(request_url, params=PAYLOAD)
+        print(dict)
+        dict = response.json()
+
+    return dict
 
 def main():
     """
