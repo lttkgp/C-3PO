@@ -1,4 +1,4 @@
-# Why, hello there!
+# Well, hello there!
 
 Welcome to KWoC '17. A lot has already been said and written about why participating in KWoC is already a great step in your path to Open Source Development. In this document, I'll try to list below everything I plan to cover **with your help** as part of KWoC '17.
 
