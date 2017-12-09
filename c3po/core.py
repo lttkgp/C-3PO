@@ -57,9 +57,8 @@ def get_feed():
     dict = response.json()
 
     while ('paging' in dict):
-        x = dict['paging']['next']
-        request_url = x + LTTK_GROUP_ID + '/feed'
-        response = REQ_SESSION.get(request_url, params=PAYLOAD)
+        next_page_url = dict['paging']['next']
+        response = REQ_SESSION.get(next_page_url, params=PAYLOAD)
         print(dict)
         dict = response.json()
 
