@@ -43,17 +43,29 @@ TODO: refresh_long_token()
     A function to refresh the long term access token
     Current validity: 60 days
 '''
+def get_post():
+    pass
 
 def get_feed():
     """
     Fetch feed
     """
     request_url = FB_URL + LTTK_GROUP_ID + '/feed'
-    response = REQ_SESSION.get(request_url, params=PAYLOAD)
-    if response.status_code == 400:
+    response = []
+    response.append(REQ_SESSION.get(request_url, params=PAYLOAD))
+    if response[0].status_code == 400:
         refresh_short_token()
-    print(response.json())
-    return response.json()
+
+    page = 0
+    JSON = response[page].json()
+
+    while "paging" in JSON:
+        page = page + 1
+        request_url = JSON['paging']['next']
+        response.append(REQ_SESSION.get(request_url, params=PAYLOAD))
+        JSON = response[page].json()
+         
+    return response
 
 def main():
     """
