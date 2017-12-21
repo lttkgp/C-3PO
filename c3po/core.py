@@ -77,7 +77,7 @@ def get_feed():
         request_url = JSON['paging']['next']
         response.append(REQ_SESSION.get(request_url, params=PAYLOAD))
         JSON = response[page_no].json()
-  
+
     return response
 
 def main():
