@@ -72,6 +72,7 @@ def get_feed():
     while "paging" in JSON:
         for item in JSON['data']:
             posts.insert(get_post(item['id']))
+            print page_no
 
         page_no = page_no + 1
         request_url = JSON['paging']['next']
@@ -85,7 +86,6 @@ def main():
     Fetch posts from a Facebook group and populate in database
     """
     get_feed()
-    print posts
 
 if __name__ == "__main__":
     main()
