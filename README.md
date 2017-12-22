@@ -10,6 +10,7 @@ As explained in the link above, create a new Facebook app (My Apps -> Add a new 
 
 Once done, create a file in repo root called `.env` with contents as follows:
 ```
+FB_LONG_ACCESS_TOKEN="xxxx"
 FB_SHORT_ACCESS_TOKEN="xxx"
 FB_APP_ID="xxxx"
 FB_APP_SECRET="xxxx"
