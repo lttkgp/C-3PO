@@ -9,6 +9,8 @@ from dotenv import find_dotenv, load_dotenv
 import requests
 import json
 import codecs
+from pymongo import MongoClient
+import pymongo
 
 DOTENV_PATH = join(os.path.pardir, '.env')
 load_dotenv(DOTENV_PATH)
@@ -23,6 +25,10 @@ LTTK_GROUP_ID = '1488511748129645'
 PAYLOAD = {
     'access_token': FB_LONG_ACCESS_TOKEN
 }
+
+client = MongoClient('127.0.0.1', 27017)  
+db = client.c3po # created database -> c3p0
+posts = db.posts # created collection -> posts
 
 def refresh_short_token():
     """
@@ -51,16 +57,21 @@ def get_feed():
     """
     Fetch feed
     """
-    request_url = FB_URL + LTTK_GROUP_ID + '/feed'
+    request_url = FB_URL + LTTK_GROUP_ID + '/feed?fields=created_time,message,message_tags,from,link,shares,to,updated_time,id'
     response = REQ_SESSION.get(request_url, params=PAYLOAD)
     if response.status_code == 400:
         refresh_short_token()
     dict = response.json()
-
+    page = 0
     while ('paging' in dict):
+        for item in dict['data']:
+            posts.insert(item)
+            print page
+            
         next_page_url = dict['paging']['next']
         response = REQ_SESSION.get(next_page_url, params=PAYLOAD)
-        print(dict)
+        print dict
+        page +=1 
         dict = response.json()
 
     return dict
