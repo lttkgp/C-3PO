@@ -21,11 +21,16 @@ LTTK_GROUP_ID = '1488511748129645'
 PAYLOAD = {
     'access_token': FB_LONG_ACCESS_TOKEN
 }
+
 POST_FIELDS = (
     'id,caption,created_time,description,from,link,message,'
     'message_tags,name,object_id,permalink_url,properties,'
     'shares,source,status_type,to,type,updated_time'
-    )
+)
+COMMENT_FIELDS = (
+    'id,attachment,comment_count,created_time,from,'
+    'like_count,message,message_tags,parent'
+)
 
 def refresh_access_token():
     """
@@ -69,15 +74,50 @@ def make_request(request_url, request_params):
         response = REQ_SESSION.get(request_url, params=request_params)
     return response.json()
 
+def parse_comments(comments, level):
+    """
+    Parse comments given comment id
+    """
+    for comment in comments:
+        if level == 1:
+            get_comments(comment['id'], level + 1)
+
+def get_comments(graph_id, level):
+    """
+    Get the comments of a post with given id
+    """
+    request_url = FB_URL + graph_id + '/comments'
+    request_params = PAYLOAD.copy()
+    request_params['fields'] = COMMENT_FIELDS
+    response = make_request(request_url, request_params)
+    if response['data']:
+        parse_comments(response['data'], level)
+    while 'paging' in response:
+        next_page_cursor = response['paging']['cursors']['after']
+        comment_page_params = request_params.copy()
+        comment_page_params['after'] = next_page_cursor
+        response = make_request(request_url, comment_page_params)
+        if response['data']:
+            parse_comments(response['data'], level)
+    return response
+
+def parse_post(post):
+    """
+    Parse the post for information
+    """
+    graph_id = post['id']
+    comments = get_comments(graph_id, 1)
+    print(comments)
+
 def get_post(graph_id):
     """
     Get the post details for the given id
     """
     request_url = FB_URL + graph_id
-    request_params = PAYLOAD
+    request_params = PAYLOAD.copy()
     request_params['fields'] = POST_FIELDS
     response = make_request(request_url, request_params)
-    print(response)
+    parse_post(response)
 
 def parse_feed(feed):
     """
