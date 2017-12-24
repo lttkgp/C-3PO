@@ -31,6 +31,9 @@ COMMENT_FIELDS = (
     'id,attachment,comment_count,created_time,from,'
     'like_count,message,message_tags,parent'
 )
+REACTION_FIELDS = (
+    'id,name,type'
+)
 
 def refresh_access_token():
     """
@@ -101,13 +104,28 @@ def get_comments(graph_id, level):
             parse_comments(response['data'], level)
     return response
 
+def get_reactions(graph_id):
+    """
+    Get the reactions to a post with given id
+    """
+    request_url = FB_URL + graph_id + '/reactions'
+    request_params = PAYLOAD.copy()
+    request_params['fields'] = REACTION_FIELDS
+    response = make_request(request_url, request_params)
+    while 'paging' in response:
+        next_page_cursor = response['paging']['cursors']['after']
+        comment_page_params = request_params.copy()
+        comment_page_params['after'] = next_page_cursor
+        response = make_request(request_url, comment_page_params)
+    return response
+
 def parse_post(post):
     """
     Parse the post for information
     """
     graph_id = post['id']
     comments = get_comments(graph_id, 1)
-    print(comments)
+    reactions = get_reactions(graph_id)
 
 def get_post(graph_id):
     """
