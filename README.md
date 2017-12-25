@@ -10,9 +10,20 @@ As explained in the link above, create a new Facebook app (My Apps -> Add a new 
 
 Once done, create a file in repo root called `.env` with contents as follows:
 ```
-FB_SHORT_ACCESS_TOKEN="xxx"
+FB_SHORT_ACCESS_TOKEN="xxxx"
 FB_APP_ID="xxxx"
 FB_APP_SECRET="xxxx"
+```
+
+### Spotify's Web API
+You will also need Spotify authorization for fetching song metadata. The prodcude is very straightforward. Register a new application here:
+https://developer.spotify.com/my-applications
+
+That will give you a unique **client ID** and **client secret key** to use in authorization flows.
+Save these to the above created `.env` files as follows:
+```
+SPOTIFY_CLIENT_ID="xxxx"
+SPOTIFY_CLIENT_SECRET="xxxx"
 ```
 
 ### Python requirements
