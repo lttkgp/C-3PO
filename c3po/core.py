@@ -2,7 +2,7 @@
 Core script. Structure to be changed later.
 """
 import os
-from os.path import join
+from os.path import abspath, dirname, join
 import re
 import warnings
 import dotenv
@@ -13,7 +13,7 @@ import spotipy.util as spotipy_util
 
 from helpers import SEPARATORS
 
-DOTENV_PATH = join(os.path.pardir, '.env')
+DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
 load_dotenv(DOTENV_PATH)
 
 REQ_SESSION = requests.Session()
