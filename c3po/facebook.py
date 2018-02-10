@@ -73,24 +73,26 @@ def get_metadata(graph_object):
     """
     Get song metadata from music APIs
     """
-    print(graph_object)
     if 'name' in graph_object:
         song_info = get_artist_title(graph_object['name'])
-        print(song_info)
-        response = search_sp(song_info)
-        print(response)
-        response = search_mm(song_info)
-        print(response)
+        spotify_response = search_sp(song_info)
+        musixmatch_response = search_mm(song_info)
+        response = {
+            "spotify": spotify_response,
+            "musixmatch": musixmatch_response
+        }
+        return response
 
-def parse_comments(comments, level):
+def parse_comments(response, level, comments):
     """
     Parse comments given comment id
     """
-    for comment in comments:
+    for comment in response:
+        comments.append(comment)
         if level == 1:
-            get_comments(comment['id'], level + 1)
+            get_comments(comment['id'], level + 1, comments)
 
-def get_comments(graph_id, level):
+def get_comments(graph_id, level, comments):
     """
     Get the comments of a post with given id
     """
@@ -99,15 +101,14 @@ def get_comments(graph_id, level):
     request_params['fields'] = constants.FACEBOOK_COMMENT_FIELDS
     response = make_request(request_url, request_params)
     if response['data']:
-        parse_comments(response['data'], level)
+        parse_comments(response['data'], level, comments)
     while 'paging' in response:
         next_page_cursor = response['paging']['cursors']['after']
         comment_page_params = request_params.copy()
         comment_page_params['after'] = next_page_cursor
         response = make_request(request_url, comment_page_params)
         if response['data']:
-            parse_comments(response['data'], level)
-    return response
+            parse_comments(response['data'], level, comments)
 
 def get_reactions(graph_id):
     """
@@ -117,21 +118,31 @@ def get_reactions(graph_id):
     request_params = PAYLOAD.copy()
     request_params['fields'] = constants.FACEBOOK_REACTION_FIELDS
     response = make_request(request_url, request_params)
+    reactions = []
+    reactions += response['data']
     while 'paging' in response:
         next_page_cursor = response['paging']['cursors']['after']
         comment_page_params = request_params.copy()
         comment_page_params['after'] = next_page_cursor
         response = make_request(request_url, comment_page_params)
-    return response
+        reactions += response['data']
+    return reactions
 
 def parse_post(post):
-    """
+    """ 
     Parse the post for information
     """
+    comments = []
     graph_id = post['id']
-    # comments = get_comments(graph_id, 1)
-    # reactions = get_reactions(graph_id)
+    get_comments(graph_id, 1, comments)
+    reactions = get_reactions(graph_id)
     metadata = get_metadata(post)
+    response = {
+        "comments": comments,
+        "reactions": reactions,
+        "metadata": metadata
+    }
+    return response
 
 def get_post(graph_id):
     """
@@ -141,33 +152,40 @@ def get_post(graph_id):
     request_params = PAYLOAD.copy()
     request_params['fields'] = constants.FACEBOOK_POST_FIELDS
     response = make_request(request_url, request_params)
-    parse_post(response)
+    post_details = parse_post(response)
+    post_details['post'] = response
+    return post_details
 
 def parse_feed(feed):
     """
     Parse the posts in feed for information
     """
+    posts = []
     for post in feed:
-        get_post(post['id'])
-        input()
+        posts.append(get_post(post['id']))
+    return posts
 
 def get_feed():
     """
     Fetch feed
     """
+    all_posts = []
     request_url = FB_URL + GROUP_ID + '/feed'
     response = make_request(request_url, PAYLOAD)
-    parse_feed(response['data'])
+    posts = parse_feed(response['data'])
+    all_posts += posts
     while 'paging' in response:
         next_page_url = response['paging']['next']
         response = make_request(next_page_url, PAYLOAD)
-        parse_feed(response['data'])
+        posts = parse_feed(response['data'])
+        all_posts += posts
+    return all_posts
 
 def main():
     """
     Fetch posts from a Facebook group and populate in database
     """
-    get_feed()
+    return get_feed()
 
 if __name__ == "__main__":
     main()
