@@ -111,3 +111,6 @@ venv.bak/
 
 # Spotipy cache
 .cache-*
+
+# DB object
+lttkgp.db

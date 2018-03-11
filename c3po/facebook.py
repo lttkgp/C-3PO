@@ -48,6 +48,7 @@ def refresh_access_token():
             response = REQ_SESSION.get(request_url, params=request_payload).json()
             dotenvfile = find_dotenv()
             load_dotenv(dotenvfile)
+            print(response)
             dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN", response['access_token'])
             PAYLOAD['access_token'] = dotenv.get_key(dotenvfile, "FB_LONG_ACCESS_TOKEN")
 
@@ -134,12 +135,12 @@ def parse_post(post):
     """
     comments = []
     graph_id = post['id']
-    get_comments(graph_id, 1, comments)
-    reactions = get_reactions(graph_id)
+    # get_comments(graph_id, 1, comments)
+    # reactions = get_reactions(graph_id)
     metadata = get_metadata(post)
     response = {
-        "comments": comments,
-        "reactions": reactions,
+        # "comments": comments,
+        # "reactions": reactions,
         "metadata": metadata
     }
     return response
@@ -163,6 +164,8 @@ def parse_feed(feed):
     posts = []
     for post in feed:
         posts.append(get_post(post['id']))
+        print(posts)
+        input()
     return posts
 
 def get_feed():
@@ -175,6 +178,7 @@ def get_feed():
     posts = parse_feed(response['data'])
     all_posts += posts
     while 'paging' in response:
+        break
         next_page_url = response['paging']['next']
         response = make_request(next_page_url, PAYLOAD)
         posts = parse_feed(response['data'])
