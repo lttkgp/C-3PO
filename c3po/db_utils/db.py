@@ -1,10 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 engine = create_engine('sqlite:///lttkgp.db', echo=True)
+Session = sessionmaker()
+Session.configure(bind=engine)
 
 song_artist = Table('song_artist', Base.metadata,
     Column('song_id', Integer, ForeignKey('songs.song_id'), nullable=False),
@@ -18,8 +20,8 @@ class User(Base):
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True)
-    name = Column(String)
-    picture = Column(String)
+    user_name = Column(String)
+    # user_picture = Column(String)
     posts = relationship('Post')
 
 class Post(Base):
@@ -36,7 +38,7 @@ class Song(Base):
     song_id = Column(Integer, primary_key=True)
     artists = relationship('Artist', secondary=song_artist, backref='songs')
     genres = relationship('Genre', secondary=genre_song, backref='songs')
-    title = Column(String)
+    song_title = Column(String)
     links = relationship('Link')
 
 class Genre(Base):

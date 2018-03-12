@@ -7,11 +7,13 @@ import warnings
 import dotenv
 from dotenv import find_dotenv, load_dotenv
 import requests
+import dateutil.parser
 
 from youtube_title_parse import get_artist_title
 from spotify import search_sp
 from musixmatch import search_mm
 import constants
+from db_utils import db
 
 DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
 load_dotenv(DOTENV_PATH)
@@ -130,7 +132,7 @@ def get_reactions(graph_id):
     return reactions
 
 def parse_post(post):
-    """ 
+    """
     Parse the post for information
     """
     comments = []
@@ -163,9 +165,36 @@ def parse_feed(feed):
     """
     posts = []
     for post in feed:
-        posts.append(get_post(post['id']))
-        print(posts)
-        input()
+        parsed_post = get_post(post['id'])
+        print(parsed_post)
+        user_id = parsed_post['post']['from']['id']
+        user_name = parsed_post['post']['from']['name']
+        db_user = db.User(user_id=user_id, user_name=user_name)
+        post_id = parsed_post['post']['id']
+        post_time = dateutil.parser.parse(parsed_post['post']['created_time'])
+        db_post = db.Post(post_id=post_id, post_time=post_time)
+        song_title = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['track_name']
+        db_song = db.Song(song_title=song_title)
+        genre_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_id']
+        genre_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name']
+        db_genre = db.Genre(genre_id=genre_id, genre_name=genre_name)
+        artist_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_id']
+        artist_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_name']
+        db_artist = db.Artist(artist_id=artist_id, artist_name=artist_name)
+        link_type = 'yt'
+        link_value = parsed_post['post']['link']
+        db_link = db.Link(link_type=link_type, link_value=link_value)
+        db_session = db.Session()
+        db_session.add(db_user)
+        db_session.add(db_post)
+        db_session.add(db_song)
+        db_session.add(db_genre)
+        db_session.add(db_artist)
+        db_session.add(db_link)
+        db_session.commit()
+        test_post = db_session.query(db.User).one()
+        print(test_post)
+        posts.append(parsed_post)
     return posts
 
 def get_feed():
