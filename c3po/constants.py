@@ -1,4 +1,4 @@
-FACEBOOK_API_VERSION='v2.12'
+FACEBOOK_API_VERSION='v3.0'
 FACEBOOK_GROUP_ID = '1488511748129645'
 FACEBOOK_POST_FIELDS = (
     'id,created_time,from,link,message,message_tags,'

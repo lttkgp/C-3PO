@@ -9,14 +9,13 @@ from dotenv import find_dotenv, load_dotenv
 import requests
 import dateutil.parser
 
-from youtube_title_parse import get_artist_title
-from spotify import search_sp
-from musixmatch import search_mm
-import constants
-from db_utils import db
-
 DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
 load_dotenv(DOTENV_PATH)
+
+from youtube_title_parse import get_artist_title
+from youtube_music_metadata import get_metadata
+import constants
+from db_utils import db
 
 REQ_SESSION = requests.Session()
 FB_URL = 'https://graph.facebook.com/' + constants.FACEBOOK_API_VERSION + '/'
@@ -72,20 +71,6 @@ def make_request(request_url, request_params):
         response = REQ_SESSION.get(request_url, params=request_params)
     return response.json()
 
-def get_metadata(graph_object):
-    """
-    Get song metadata from music APIs
-    """
-    if 'name' in graph_object:
-        song_info = get_artist_title(graph_object['name'])
-        spotify_response = search_sp(song_info)
-        musixmatch_response = search_mm(song_info)
-        response = {
-            "spotify": spotify_response,
-            "musixmatch": musixmatch_response
-        }
-        return response
-
 def parse_comments(response, level, comments):
     """
     Parse comments given comment id
@@ -139,7 +124,7 @@ def parse_post(post):
     graph_id = post['id']
     # get_comments(graph_id, 1, comments)
     # reactions = get_reactions(graph_id)
-    metadata = get_metadata(post)
+    metadata = get_metadata(post['link'], spotify=True, musixmatch=True)
     response = {
         # "comments": comments,
         # "reactions": reactions,
@@ -167,20 +152,32 @@ def parse_feed(feed):
     for post in feed:
         parsed_post = get_post(post['id'])
         print(parsed_post)
-        user_id = parsed_post['post']['from']['id']
-        user_name = parsed_post['post']['from']['name']
+        # user_id = parsed_post['post']['from']['id']
+        # user_name = parsed_post['post']['from']['name']
+        user_id = 1
+        user_name = "LTTKGP member"
         db_user = db.User(user_id=user_id, user_name=user_name)
         post_id = parsed_post['post']['id']
         post_time = dateutil.parser.parse(parsed_post['post']['created_time'])
         db_post = db.Post(post_id=post_id, post_time=post_time)
-        song_title = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['track_name']
-        db_song = db.Song(song_title=song_title)
-        genre_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_id']
-        genre_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name']
-        db_genre = db.Genre(genre_id=genre_id, genre_name=genre_name)
-        artist_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_id']
-        artist_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_name']
-        db_artist = db.Artist(artist_id=artist_id, artist_name=artist_name)
+        try:
+            song_title = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['track_name']
+            db_song = db.Song(song_title=song_title)
+            genre_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_id']
+            genre_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['primary_genres']['music_genre_list'][0]['music_genre']['music_genre_name']
+            db_genre = db.Genre(genre_id=genre_id, genre_name=genre_name)
+            artist_id = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_id']
+            artist_name = parsed_post['metadata']['musixmatch']['message']['body']['track_list'][0]['track']['artist_name']
+            db_artist = db.Artist(artist_id=artist_id, artist_name=artist_name)
+        except IndexError:
+            song_title = ''
+            db_song = db.Song(song_title=song_title)
+            genre_id = -1
+            genre_name = ''
+            db_genre = db.Genre(genre_id=genre_id, genre_name=genre_name)
+            artist_id = -1
+            artist_name = ''
+            db_artist = db.Artist(artist_id=artist_id, artist_name=artist_name)
         link_type = 'yt'
         link_value = parsed_post['post']['link']
         db_link = db.Link(link_type=link_type, link_value=link_value)
