@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.schema import Table, Column, ForeignKey
+from sqlalchemy.types import Integer, String, DateTime
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -22,12 +23,12 @@ class User(Base):
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     user_name = Column(String)
     # user_picture = Column(String)
-    posts = relationship('Post')
+    posts = relationship('Post', backref='user')
 
 class Post(Base):
     __tablename__ = 'posts'
 
-    post_id = Column(Integer, primary_key=True, autoincrement=True)
+    post_id = Column(String, primary_key=True, autoincrement=False)
     link_id = Column(Integer, ForeignKey('links.link_id'), nullable=False)
     user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     post_time = Column(DateTime)
@@ -39,7 +40,7 @@ class Song(Base):
     artists = relationship('Artist', secondary=song_artist, backref='songs')
     genres = relationship('Genre', secondary=genre_song, backref='songs')
     song_title = Column(String)
-    links = relationship('Link')
+    links = relationship('Link', backref='song')
 
 class Genre(Base):
     __tablename__ = 'genres'
@@ -60,6 +61,6 @@ class Link(Base):
     song_id = Column(Integer, ForeignKey('songs.song_id'), nullable=False)
     link_type = Column(String)
     link_value = Column(Integer)
-    posts = relationship('Post')
+    posts = relationship('Post', backref='link')
 
 Base.metadata.create_all(engine)
