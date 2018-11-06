@@ -1,5 +1,7 @@
 import dateutil.parser
 from sqlalchemy import exists
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm.exc import MultipleResultsFound
 
 import db_utils.db as db
 import db_utils.parse_metadata as pm
@@ -7,9 +9,9 @@ import db_utils.parse_metadata as pm
 def add_post_to_db(parsed_post):
     # user_id = parsed_post['post']['from']['id']
     # user_name = parsed_post['post']['from']['name']
-    user_id = 1
+    # user_id = 1
     user_name = "LTTKGP member"
-    db_user = db.User(user_id=user_id, user_name=user_name)
+    db_user = db.User(user_name=user_name)
     post_id = parsed_post['post']['id']
     post_time = dateutil.parser.parse(parsed_post['post']['created_time'])
     db_post = db.Post(post_id=post_id, post_time=post_time)
@@ -50,6 +52,11 @@ def add_post_to_db(parsed_post):
         print("FFFFFFFFFFFFFFFFFFFFFF")
         db_session.add(db_link)
     db_session.commit()
-    test_post = db_session.query(db.User).one()
+    try:
+        test_post = db_session.query(db.User).one()
+        print(test_post)
+    except MultipleResultsFound as e:
+        print(e)
+    except NoResultFound as e:
+        print(e)
     db_session.close()
-    print(test_post)

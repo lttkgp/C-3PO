@@ -139,7 +139,11 @@ def get_post(graph_id):
     request_params = PAYLOAD.copy()
     request_params['fields'] = constants.FACEBOOK_POST_FIELDS
     response = make_request(request_url, request_params)
-    post_details = parse_post(response)
+    post_details = {}
+    if response['type'] == 'video':
+        post_details = parse_post(response)
+    else:
+        post_details['metadata'] = {}
     post_details['post'] = response
     return post_details
 
@@ -165,7 +169,7 @@ def get_feed():
     posts = parse_feed(response['data'])
     all_posts += posts
     while 'paging' in response:
-        break
+        # break
         next_page_url = response['paging']['next']
         response = make_request(next_page_url, PAYLOAD)
         posts = parse_feed(response['data'])
