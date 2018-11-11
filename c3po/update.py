@@ -7,6 +7,7 @@ import warnings
 import dotenv
 from dotenv import find_dotenv, load_dotenv
 import requests
+from nodes import artist, genre, song
 
 DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
 load_dotenv(DOTENV_PATH)
@@ -14,7 +15,7 @@ load_dotenv(DOTENV_PATH)
 from youtube_title_parse import get_artist_title
 from youtube_music_metadata import get_metadata
 import constants
-from db_utils.helper import add_post_to_db
+from utils.helper import add_post_to_db
 
 REQ_SESSION = requests.Session()
 FB_URL = 'https://graph.facebook.com/' + constants.FACEBOOK_API_VERSION + '/'
@@ -115,6 +116,31 @@ def get_reactions(graph_id):
         reactions += response['data']
     return reactions
 
+def first(iterable, default=None):
+    for item in iterable:
+        return item
+    return default
+
+def consolidate_artists(metadata):
+    artists = []
+    spotify_artists = metadata['spotify']['tracks']['items'][0]['artists']
+    for artist in spotify_artists:
+        artists.append({
+            "name": artist['name'],
+            "spotify_id": artist['id'],
+            "musixmatch_id": -1
+        })
+    musixmatch_tracks = metadata['musixmatch']['message']['body']['track_list']
+    musixmatch_tracks = sorted(musixmatch_tracks, key=lambda x: x['track']['track_rating'], reverse=True)
+    musixmatch_track = musixmatch_tracks[0]['track']
+    match = first(x for x in artists if x.name == musixmatch_track['artist_name'])
+    if match:
+        match['musixmatch_id'] = musixmatch_track['artist_id']
+    return artists
+
+def consolidate_metadata(metadata):
+    artists = consolidate_artists(metadata)
+
 def parse_post(post):
     """
     Parse the post for information
@@ -124,11 +150,13 @@ def parse_post(post):
     # get_comments(graph_id, 1, comments)
     # reactions = get_reactions(graph_id)
     metadata = get_metadata(post['link'], spotify=True, musixmatch=True)
+    metadata = consolidate_metadata(metadata)
     response = {
         # "comments": comments,
         # "reactions": reactions,
         "metadata": metadata
     }
+    add_post_to_db(post)
     return response
 
 def get_post(graph_id):
@@ -140,11 +168,11 @@ def get_post(graph_id):
     request_params['fields'] = constants.FACEBOOK_POST_FIELDS
     response = make_request(request_url, request_params)
     post_details = {}
+    post_details['post'] = response
     if response['type'] == 'video':
         post_details = parse_post(response)
     else:
         post_details['metadata'] = {}
-    post_details['post'] = response
     return post_details
 
 def parse_feed(feed):
@@ -155,7 +183,7 @@ def parse_feed(feed):
     for post in feed:
         parsed_post = get_post(post['id'])
         print(parsed_post)
-        add_post_to_db(parsed_post)
+        input()
         posts.append(parsed_post)
     return posts
 

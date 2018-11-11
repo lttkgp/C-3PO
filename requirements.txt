@@ -1,5 +1,5 @@
-requests==2.19.1
-python_dateutil==2.7.3
+requests==2.20.1
+python_dateutil==2.7.5
 python-dotenv==0.9.1
-SQLAlchemy==1.2.12
+SQLAlchemy==1.2.14
 youtube_title_parse==1.0.0b2
