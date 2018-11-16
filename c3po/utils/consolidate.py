@@ -3,6 +3,7 @@ def __first(iterable, default=None):
         return item
     return default
 
+
 def artists(metadata):
     artists = []
     spotify_success = False
@@ -18,10 +19,15 @@ def artists(metadata):
     except IndexError:
         pass
     try:
-        musixmatch_tracks = metadata['musixmatch']['message']['body']['track_list']
-        musixmatch_tracks = sorted(musixmatch_tracks, key=lambda x: x['track']['track_rating'], reverse=True)
+        musixmatch_tracks = metadata['musixmatch']['message']['body'][
+            'track_list']
+        musixmatch_tracks = sorted(
+            musixmatch_tracks,
+            key=lambda x: x['track']['track_rating'],
+            reverse=True)
         musixmatch_track = musixmatch_tracks[0]['track']
-        match = __first(x for x in artists if x['name'] == musixmatch_track['artist_name'])
+        match = __first(
+            x for x in artists if x['name'] == musixmatch_track['artist_name'])
         if match:
             match['musixmatch_id'] = str(musixmatch_track['artist_id'])
         else:
@@ -30,9 +36,12 @@ def artists(metadata):
                 pass
             else:
                 artists.append({
-                    "name": musixmatch_track['artist_name'],
-                    "spotify_id": -1,
-                    "musixmatch_id": str(musixmatch_track['artist_id'])
+                    "name":
+                    musixmatch_track['artist_name'],
+                    "spotify_id":
+                    -1,
+                    "musixmatch_id":
+                    str(musixmatch_track['artist_id'])
                 })
     except IndexError:
         pass

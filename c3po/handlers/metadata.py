@@ -2,12 +2,10 @@ from abc import ABC, abstractmethod
 from urllib.parse import urlparse
 from youtube import YouTube
 
+
 class LinkResolver(object):
     youtube_domains = [
-        'www.youtube.com',
-        'm.youtube.com',
-        'youtube.com',
-        'youtu.be'
+        'www.youtube.com', 'm.youtube.com', 'youtube.com', 'youtu.be'
     ]
 
     @staticmethod
@@ -15,6 +13,7 @@ class LinkResolver(object):
         domain = urlparse(link).netloc
         if domain in self.youtube_domains:
             return YouTube()
+
 
 class metadata(ABC):
     def __init__(self):

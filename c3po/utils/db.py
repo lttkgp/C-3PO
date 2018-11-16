@@ -9,13 +9,17 @@ engine = create_engine('sqlite:///lttkgp.db', echo=True)
 Session = sessionmaker()
 Session.configure(bind=engine)
 
-song_artist = Table('song_artist', Base.metadata,
+song_artist = Table(
+    'song_artist', Base.metadata,
     Column('song_id', Integer, ForeignKey('songs.song_id'), nullable=False),
-    Column('artist_id', Integer, ForeignKey('artists.artist_id'), nullable=False))
+    Column(
+        'artist_id', Integer, ForeignKey('artists.artist_id'), nullable=False))
 
-genre_song = Table('genre_song', Base.metadata,
+genre_song = Table(
+    'genre_song', Base.metadata,
     Column('genre_id', Integer, ForeignKey('genres.genre_id'), nullable=False),
     Column('song_id', Integer, ForeignKey('songs.song_id'), nullable=False))
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -25,6 +29,7 @@ class User(Base):
     # user_picture = Column(String)
     posts = relationship('Post', backref='user')
 
+
 class Post(Base):
     __tablename__ = 'posts'
 
@@ -32,6 +37,7 @@ class Post(Base):
     link_id = Column(Integer, ForeignKey('links.link_id'), nullable=False)
     user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     post_time = Column(DateTime)
+
 
 class Song(Base):
     __tablename__ = 'songs'
@@ -42,17 +48,20 @@ class Song(Base):
     song_title = Column(String)
     links = relationship('Link', backref='song')
 
+
 class Genre(Base):
     __tablename__ = 'genres'
 
     genre_id = Column(Integer, primary_key=True, autoincrement=True)
     genre_name = Column(String)
 
+
 class Artist(Base):
     __tablename__ = 'artists'
 
     artist_id = Column(Integer, primary_key=True, autoincrement=True)
     artist_name = Column(String)
+
 
 class Link(Base):
     __tablename__ = 'links'
@@ -62,5 +71,6 @@ class Link(Base):
     link_type = Column(String)
     link_value = Column(Integer)
     posts = relationship('Post', backref='link')
+
 
 Base.metadata.create_all(engine)

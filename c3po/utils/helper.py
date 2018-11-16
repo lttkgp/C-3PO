@@ -6,6 +6,7 @@ from sqlalchemy.orm.exc import MultipleResultsFound
 import utils.db as db
 import utils.parse_metadata as pm
 
+
 def add_post_to_db(parsed_post):
     # user_id = parsed_post['post']['from']['id']
     # user_name = parsed_post['post']['from']['name']
@@ -16,8 +17,10 @@ def add_post_to_db(parsed_post):
     post_time = dateutil.parser.parse(parsed_post['post']['created_time'])
     db_post = db.Post(post_id=post_id, post_time=post_time)
     db_user.posts.append(db_post)
-    song_title, genre_name, artist_name = pm.parse_musixmatch(parsed_post['metadata']['musixmatch'])
-    sp_song_title, sp_artist_name = pm.parse_spotify(parsed_post['metadata']['spotify'])
+    song_title, genre_name, artist_name = pm.parse_musixmatch(
+        parsed_post['metadata']['musixmatch'])
+    sp_song_title, sp_artist_name = pm.parse_spotify(
+        parsed_post['metadata']['spotify'])
     if song_title is None:
         song_title = sp_song_title
     if artist_name is None:
@@ -33,17 +36,23 @@ def add_post_to_db(parsed_post):
     db_song.links.append(db_link)
     db_link.posts.append(db_post)
     db_session = db.Session()
-    if not db_session.query(exists().where(db.User.user_id==db_user.user_id)).scalar():
+    if not db_session.query(
+            exists().where(db.User.user_id == db_user.user_id)).scalar():
         db_session.add(db_user)
-    if not db_session.query(exists().where(db.Post.post_id==db_post.post_id)).scalar():
+    if not db_session.query(
+            exists().where(db.Post.post_id == db_post.post_id)).scalar():
         db_session.add(db_post)
-    if not db_session.query(exists().where(db.Song.song_id==db_song.song_id)).scalar():
+    if not db_session.query(
+            exists().where(db.Song.song_id == db_song.song_id)).scalar():
         db_session.add(db_song)
-    if not db_session.query(exists().where(db.Genre.genre_id==db_genre.genre_id)).scalar():
+    if not db_session.query(
+            exists().where(db.Genre.genre_id == db_genre.genre_id)).scalar():
         db_session.add(db_genre)
-    if not db_session.query(exists().where(db.Artist.artist_id==db_artist.artist_id)).scalar():
+    if not db_session.query(exists().where(
+            db.Artist.artist_id == db_artist.artist_id)).scalar():
         db_session.add(db_artist)
-    if not db_session.query(exists().where(db.Link.link_id==db_link.link_id)).scalar():
+    if not db_session.query(
+            exists().where(db.Link.link_id == db_link.link_id)).scalar():
         db_session.add(db_link)
     db_session.commit()
     try:

@@ -25,9 +25,8 @@ FB_LONG_ACCESS_TOKEN = os.environ.get("FB_LONG_ACCESS_TOKEN")
 FB_APP_ID = os.environ.get("FB_APP_ID")
 FB_APP_SECRET = os.environ.get("FB_APP_SECRET")
 GROUP_ID = constants.FACEBOOK_GROUP_ID
-PAYLOAD = {
-    'access_token': FB_LONG_ACCESS_TOKEN
-}
+PAYLOAD = {'access_token': FB_LONG_ACCESS_TOKEN}
+
 
 def refresh_access_token():
     """
@@ -47,12 +46,16 @@ def refresh_access_token():
                 'client_secret': FB_APP_SECRET,
                 'fb_exchange_token': FB_SHORT_ACCESS_TOKEN
             }
-            response = REQ_SESSION.get(request_url, params=request_payload).json()
+            response = REQ_SESSION.get(
+                request_url, params=request_payload).json()
             dotenvfile = find_dotenv()
             load_dotenv(dotenvfile)
             print(response)
-            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN", response['access_token'])
-            PAYLOAD['access_token'] = dotenv.get_key(dotenvfile, "FB_LONG_ACCESS_TOKEN")
+            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN",
+                           response['access_token'])
+            PAYLOAD['access_token'] = dotenv.get_key(dotenvfile,
+                                                     "FB_LONG_ACCESS_TOKEN")
+
 
 '''
 TODO: refresh_long_token()
@@ -61,6 +64,7 @@ TODO: refresh_long_token()
     UPDATE: Looks like there is currently no way to do this on the server-side.
     https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension#refreshtokens
 '''
+
 
 def make_request(request_url, request_params):
     """
@@ -72,6 +76,7 @@ def make_request(request_url, request_params):
         response = REQ_SESSION.get(request_url, params=request_params)
     return response.json()
 
+
 def parse_comments(response, level, comments):
     """
     Parse comments given comment id
@@ -80,6 +85,7 @@ def parse_comments(response, level, comments):
         comments.append(comment)
         if level == 1:
             get_comments(comment['id'], level + 1, comments)
+
 
 def get_comments(graph_id, level, comments):
     """
@@ -99,6 +105,7 @@ def get_comments(graph_id, level, comments):
         if response['data']:
             parse_comments(response['data'], level, comments)
 
+
 def get_reactions(graph_id):
     """
     Get the reactions to a post with given id
@@ -117,11 +124,13 @@ def get_reactions(graph_id):
         reactions += response['data']
     return reactions
 
+
 def consolidate_metadata(metadata):
     consolidated_metadata = {}
     artists = consolidate.artists(metadata)
     consolidated_metadata['artists'] = artists
     return consolidated_metadata
+
 
 def parse_post(post):
     """
@@ -140,6 +149,7 @@ def parse_post(post):
     }
     # add_post_to_db(post)
     return response
+
 
 def get_post(graph_id):
     """
@@ -161,6 +171,7 @@ def get_post(graph_id):
         post_details['metadata'] = {}
     return post_details
 
+
 def parse_feed(feed):
     """
     Parse the posts in feed for information
@@ -172,6 +183,7 @@ def parse_feed(feed):
         input()
         posts.append(parsed_post)
     return posts
+
 
 def get_feed():
     """
@@ -190,11 +202,13 @@ def get_feed():
         all_posts += posts
     return all_posts
 
+
 def main():
     """
     Fetch posts from a Facebook group and populate in database
     """
     return get_feed()
+
 
 if __name__ == "__main__":
     main()
