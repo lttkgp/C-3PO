@@ -27,7 +27,8 @@ def artists(metadata):
             reverse=True)
         musixmatch_track = musixmatch_tracks[0]['track']
         match = __first(
-            x for x in artists if x['name'] == musixmatch_track['artist_name'])
+            x for x in artists
+            if x['name'].lower() == musixmatch_track['artist_name'].lower())
         if match:
             match['musixmatch_id'] = str(musixmatch_track['artist_id'])
         else:
@@ -46,3 +47,36 @@ def artists(metadata):
     except IndexError:
         pass
     return artists
+
+
+def song(metadata):
+    song = None
+    try:
+        song_object = metadata['spotify']['tracks']['items'][0]
+        song = {
+            'name': song_object['name'],
+            'spotify_id': song_object['id'],
+            'musixmatch_id': -1
+        }
+    except IndexError:
+        pass
+    try:
+        musixmatch_tracks = metadata['musixmatch']['message']['body'][
+            'track_list']
+        musixmatch_tracks = sorted(
+            musixmatch_tracks,
+            key=lambda x: x['track']['track_rating'],
+            reverse=True)
+        song_object = musixmatch_tracks[0]['track']
+        if song:
+            if song_object['track_name'].lower() == song['name'].lower():
+                song['musixmatch_id'] = song_object['track_id']
+        else:
+            song = {
+                'name': song_object['track_name'],
+                'spotify_id': -1,
+                'musixmatch_id': song_object['track_id']
+            }
+    except IndexError:
+        pass
+    return song

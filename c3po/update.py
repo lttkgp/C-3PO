@@ -128,7 +128,11 @@ def get_reactions(graph_id):
 def consolidate_metadata(metadata):
     consolidated_metadata = {}
     artists = consolidate.artists(metadata)
-    consolidated_metadata['artists'] = artists
+    song = consolidate.song(metadata)
+    consolidated_metadata = {
+        'artists': artists,
+        'song': song,
+    }
     return consolidated_metadata
 
 
