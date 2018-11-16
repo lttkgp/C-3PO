@@ -129,9 +129,11 @@ def consolidate_metadata(metadata):
     consolidated_metadata = {}
     artists = consolidate.artists(metadata)
     song = consolidate.song(metadata)
+    genres = consolidate.genres(metadata)
     consolidated_metadata = {
         'artists': artists,
         'song': song,
+        'genres': genres,
     }
     return consolidated_metadata
 

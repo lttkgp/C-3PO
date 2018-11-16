@@ -80,3 +80,21 @@ def song(metadata):
     except IndexError:
         pass
     return song
+
+
+def genres(metadata):
+    genres = {}
+    try:
+        musixmatch_tracks = metadata['musixmatch']['message']['body'][
+            'track_list']
+        musixmatch_tracks = sorted(
+            musixmatch_tracks,
+            key=lambda x: x['track']['track_rating'],
+            reverse=True)
+        song_object = musixmatch_tracks[0]['track']
+        genres['primary'] = song_object['primary_genres']['music_genre_list']
+        genres['secondary'] = song_object['secondary_genres'][
+            'music_genre_list']
+    except IndexError:
+        pass
+    return genres
