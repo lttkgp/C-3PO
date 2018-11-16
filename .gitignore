@@ -114,3 +114,6 @@ venv.bak/
 
 # DB object
 lttkgp.db
+
+# Config file
+database.ini

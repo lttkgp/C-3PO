@@ -1,5 +1,7 @@
-requests==2.20.1
+setuptools==40.1.0
+requests==2.19.1
 python_dateutil==2.7.5
 python-dotenv==0.9.1
+psycopg2==2.7.6.1
 SQLAlchemy==1.2.14
 youtube_title_parse==1.0.0b2
