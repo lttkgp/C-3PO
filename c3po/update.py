@@ -8,6 +8,7 @@ import dotenv
 from dotenv import find_dotenv, load_dotenv
 import requests
 from nodes import artist, genre, song
+import utils.consolidate as consolidate
 
 DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
 load_dotenv(DOTENV_PATH)
@@ -116,30 +117,11 @@ def get_reactions(graph_id):
         reactions += response['data']
     return reactions
 
-def first(iterable, default=None):
-    for item in iterable:
-        return item
-    return default
-
-def consolidate_artists(metadata):
-    artists = []
-    spotify_artists = metadata['spotify']['tracks']['items'][0]['artists']
-    for artist in spotify_artists:
-        artists.append({
-            "name": artist['name'],
-            "spotify_id": artist['id'],
-            "musixmatch_id": -1
-        })
-    musixmatch_tracks = metadata['musixmatch']['message']['body']['track_list']
-    musixmatch_tracks = sorted(musixmatch_tracks, key=lambda x: x['track']['track_rating'], reverse=True)
-    musixmatch_track = musixmatch_tracks[0]['track']
-    match = first(x for x in artists if x.name == musixmatch_track['artist_name'])
-    if match:
-        match['musixmatch_id'] = musixmatch_track['artist_id']
-    return artists
-
 def consolidate_metadata(metadata):
-    artists = consolidate_artists(metadata)
+    consolidated_metadata = {}
+    artists = consolidate.artists(metadata)
+    consolidated_metadata['artists'] = artists
+    return consolidated_metadata
 
 def parse_post(post):
     """
@@ -156,7 +138,7 @@ def parse_post(post):
         # "reactions": reactions,
         "metadata": metadata
     }
-    add_post_to_db(post)
+    # add_post_to_db(post)
     return response
 
 def get_post(graph_id):
@@ -170,8 +152,12 @@ def get_post(graph_id):
     post_details = {}
     post_details['post'] = response
     if response['type'] == 'video':
-        post_details = parse_post(response)
+        parsed_details = parse_post(response)
+        for key, value in parsed_details.items():
+            post_details[key] = value
     else:
+        # post_details['comments'] = {}
+        # post_details['reactions'] = {}
         post_details['metadata'] = {}
     return post_details
 
