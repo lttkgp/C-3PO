@@ -1,0 +1,5 @@
+requests
+python-dotenv
+psycopg2
+SQLAlchemy
+youtube_title_parse
