@@ -5,4 +5,4 @@ FACEBOOK_POST_FIELDS = ('id,created_time,from,link,message,message_tags,'
                         'shares,source,status_type,type,updated_time')
 FACEBOOK_COMMENT_FIELDS = ('id,attachment,comment_count,created_time,from,'
                            'like_count,message,message_tags,parent')
-FACEBOOK_REACTION_FIELDS = ('id,name,type')
+FACEBOOK_REACTION_FIELDS = 'id,name,type'

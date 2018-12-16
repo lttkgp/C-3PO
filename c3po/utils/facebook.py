@@ -1,22 +1,17 @@
-"""
-Core script. Structure to be changed later.
-"""
+import json
 import os
-from os.path import abspath, dirname, join
 import warnings
+from os.path import abspath, dirname, join
+
 import dotenv
-from dotenv import find_dotenv, load_dotenv
 import requests
-from nodes import artist, genre, song
-import utils.consolidate as consolidate
+from dotenv import find_dotenv, load_dotenv
+# from youtube_music_metadata import get_metadata
 
-DOTENV_PATH = join(dirname(dirname(abspath(__file__))), '.env')
-load_dotenv(DOTENV_PATH)
-
-from youtube_title_parse import get_artist_title
-from youtube_music_metadata import get_metadata
 import constants
-from utils.helper import add_post_to_db
+
+DOTENV_PATH = join(dirname(dirname(dirname(abspath(__file__)))), '.env')
+load_dotenv(DOTENV_PATH)
 
 REQ_SESSION = requests.Session()
 FB_URL = 'https://graph.facebook.com/' + constants.FACEBOOK_API_VERSION + '/'
@@ -125,35 +120,19 @@ def get_reactions(graph_id):
     return reactions
 
 
-def consolidate_metadata(metadata):
-    consolidated_metadata = {}
-    artists = consolidate.artists(metadata)
-    song = consolidate.song(metadata)
-    genres = consolidate.genres(metadata)
-    consolidated_metadata = {
-        'artists': artists,
-        'song': song,
-        'genres': genres,
-    }
-    return consolidated_metadata
-
-
 def parse_post(post):
     """
     Parse the post for information
     """
     comments = []
-    graph_id = post['id']
+    reactions = []
+    # graph_id = post['id']
     # get_comments(graph_id, 1, comments)
     # reactions = get_reactions(graph_id)
-    metadata = get_metadata(post['link'], spotify=True, musixmatch=True)
-    metadata = consolidate_metadata(metadata)
     response = {
-        # "comments": comments,
-        # "reactions": reactions,
-        "metadata": metadata
+        "comments": comments,
+        "reactions": reactions,
     }
-    # add_post_to_db(post)
     return response
 
 
@@ -165,56 +144,23 @@ def get_post(graph_id):
     request_params = PAYLOAD.copy()
     request_params['fields'] = constants.FACEBOOK_POST_FIELDS
     response = make_request(request_url, request_params)
-    post_details = {}
-    post_details['post'] = response
-    if response['type'] == 'video':
-        parsed_details = parse_post(response)
-        for key, value in parsed_details.items():
-            post_details[key] = value
-    else:
-        # post_details['comments'] = {}
-        # post_details['reactions'] = {}
-        post_details['metadata'] = {}
+    post_details = {'post': response}
+    parsed_details = parse_post(response)
+    for key, value in parsed_details.items():
+        post_details[key] = value
     return post_details
 
 
-def parse_feed(feed):
-    """
-    Parse the posts in feed for information
-    """
-    posts = []
-    for post in feed:
-        parsed_post = get_post(post['id'])
-        print(parsed_post)
-        input()
-        posts.append(parsed_post)
-    return posts
-
-
-def get_feed():
+def get_feed(next_link=""):
     """
     Fetch feed
     """
-    all_posts = []
-    request_url = FB_URL + GROUP_ID + '/feed'
-    response = make_request(request_url, PAYLOAD)
-    posts = parse_feed(response['data'])
-    all_posts += posts
-    while 'paging' in response:
-        # break
-        next_page_url = response['paging']['next']
-        response = make_request(next_page_url, PAYLOAD)
-        posts = parse_feed(response['data'])
-        all_posts += posts
-    return all_posts
-
-
-def main():
-    """
-    Fetch posts from a Facebook group and populate in database
-    """
-    return get_feed()
-
-
-if __name__ == "__main__":
-    main()
+    posts = []
+    if not next_link:
+        request_url = FB_URL + GROUP_ID + '/feed'
+        response = make_request(request_url, PAYLOAD)
+        print(response)
+        for post in response['data']:
+            parsed_post = get_post(post['id'])
+            posts.append(parsed_post)
+        return posts, response['paging']['next']
