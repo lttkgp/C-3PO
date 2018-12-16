@@ -15,5 +15,6 @@ MC = MongoClient(MONGODB_URI).get_database()
 def post(data):
     print(json.dumps(data, indent=4, sort_keys=True))
     posts = MC['posts']
-    post_id = posts.insert_one(data).inserted_id
-    return post_id
+    db_post = posts.find_one_and_replace(
+        filter={'id': data['id']}, replacement=data, upsert=True)
+    return db_post

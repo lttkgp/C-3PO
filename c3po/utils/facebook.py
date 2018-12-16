@@ -1,4 +1,3 @@
-import json
 import os
 import warnings
 from os.path import abspath, dirname, join
@@ -6,7 +5,6 @@ from os.path import abspath, dirname, join
 import dotenv
 import requests
 from dotenv import find_dotenv, load_dotenv
-# from youtube_music_metadata import get_metadata
 
 import constants
 
@@ -74,56 +72,6 @@ def make_request(request_url, request_params):
     return response.json()
 
 
-def parse_comments(response, level, comments):
-    """
-    Parse comments given comment id
-    """
-    for comment in response:
-        comments.append(comment)
-        if level == 1:
-            get_comments(comment['id'], level + 1, comments)
-
-
-def get_comments(graph_id, level, comments):
-    """
-    Get the comments of a post with given id
-    """
-    request_url = FB_URL + graph_id + '/comments'
-    request_params = PAYLOAD.copy()
-    request_params[
-        'fields'] = 'comments.summary(true){' + constants.FACEBOOK_COMMENT_FIELDS + '}'
-    response = make_request(request_url, request_params)
-    if response['data']:
-        parse_comments(response['data'], level, comments)
-    while 'paging' in response:
-        next_page_cursor = response['paging']['cursors']['after']
-        comment_page_params = request_params.copy()
-        comment_page_params['after'] = next_page_cursor
-        response = make_request(request_url, comment_page_params)
-        if response['data']:
-            parse_comments(response['data'], level, comments)
-
-
-def get_reactions(graph_id):
-    """
-    Get the reactions to a post with given id
-    """
-    request_url = FB_URL + graph_id + '/reactions'
-    request_params = PAYLOAD.copy()
-    request_params[
-        'fields'] = 'reactions.summary(true){' + constants.FACEBOOK_REACTION_FIELDS + '}'
-    response = make_request(request_url, request_params)
-    reactions = []
-    reactions += response['data']
-    while 'paging' in response:
-        next_page_cursor = response['paging']['cursors']['after']
-        comment_page_params = request_params.copy()
-        comment_page_params['after'] = next_page_cursor
-        response = make_request(request_url, comment_page_params)
-        reactions += response['data']
-        return reactions
-
-
 def build_feed_request():
     request_url = FB_URL + GROUP_ID + '/feed'
     request_params = PAYLOAD.copy()
@@ -146,4 +94,7 @@ def get_feed(next_link=""):
     if not next_link:
         request_url, request_params = build_feed_request()
         response = make_request(request_url, request_params)
-        return response['data'], response['paging']['next']
+        return response
+    else:
+        response = make_request(next_link, PAYLOAD)
+        return response

@@ -5,6 +5,7 @@ import argparse
 
 from utils import facebook as facebookutils
 from utils import consolidate, lttkgp_archive
+import constants
 
 
 def consolidate_metadata(metadata):
@@ -20,12 +21,23 @@ def consolidate_metadata(metadata):
 
 
 def update_posts_db():
+    duplicate_count = 0
     next_link = ""
-    feed, next_link = facebookutils.get_feed(next_link)
-    for post in feed:
-        mongo_post_id = lttkgp_archive.post(post)
-        print(mongo_post_id)
-    return feed
+    feed_chunk = facebookutils.get_feed(next_link)
+    for post in feed_chunk['data']:
+        old_post = lttkgp_archive.post(post)
+        if old_post:
+            duplicate_count = duplicate_count + 1
+    while 'paging' in feed_chunk:
+        next_link = feed_chunk['paging']['next']
+        if constants.FEED_FIRST_TIME or duplicate_count < constants.FEED_CHECK_DEPTH:
+            feed_chunk = facebookutils.get_feed(next_link)
+            for post in feed_chunk['data']:
+                old_post = lttkgp_archive.post(post)
+                if old_post:
+                    duplicate_count = duplicate_count + 1
+        else:
+            break
 
 
 if __name__ == "__main__":
