@@ -94,7 +94,7 @@ def get_feed(next_link=""):
     if not next_link:
         request_url, request_params = build_feed_request()
         response = make_request(request_url, request_params)
-        return response
     else:
         response = make_request(next_link, PAYLOAD)
-        return response
+    print(response)
+    return response

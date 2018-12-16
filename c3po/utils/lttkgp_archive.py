@@ -5,10 +5,18 @@ from pymongo import MongoClient
 from config import config
 
 DB_CONFIG = config('database.ini', 'mongo')
-MONGODB_URI = "mongodb://{host}:{port}/{database}".format(
-    host=DB_CONFIG['host'],
-    port=DB_CONFIG['port'],
-    database=DB_CONFIG['database'])
+if DB_CONFIG['user']:
+    MONGODB_URI = "mongodb://{user}:{password}@{host}:{port}/{database}".format(
+        user=DB_CONFIG['user'],
+        password=DB_CONFIG['password'],
+        host=DB_CONFIG['host'],
+        port=DB_CONFIG['port'],
+        database=DB_CONFIG['database'])
+else:
+    MONGODB_URI = "mongodb://{host}:{port}/{database}".format(
+        host=DB_CONFIG['host'],
+        port=DB_CONFIG['port'],
+        database=DB_CONFIG['database'])
 MC = MongoClient(MONGODB_URI).get_database()
 
 
