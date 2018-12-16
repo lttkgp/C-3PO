@@ -23,7 +23,8 @@ def update_posts_db():
     next_link = ""
     feed, next_link = facebookutils.get_feed(next_link)
     for post in feed:
-        mongo_success = lttkgp_archive.post(post)
+        mongo_post_id = lttkgp_archive.post(post)
+        print(mongo_post_id)
     return feed
 
 

@@ -21,6 +21,8 @@ FB_APP_ID = os.environ.get("FB_APP_ID")
 FB_APP_SECRET = os.environ.get("FB_APP_SECRET")
 GROUP_ID = constants.FACEBOOK_GROUP_ID
 PAYLOAD = {'access_token': FB_LONG_ACCESS_TOKEN}
+COMMENT_LOCKDOWN = constants.FACEBOOK_COMMENT_LOCKDOWN
+REACTION_LOCKDOWN = constants.FACEBOOK_REACTION_LOCKDOWN
 
 
 def refresh_access_token():
@@ -88,7 +90,8 @@ def get_comments(graph_id, level, comments):
     """
     request_url = FB_URL + graph_id + '/comments'
     request_params = PAYLOAD.copy()
-    request_params['fields'] = constants.FACEBOOK_COMMENT_FIELDS
+    request_params[
+        'fields'] = 'comments.summary(true){' + constants.FACEBOOK_COMMENT_FIELDS + '}'
     response = make_request(request_url, request_params)
     if response['data']:
         parse_comments(response['data'], level, comments)
@@ -107,7 +110,8 @@ def get_reactions(graph_id):
     """
     request_url = FB_URL + graph_id + '/reactions'
     request_params = PAYLOAD.copy()
-    request_params['fields'] = constants.FACEBOOK_REACTION_FIELDS
+    request_params[
+        'fields'] = 'reactions.summary(true){' + constants.FACEBOOK_REACTION_FIELDS + '}'
     response = make_request(request_url, request_params)
     reactions = []
     reactions += response['data']
@@ -117,50 +121,29 @@ def get_reactions(graph_id):
         comment_page_params['after'] = next_page_cursor
         response = make_request(request_url, comment_page_params)
         reactions += response['data']
-    return reactions
+        return reactions
 
 
-def parse_post(post):
-    """
-    Parse the post for information
-    """
-    comments = []
-    reactions = []
-    # graph_id = post['id']
-    # get_comments(graph_id, 1, comments)
-    # reactions = get_reactions(graph_id)
-    response = {
-        "comments": comments,
-        "reactions": reactions,
-    }
-    return response
-
-
-def get_post(graph_id):
-    """
-    Get the post details for the given id
-    """
-    request_url = FB_URL + graph_id
+def build_feed_request():
+    request_url = FB_URL + GROUP_ID + '/feed'
     request_params = PAYLOAD.copy()
     request_params['fields'] = constants.FACEBOOK_POST_FIELDS
-    response = make_request(request_url, request_params)
-    post_details = {'post': response}
-    parsed_details = parse_post(response)
-    for key, value in parsed_details.items():
-        post_details[key] = value
-    return post_details
+    request_params[
+        'fields'] = request_params['fields'] + ',reactions.summary(true){'
+    request_params['fields'] = request_params[
+        'fields'] + constants.FACEBOOK_REACTION_FIELDS + '}'
+    request_params[
+        'fields'] = request_params['fields'] + ',comments.summary(true){'
+    request_params['fields'] = request_params[
+        'fields'] + constants.FACEBOOK_COMMENT_FIELDS + '}'
+    return request_url, request_params
 
 
 def get_feed(next_link=""):
     """
     Fetch feed
     """
-    posts = []
     if not next_link:
-        request_url = FB_URL + GROUP_ID + '/feed'
-        response = make_request(request_url, PAYLOAD)
-        print(response)
-        for post in response['data']:
-            parsed_post = get_post(post['id'])
-            posts.append(parsed_post)
-        return posts, response['paging']['next']
+        request_url, request_params = build_feed_request()
+        response = make_request(request_url, request_params)
+        return response['data'], response['paging']['next']
