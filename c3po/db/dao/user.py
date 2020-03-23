@@ -1,0 +1,72 @@
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Integer, String, Date
+from sqlalchemy.orm import relationship, backref
+from c3po.db.common.base import Base
+
+
+class UserLikes(Base):
+    __tablename__ = "user_likes"
+
+    # Columns
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
+    link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
+    reaction_type = Column(Integer)
+
+    # Relationships
+    link = relationship(
+        "Link", backref=backref("liked_by", cascade="all, delete-orphan")
+    )
+    user = relationship("User", backref=backref("likes", cascacde="all, delete-orphan"))
+
+    # Helper methods
+    def __init__(self, link=None, user=None, reaction_type=None):
+        self.link = link
+        self.user = user
+        self.reaction_type = reaction_type
+
+
+class UserPosts(Base):
+    __tablename__ = "user_posts"
+
+    # Columns
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
+    link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
+    share_date = Column(Date)
+    caption = Column(String(160))
+    facebook_id = Column(String(160))
+    likes_count = Column(Integer)
+
+    # Relationships
+    link = relationship(
+        "Link", backref=backref("posted_by", cascade="all, delete-orphan")
+    )
+    user = relationship(
+        "User", backref=backref("user_links", cascade="all, delete-orphan")
+    )
+
+    # Helper methods
+    def __init__(self, user=None, link=None, share_date=None, caption=None):
+        self.user = user
+        self.link = link
+        self.share_date = share_date
+        self.caption = caption
+
+
+class User(Base):
+    __tablename__ = "user"
+
+    # Columns
+    id = Column(Integer, primary_key=True)
+    name = Column("name", String(32))
+    facebook_id = Column("facebook_id", String)
+    image = Column("image", String(160))
+    post_count = Column("post_count", Integer)
+    liked_count = Column("liked_count", Integer)
+    likes_count = Column("likes_count", Integer)
+
+    def __init__(self, name, facebook_id, image):
+        self.name = name
+        self.facebook_id = facebook_id
+        self.image = image

@@ -1,0 +1,6 @@
+psycopg2
+sqlalchemy
+requests
+python-dotenv
+pymongo
+dnspython

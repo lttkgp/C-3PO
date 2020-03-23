@@ -1,0 +1,826 @@
+{
+    'youtube': {
+        'title': 'Paramore: Last Hope (LIVE)',
+        'song': 'LAST HOPE'
+    },
+    'spotify': {
+        'tracks': {
+            'href': 'https://api.spotify.com/v1/search?query=Paramore+-+Last+Hope&type=track&market=CA&offset=0&limit=10',
+            'items': [{
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/74XFHRwlV6OrjEM0A2NCMF'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/74XFHRwlV6OrjEM0A2NCMF',
+                        'id': '74XFHRwlV6OrjEM0A2NCMF',
+                        'name': 'Paramore',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:74XFHRwlV6OrjEM0A2NCMF'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/4sgYpkIASM1jVlNC8Wp9oF'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/4sgYpkIASM1jVlNC8Wp9oF',
+                    'id': '4sgYpkIASM1jVlNC8Wp9oF',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/243a23e8747a57403a5db469af3bbdf3895a3e5e',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/f0a22fa4130462ddd6b1973fc5d143153a1e503c',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/18daecc70c61d9d9968af4fab8f999e6d6685c92',
+                        'width': 64
+                    }],
+                    'name': 'Paramore',
+                    'release_date': '2013-04-05',
+                    'release_date_precision': 'day',
+                    'total_tracks': 17,
+                    'type': 'album',
+                    'uri': 'spotify:album:4sgYpkIASM1jVlNC8Wp9oF'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/74XFHRwlV6OrjEM0A2NCMF'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/74XFHRwlV6OrjEM0A2NCMF',
+                    'id': '74XFHRwlV6OrjEM0A2NCMF',
+                    'name': 'Paramore',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:74XFHRwlV6OrjEM0A2NCMF'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 309973,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'USAT21300011'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/2VBluJiNj9bKohWX0dY1Lh'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/2VBluJiNj9bKohWX0dY1Lh',
+                'id': '2VBluJiNj9bKohWX0dY1Lh',
+                'is_local': False,
+                'name': 'Last Hope',
+                'popularity': 61,
+                'preview_url': 'https://p.scdn.co/mp3-preview/6e508f40b48756c1d656d69db9f70fd8cc913212?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 8,
+                'type': 'track',
+                'uri': 'spotify:track:2VBluJiNj9bKohWX0dY1Lh'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/74XFHRwlV6OrjEM0A2NCMF'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/74XFHRwlV6OrjEM0A2NCMF',
+                        'id': '74XFHRwlV6OrjEM0A2NCMF',
+                        'name': 'Paramore',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:74XFHRwlV6OrjEM0A2NCMF'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/7J2hXOVq8FZ367dTczV7oH'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/7J2hXOVq8FZ367dTczV7oH',
+                    'id': '7J2hXOVq8FZ367dTczV7oH',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/ad1474d4707f8d3c9bd33c10e653655319231a42',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/9536b307df4ba42856100f7fefa49454e09d0e9c',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/803763361fc2e6028c005fd7d32df32b452ec2d3',
+                        'width': 64
+                    }],
+                    'name': 'Paramore: Self-Titled Deluxe',
+                    'release_date': '2013-04-09',
+                    'release_date_precision': 'day',
+                    'total_tracks': 29,
+                    'type': 'album',
+                    'uri': 'spotify:album:7J2hXOVq8FZ367dTczV7oH'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/74XFHRwlV6OrjEM0A2NCMF'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/74XFHRwlV6OrjEM0A2NCMF',
+                    'id': '74XFHRwlV6OrjEM0A2NCMF',
+                    'name': 'Paramore',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:74XFHRwlV6OrjEM0A2NCMF'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 309973,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'USAT21300011'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/0ui3Yx7eLn1OslV5M4MldU'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/0ui3Yx7eLn1OslV5M4MldU',
+                'id': '0ui3Yx7eLn1OslV5M4MldU',
+                'is_local': False,
+                'name': 'Last Hope',
+                'popularity': 48,
+                'preview_url': 'https://p.scdn.co/mp3-preview/6e508f40b48756c1d656d69db9f70fd8cc913212?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 8,
+                'type': 'track',
+                'uri': 'spotify:track:0ui3Yx7eLn1OslV5M4MldU'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/4Xx6QMLTWppMwdABkN0Afj'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/4Xx6QMLTWppMwdABkN0Afj',
+                        'id': '4Xx6QMLTWppMwdABkN0Afj',
+                        'name': 'Piano Tribute Players',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:4Xx6QMLTWppMwdABkN0Afj'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/5lTIQr0UwrqjeF3cfdHNie'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/5lTIQr0UwrqjeF3cfdHNie',
+                    'id': '5lTIQr0UwrqjeF3cfdHNie',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/cafadec691010ad746895e808d79eb9a7021ecd8',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/515fba92c92d981a2fd43e69f595209252f4e0d8',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/70fd496f7b931fa069971bcaaaeed1608f386a78',
+                        'width': 64
+                    }],
+                    'name': 'Piano Tribute to Paramore, Vol. 3',
+                    'release_date': '2013-05-14',
+                    'release_date_precision': 'day',
+                    'total_tracks': 14,
+                    'type': 'album',
+                    'uri': 'spotify:album:5lTIQr0UwrqjeF3cfdHNie'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/4Xx6QMLTWppMwdABkN0Afj'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/4Xx6QMLTWppMwdABkN0Afj',
+                    'id': '4Xx6QMLTWppMwdABkN0Afj',
+                    'name': 'Piano Tribute Players',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:4Xx6QMLTWppMwdABkN0Afj'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 266053,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'USG7D1383307'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/7ghHeEdMy5DHwGgxaHo2rn'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/7ghHeEdMy5DHwGgxaHo2rn',
+                'id': '7ghHeEdMy5DHwGgxaHo2rn',
+                'is_local': False,
+                'name': 'Last Hope',
+                'popularity': 13,
+                'preview_url': 'https://p.scdn.co/mp3-preview/d90b3d3b093396470c5ad455a744a5b92e90dfb6?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 7,
+                'type': 'track',
+                'uri': 'spotify:track:7ghHeEdMy5DHwGgxaHo2rn'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/4oRyLnxDdIzd2POQfX9Drd'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/4oRyLnxDdIzd2POQfX9Drd',
+                        'id': '4oRyLnxDdIzd2POQfX9Drd',
+                        'name': 'Piano Dreamers',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:4oRyLnxDdIzd2POQfX9Drd'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/0oGSZXzobeH7qbbPuqtiOV'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/0oGSZXzobeH7qbbPuqtiOV',
+                    'id': '0oGSZXzobeH7qbbPuqtiOV',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/fed8d0cdfb8d9e58db8cf8af44417b5750351580',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/7b2bb6f0c8215d7c5df3fa908168f90bcc3cc819',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/b9445930c242be87e28afbdb091b21fe3d4ff7ee',
+                        'width': 64
+                    }],
+                    'name': 'Piano Dreamers Perform the Music of Paramore',
+                    'release_date': '2015-03-17',
+                    'release_date_precision': 'day',
+                    'total_tracks': 35,
+                    'type': 'album',
+                    'uri': 'spotify:album:0oGSZXzobeH7qbbPuqtiOV'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/4oRyLnxDdIzd2POQfX9Drd'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/4oRyLnxDdIzd2POQfX9Drd',
+                    'id': '4oRyLnxDdIzd2POQfX9Drd',
+                    'name': 'Piano Dreamers',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:4oRyLnxDdIzd2POQfX9Drd'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 266053,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'USG7D1511707'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/2Kv0SNWDhoJLvnw2lvHQZ8'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/2Kv0SNWDhoJLvnw2lvHQZ8',
+                'id': '2Kv0SNWDhoJLvnw2lvHQZ8',
+                'is_local': False,
+                'name': 'Last Hope',
+                'popularity': 0,
+                'preview_url': 'https://p.scdn.co/mp3-preview/402822a232e6f2794769aff695c7db2ef9e3c4c7?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 7,
+                'type': 'track',
+                'uri': 'spotify:track:2Kv0SNWDhoJLvnw2lvHQZ8'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/34RztL8FGUpLrWDuTPN8bh'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/34RztL8FGUpLrWDuTPN8bh',
+                        'id': '34RztL8FGUpLrWDuTPN8bh',
+                        'name': 'Levi Pickings',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:34RztL8FGUpLrWDuTPN8bh'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/32lNidRaVReHyAngpIL4vy'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/32lNidRaVReHyAngpIL4vy',
+                    'id': '32lNidRaVReHyAngpIL4vy',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/de6d0950e7cf2c9fdc9ca659a0a88e1f12b61fe3',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/2802e36a0b8f2c91fa3eb796bd52096f4091baeb',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/f30f463f872dba60334d5fc638ccb2f4527ae925',
+                        'width': 64
+                    }],
+                    'name': 'Chilled Acoustic - A Tribute to Paramore',
+                    'release_date': '2013-08-06',
+                    'release_date_precision': 'day',
+                    'total_tracks': 11,
+                    'type': 'album',
+                    'uri': 'spotify:album:32lNidRaVReHyAngpIL4vy'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/34RztL8FGUpLrWDuTPN8bh'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/34RztL8FGUpLrWDuTPN8bh',
+                    'id': '34RztL8FGUpLrWDuTPN8bh',
+                    'name': 'Levi Pickings',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:34RztL8FGUpLrWDuTPN8bh'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 320391,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'GBRBE0720108'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/7ckDepe9EY9Ia1fLFBQCmE'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/7ckDepe9EY9Ia1fLFBQCmE',
+                'id': '7ckDepe9EY9Ia1fLFBQCmE',
+                'is_local': False,
+                'name': 'Last Hope',
+                'popularity': 0,
+                'preview_url': 'https://p.scdn.co/mp3-preview/ef8ac70bb968dec2bd0a3cd278521b094d1f5f62?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 4,
+                'type': 'track',
+                'uri': 'spotify:track:7ckDepe9EY9Ia1fLFBQCmE'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/2zOVMuYnVd7Jik5DboFoWI'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/2zOVMuYnVd7Jik5DboFoWI',
+                        'id': '2zOVMuYnVd7Jik5DboFoWI',
+                        'name': 'Bar Lounge',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:2zOVMuYnVd7Jik5DboFoWI'
+                    }, {
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/4X2ZSvCWmpF1smBRtNbpZq'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/4X2ZSvCWmpF1smBRtNbpZq',
+                        'id': '4X2ZSvCWmpF1smBRtNbpZq',
+                        'name': 'Chillout',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:4X2ZSvCWmpF1smBRtNbpZq'
+                    }, {
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/7B9CeobPTTgijU7u3dUfoU'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/7B9CeobPTTgijU7u3dUfoU',
+                        'id': '7B9CeobPTTgijU7u3dUfoU',
+                        'name': 'Lounge Music Café',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:7B9CeobPTTgijU7u3dUfoU'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/2IzbOFGUeiRgodfIKS4EqK'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/2IzbOFGUeiRgodfIKS4EqK',
+                    'id': '2IzbOFGUeiRgodfIKS4EqK',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/1689148ece88c0d5553f477c64eaf4f25f410c77',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/0d5c60e92ae0662ef3727a3d675247537544cfbe',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/69771943e1c8d0045db1585554c9675ca027b343',
+                        'width': 64
+                    }],
+                    'name': 'Acoustified Hits Paramore',
+                    'release_date': '2016-10-22',
+                    'release_date_precision': 'day',
+                    'total_tracks': 13,
+                    'type': 'album',
+                    'uri': 'spotify:album:2IzbOFGUeiRgodfIKS4EqK'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                    'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                    'name': 'Acoustic Guitar Tribute Players',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 320391,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'FR0W69934118'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/6DpGfIOv9NBD9JJD5t9F8Y'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/6DpGfIOv9NBD9JJD5t9F8Y',
+                'id': '6DpGfIOv9NBD9JJD5t9F8Y',
+                'is_local': False,
+                'name': 'Last Hope (Acoustic Version of the Song Made Famous by Paramore)',
+                'popularity': 0,
+                'preview_url': 'https://p.scdn.co/mp3-preview/7861d6453c3eda3a098a08a1e7b3c0d610eff588?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 13,
+                'type': 'track',
+                'uri': 'spotify:track:6DpGfIOv9NBD9JJD5t9F8Y'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                        'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                        'name': 'Acoustic Guitar Tribute Players',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/0HrLBQ5932cC1YCK5ZTVK6'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/0HrLBQ5932cC1YCK5ZTVK6',
+                    'id': '0HrLBQ5932cC1YCK5ZTVK6',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/1689148ece88c0d5553f477c64eaf4f25f410c77',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/0d5c60e92ae0662ef3727a3d675247537544cfbe',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/69771943e1c8d0045db1585554c9675ca027b343',
+                        'width': 64
+                    }],
+                    'name': 'Acoustified Hits Paramore',
+                    'release_date': '2016-10-21',
+                    'release_date_precision': 'day',
+                    'total_tracks': 13,
+                    'type': 'album',
+                    'uri': 'spotify:album:0HrLBQ5932cC1YCK5ZTVK6'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                    'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                    'name': 'Acoustic Guitar Tribute Players',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 320391,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'FR0W69933259'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/6n2fzy6p5TOODUAOc1qH69'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/6n2fzy6p5TOODUAOc1qH69',
+                'id': '6n2fzy6p5TOODUAOc1qH69',
+                'is_local': False,
+                'name': 'Last Hope (Acoustic Version of the Song Made Famous by Paramore)',
+                'popularity': 3,
+                'preview_url': 'https://p.scdn.co/mp3-preview/7861d6453c3eda3a098a08a1e7b3c0d610eff588?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 13,
+                'type': 'track',
+                'uri': 'spotify:track:6n2fzy6p5TOODUAOc1qH69'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/3KB2hbfaZ7sJhGV0GikN8k'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/3KB2hbfaZ7sJhGV0GikN8k',
+                        'id': '3KB2hbfaZ7sJhGV0GikN8k',
+                        'name': 'Acoustic Guitar Songs',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:3KB2hbfaZ7sJhGV0GikN8k'
+                    }, {
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/6xguHTFxfPQDMLnCzbfU4R'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/6xguHTFxfPQDMLnCzbfU4R',
+                        'id': '6xguHTFxfPQDMLnCzbfU4R',
+                        'name': 'Relajacion y Guitarra Acustica',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:6xguHTFxfPQDMLnCzbfU4R'
+                    }, {
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/3Sx5gmdg12vr1nRhcuGDT1'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/3Sx5gmdg12vr1nRhcuGDT1',
+                        'id': '3Sx5gmdg12vr1nRhcuGDT1',
+                        'name': 'The Acoustic Guitar Troubadours',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:3Sx5gmdg12vr1nRhcuGDT1'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/0vVwfDZ7ZdO2niBLo7sLe3'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/0vVwfDZ7ZdO2niBLo7sLe3',
+                    'id': '0vVwfDZ7ZdO2niBLo7sLe3',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/1689148ece88c0d5553f477c64eaf4f25f410c77',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/0d5c60e92ae0662ef3727a3d675247537544cfbe',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/69771943e1c8d0045db1585554c9675ca027b343',
+                        'width': 64
+                    }],
+                    'name': 'Acoustified Hits Paramore',
+                    'release_date': '2016-10-27',
+                    'release_date_precision': 'day',
+                    'total_tracks': 13,
+                    'type': 'album',
+                    'uri': 'spotify:album:0vVwfDZ7ZdO2niBLo7sLe3'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                    'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                    'name': 'Acoustic Guitar Tribute Players',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 320391,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'FR0W69934131'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/2bWz41BxDgWfWEo0oS7R2W'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/2bWz41BxDgWfWEo0oS7R2W',
+                'id': '2bWz41BxDgWfWEo0oS7R2W',
+                'is_local': False,
+                'name': 'Last Hope (Acoustic Version of the Song Made Famous by Paramore)',
+                'popularity': 2,
+                'preview_url': 'https://p.scdn.co/mp3-preview/7861d6453c3eda3a098a08a1e7b3c0d610eff588?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 12,
+                'type': 'track',
+                'uri': 'spotify:track:2bWz41BxDgWfWEo0oS7R2W'
+            }, {
+                'album': {
+                    'album_type': 'album',
+                    'artists': [{
+                        'external_urls': {
+                            'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                        },
+                        'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                        'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                        'name': 'Acoustic Guitar Tribute Players',
+                        'type': 'artist',
+                        'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                    }],
+                    'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/album/70Z7ktLZ5PUTDNz9r6jSlB'
+                    },
+                    'href': 'https://api.spotify.com/v1/albums/70Z7ktLZ5PUTDNz9r6jSlB',
+                    'id': '70Z7ktLZ5PUTDNz9r6jSlB',
+                    'images': [{
+                        'height': 640,
+                        'url': 'https://i.scdn.co/image/fa20fe1f321440429fdb8f961a0ff6188cdc757f',
+                        'width': 640
+                    }, {
+                        'height': 300,
+                        'url': 'https://i.scdn.co/image/0f427e565ccc825ea2f86ab084814a5cdfd43a58',
+                        'width': 300
+                    }, {
+                        'height': 64,
+                        'url': 'https://i.scdn.co/image/3faf7943d20cf755e269b3394704bb4399c8b1be',
+                        'width': 64
+                    }],
+                    'name': 'Highlights of Acoustic Guitar Tribute Players',
+                    'release_date': '2018-04-03',
+                    'release_date_precision': 'day',
+                    'total_tracks': 21,
+                    'type': 'album',
+                    'uri': 'spotify:album:70Z7ktLZ5PUTDNz9r6jSlB'
+                },
+                'artists': [{
+                    'external_urls': {
+                        'spotify': 'https://open.spotify.com/artist/6uq4k3kO6HLiRjdiF8uNcZ'
+                    },
+                    'href': 'https://api.spotify.com/v1/artists/6uq4k3kO6HLiRjdiF8uNcZ',
+                    'id': '6uq4k3kO6HLiRjdiF8uNcZ',
+                    'name': 'Acoustic Guitar Tribute Players',
+                    'type': 'artist',
+                    'uri': 'spotify:artist:6uq4k3kO6HLiRjdiF8uNcZ'
+                }],
+                'available_markets': ['AD', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BO', 'BR', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'SA', 'SE', 'SG', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'US', 'UY', 'VN', 'ZA'],
+                'disc_number': 1,
+                'duration_ms': 320391,
+                'explicit': False,
+                'external_ids': {
+                    'isrc': 'FR0W61903685'
+                },
+                'external_urls': {
+                    'spotify': 'https://open.spotify.com/track/0gaiGTsmA3wsuoV93WCtva'
+                },
+                'href': 'https://api.spotify.com/v1/tracks/0gaiGTsmA3wsuoV93WCtva',
+                'id': '0gaiGTsmA3wsuoV93WCtva',
+                'is_local': False,
+                'name': 'Last Hope (Acoustic Version of the Song Made Famous by Paramore)',
+                'popularity': 0,
+                'preview_url': 'https://p.scdn.co/mp3-preview/7861d6453c3eda3a098a08a1e7b3c0d610eff588?cid=e02422b74f7c4179b3c3c8e3acb6c4fa',
+                'track_number': 16,
+                'type': 'track',
+                'uri': 'spotify:track:0gaiGTsmA3wsuoV93WCtva'
+            }],
+            'limit': 10,
+            'next': None,
+            'offset': 0,
+            'previous': None,
+            'total': 9
+        }
+    },
+    'musixmatch': {
+        'message': {
+            'header': {
+                'status_code': 200,
+                'execute_time': 0.064158916473389,
+                'available': 5
+            },
+            'body': {
+                'track_list': [{
+                    'track': {
+                        'track_id': 31402082,
+                        'track_name': 'Born For This',
+                        'track_name_translation_list': [],
+                        'track_rating': 36,
+                        'commontrack_id': 7830198,
+                        'instrumental': 0,
+                        'explicit': 0,
+                        'has_lyrics': 1,
+                        'has_subtitles': 1,
+                        'has_richsync': 1,
+                        'num_favourite': 1944,
+                        'album_id': 13768524,
+                        'album_name': 'RIOT!',
+                        'artist_id': 158250,
+                        'artist_name': 'Paramore',
+                        'track_share_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-for-This?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'track_edit_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-for-This/edit?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'restricted': 0,
+                        'updated_time': '2016-03-24T02:49:29Z',
+                        'primary_genres': {
+                            'music_genre_list': [{
+                                'music_genre': {
+                                    'music_genre_id': 20,
+                                    'music_genre_parent_id': 34,
+                                    'music_genre_name': 'Alternative',
+                                    'music_genre_name_extended': 'Alternative',
+                                    'music_genre_vanity': 'Alternative'
+                                }
+                            }]
+                        }
+                    }
+                }, {
+                    'track': {
+                        'track_id': 138412180,
+                        'track_name': 'Born For This (Live From Chicago)',
+                        'track_name_translation_list': [],
+                        'track_rating': 28,
+                        'commontrack_id': 76729118,
+                        'instrumental': 0,
+                        'explicit': 0,
+                        'has_lyrics': 1,
+                        'has_subtitles': 1,
+                        'has_richsync': 1,
+                        'num_favourite': 0,
+                        'album_id': 27191143,
+                        'album_name': 'The Final RIOT! (Live)',
+                        'artist_id': 158250,
+                        'artist_name': 'Paramore',
+                        'track_share_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-For-This-Live-From-Chicago?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'track_edit_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-For-This-Live-From-Chicago/edit?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'restricted': 0,
+                        'updated_time': '2017-10-12T23:30:13Z',
+                        'primary_genres': {
+                            'music_genre_list': [{
+                                'music_genre': {
+                                    'music_genre_id': 20,
+                                    'music_genre_parent_id': 34,
+                                    'music_genre_name': 'Alternative',
+                                    'music_genre_name_extended': 'Alternative',
+                                    'music_genre_vanity': 'Alternative'
+                                }
+                            }]
+                        }
+                    }
+                }, {
+                    'track': {
+                        'track_id': 6796176,
+                        'track_name': 'Born for This (live)',
+                        'track_name_translation_list': [],
+                        'track_rating': 28,
+                        'commontrack_id': 7830199,
+                        'instrumental': 0,
+                        'explicit': 0,
+                        'has_lyrics': 1,
+                        'has_subtitles': 1,
+                        'has_richsync': 0,
+                        'num_favourite': 0,
+                        'album_id': 10797412,
+                        'album_name': 'RIOT!',
+                        'artist_id': 158250,
+                        'artist_name': 'Paramore',
+                        'track_share_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-for-This-live?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'track_edit_url': 'https://www.musixmatch.com/lyrics/Paramore/Born-for-This-live/edit?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'restricted': 0,
+                        'updated_time': '2016-03-22T16:47:50Z',
+                        'primary_genres': {
+                            'music_genre_list': []
+                        }
+                    }
+                }, {
+                    'track': {
+                        'track_id': 115525021,
+                        'track_name': 'Last Hope (Acoustic Version of the Song Made Famous by Paramore)',
+                        'track_name_translation_list': [],
+                        'track_rating': 1,
+                        'commontrack_id': 63739615,
+                        'instrumental': 0,
+                        'explicit': 0,
+                        'has_lyrics': 0,
+                        'has_subtitles': 0,
+                        'has_richsync': 0,
+                        'num_favourite': 0,
+                        'album_id': 24048663,
+                        'album_name': 'Acoustified Hits Paramore',
+                        'artist_id': 24871377,
+                        'artist_name': 'Acoustic Guitar Tribute Players',
+                        'track_share_url': 'https://www.musixmatch.com/lyrics/Acoustic-Guitar-Tribute-Players/Last-Hope-Acoustic-Version-of-the-Song-Made-Famous-by-Paramore?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'track_edit_url': 'https://www.musixmatch.com/lyrics/Acoustic-Guitar-Tribute-Players/Last-Hope-Acoustic-Version-of-the-Song-Made-Famous-by-Paramore/edit?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'restricted': 0,
+                        'updated_time': '2016-10-24T12:25:17Z',
+                        'primary_genres': {
+                            'music_genre_list': []
+                        }
+                    }
+                }, {
+                    'track': {
+                        'track_id': 31546507,
+                        'track_name': 'Last Hope',
+                        'track_name_translation_list': [],
+                        'track_rating': 39,
+                        'commontrack_id': 11778624,
+                        'instrumental': 0,
+                        'explicit': 0,
+                        'has_lyrics': 1,
+                        'has_subtitles': 1,
+                        'has_richsync': 1,
+                        'num_favourite': 5066,
+                        'album_id': 14326534,
+                        'album_name': 'Paramore',
+                        'artist_id': 158250,
+                        'artist_name': 'Paramore',
+                        'track_share_url': 'https://www.musixmatch.com/lyrics/Paramore/Last-Hope?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'track_edit_url': 'https://www.musixmatch.com/lyrics/Paramore/Last-Hope/edit?utm_source=application&utm_campaign=api&utm_medium=IIT+Kharagpur%3A1409612507001',
+                        'restricted': 0,
+                        'updated_time': '2016-08-05T16:23:40Z',
+                        'primary_genres': {
+                            'music_genre_list': [{
+                                'music_genre': {
+                                    'music_genre_id': 20,
+                                    'music_genre_parent_id': 34,
+                                    'music_genre_name': 'Alternative',
+                                    'music_genre_name_extended': 'Alternative',
+                                    'music_genre_vanity': 'Alternative'
+                                }
+                            }]
+                        }
+                    }
+                }]
+            }
+        }
+    }
+}
