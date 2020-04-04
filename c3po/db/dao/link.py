@@ -17,9 +17,6 @@ class Link(Base):
     post_count = Column("post_count", Integer)
     likes_count = Column("likes_count", Integer)
 
-    def __init__(self, url, platform, song_id, post_count, likes_count):
+    def __init__(self, url, platform):
         self.url = url
         self.platform = platform
-        self.song_id = song_id
-        self.post_count = post_count
-        self.likes_count
