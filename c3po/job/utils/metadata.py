@@ -54,13 +54,18 @@ class Metadata:
             new_artist = artist.Artist(artist_data.name, artist_data.image_id)
             session.add(new_artist)
             session.commit()
+            for temp_genre in artist_data.genres:
+                new_genre = self._insert_genre(temp_genre)
+                new_artist_genre = artist.ArtistGenre(new_artist, new_genre)
+                session.add(new_artist_genre)
+                session.commit()
             return new_artist
         return query.first()
 
     def _insert_genre(self, genre_data):
-        query = list(session.query(genre.Genre).filter(genre.Genre.name == genre_data.name))
+        query = list(session.query(genre.Genre).filter(genre.Genre.name == genre_data))
         if(not query):
-            temp_genre = genre.Genre(genre_data.name)
+            temp_genre = genre.Genre(genre_data)
             session.add(temp_genre)
             session.commit()
             return temp_genre
