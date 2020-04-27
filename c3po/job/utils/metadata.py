@@ -20,7 +20,6 @@ def session_scope():
 def insert(url):
     with session_scope() as session:
         data = SongData(url)
-        print(data)
         new_link = _insert_link(url, session)
         if(new_link):
             new_song = _insert_song(data.track, session)
@@ -40,7 +39,7 @@ def _insert_artist_song(new_artist, new_song, session):
 
 
 def _insert_link(url, session):
-    query = list(session.query(link.Link).filter(link.Link.url == url))
+    query = session.query(link.Link).filter(link.Link.url == url).first()
     if(not query):
         temp_link = link.Link(url, 0)
         temp_link.post_count = 1
@@ -48,7 +47,7 @@ def _insert_link(url, session):
         session.commit()
         return temp_link
     else:
-        query[0].post_count += 1
+        query.post_count += 1
         session.commit()
         return None
 
@@ -73,7 +72,7 @@ def _insert_song(track_data, session):
     return new_song
 
 def _insert_artist(artist_data, session):
-    query = list(session.query(artist.Artist).filter(artist.Artist.name == artist_data.name))
+    query = session.query(artist.Artist).filter(artist.Artist.name == artist_data.name).first()
     if(not query):
         new_artist = artist.Artist(artist_data.name, artist_data.image_id)
         session.add(new_artist)
@@ -84,13 +83,13 @@ def _insert_artist(artist_data, session):
             session.add(new_artist_genre)
             session.commit()
         return new_artist
-    return query[0]
+    return query
 
 def _insert_genre(genre_data, session):
-    query = list(session.query(genre.Genre).filter(genre.Genre.name == genre_data))
+    query = session.query(genre.Genre).filter(genre.Genre.name == genre_data).first()
     if(not query):
         temp_genre = genre.Genre(genre_data)
         session.add(temp_genre)
         session.commit()
         return temp_genre
-    return query[0]
+    return query
