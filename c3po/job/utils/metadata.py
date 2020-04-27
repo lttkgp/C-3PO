@@ -1,21 +1,7 @@
-from c3po.db.dao import user, link, song, artist, genre
-from c3po.db.common.base import session_factory
+from c3po.db.dao import *
+from c3po.db.common.base import session_scope
 from datetime import datetime
 from music_metadata_extractor import SongData
-from contextlib import contextmanager
-
-@contextmanager
-def session_scope():
-    session = session_factory()
-    try:
-        yield session
-        session.commit()
-    except Exception as e:
-        raise
-        session.rollback()
-    finally:
-        session.close()
-
 
 def insert(url):
     with session_scope() as session:
