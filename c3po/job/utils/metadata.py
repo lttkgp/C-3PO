@@ -2,71 +2,95 @@ from c3po.db.dao import user, link, song, artist, genre
 from c3po.db.common.base import session_factory
 from datetime import datetime
 from music_metadata_extractor import SongData
+from contextlib import contextmanager
 
-session = session_factory()
+@contextmanager
+def session_scope():
+    session = session_factory()
+    try:
+        yield session
+        session.commit()
+    except Exception as e:
+        raise
+        session.rollback()
+    finally:
+        session.close()
 
-class Metadata:
-    def __init__(self, url):
-        self.url = url
-        self.data = SongData(url)
 
-    def insert(self):
-        new_link = self._insert_link(self.url)
+def insert(url):
+    with session_scope() as session:
+        data = SongData(url)
+        print(data)
+        new_link = _insert_link(url, session)
         if(new_link):
-            new_song = self._insert_song(self.data.track)
-            new_link.song_id = new_song.id
-            for artist_data in self.data.artists:
-                new_artist = self._insert_artist(artist_data)
-                new_artist_song = artist.ArtistSong(new_artist, new_song)
-                session.add(new_artist_song)
+            new_song = _insert_song(data.track, session)
+            _add_song_id(new_song, new_link, session)
+            for artist_data in data.artists:
+                new_artist = _insert_artist(artist_data, session)
+                _insert_artist_song(new_artist, new_song, session)
+
+def _add_song_id(new_song, new_link, session):
+    new_link.song_id = new_song.id
+    session.commit()
+
+def _insert_artist_song(new_artist, new_song, session):
+    new_artist_song = artist.ArtistSong(new_artist, new_song)
+    session.add(new_artist_song)
+    session.commit()
+
+
+def _insert_link(url, session):
+    query = list(session.query(link.Link).filter(link.Link.url == url))
+    if(not query):
+        temp_link = link.Link(url, 0)
+        temp_link.post_count = 1
+        session.add(temp_link)
         session.commit()
-
-    def _insert_link(self, url):
-        query = list(session.query(link.Link).filter(link.Link.url == url))
-        if(not query):
-            temp_link = link.Link(url, 0)
-            temp_link.post_count = 1
-            session.add(temp_link)
-            session.commit()
-            return temp_link
-        else:
-            query[0].post_count += 1
-            session.commit()
-            return None
-
-    def _insert_song(self, track_data):
-        new_song = song.Song(
-            track_data.name, 
-            datetime.strptime(track_data.year, "%Y-%m-%d"), 
-            track_data.explicit, 
-            track_data.popularity, 
-            track_data.image_id, 
-            track_data.is_cover,
-            track_data.original_id
-        )
-        session.add(new_song)
+        return temp_link
+    else:
+        query[0].post_count += 1
         session.commit()
-        return new_song
+        return None
 
-    def _insert_artist(self, artist_data):
-        query = list(session.query(artist.Artist).filter(artist.Artist.name == artist_data.name))
-        if(not query):
-            new_artist = artist.Artist(artist_data.name, artist_data.image_id)
-            session.add(new_artist)
-            session.commit()
-            for temp_genre in artist_data.genres:
-                new_genre = self._insert_genre(temp_genre)
-                new_artist_genre = artist.ArtistGenre(new_artist, new_genre)
-                session.add(new_artist_genre)
-                session.commit()
-            return new_artist
-        return query.first()
+def _insert_song(track_data, session):
+    try:
+        date = datetime.strptime(track_data.year, "%Y-%m-%d")
+    except ValueError:
+        date = datetime.strptime(track_data.year, "%Y")
+    except:
+        date = None
+    new_song = song.Song(
+        track_data.name, 
+        date,
+        track_data.explicit, 
+        track_data.popularity, 
+        track_data.image_id, 
+        track_data.is_cover,
+        track_data.original_id
+    )
+    session.add(new_song)
+    session.commit()
+    return new_song
 
-    def _insert_genre(self, genre_data):
-        query = list(session.query(genre.Genre).filter(genre.Genre.name == genre_data))
-        if(not query):
-            temp_genre = genre.Genre(genre_data)
-            session.add(temp_genre)
+def _insert_artist(artist_data, session):
+    query = list(session.query(artist.Artist).filter(artist.Artist.name == artist_data.name))
+    if(not query):
+        new_artist = artist.Artist(artist_data.name, artist_data.image_id)
+        session.add(new_artist)
+        session.commit()
+        for temp_genre in artist_data.genres:
+            new_genre = _insert_genre(temp_genre, session)
+            new_artist_genre = artist.ArtistGenre(new_artist, new_genre)
+            session.add(new_artist_genre)
             session.commit()
-            return temp_genre
-        return query.first()
+        return new_artist
+    return query[0]
+
+def _insert_genre(genre_data, session):
+    query = list(session.query(genre.Genre).filter(genre.Genre.name == genre_data))
+    if(not query):
+        temp_genre = genre.Genre(genre_data)
+        session.add(temp_genre)
+        session.commit()
+        return temp_genre
+    return query[0]
