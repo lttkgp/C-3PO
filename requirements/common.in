@@ -1,7 +1,10 @@
 psycopg2
 psycopg2-binary
-sqlalchemy
 requests
 python-dotenv
 pymongo
 dnspython
+coloredlogs
+Flask-Migrate
+flask-restx
+Flask-Script

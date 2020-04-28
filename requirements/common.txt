@@ -4,14 +4,41 @@
 #
 #    pip-compile --output-file=common.txt common.in
 #
+alembic==1.4.2            # via flask-migrate
+aniso8601==8.0.0          # via flask-restx
+attrs==19.3.0             # via jsonschema
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
+click==7.1.2              # via flask
+coloredlogs==14.0         # via -r common.in
 dnspython==1.16.0         # via -r common.in
+flask-migrate==2.5.3      # via -r common.in
+flask-restx==0.2.0        # via -r common.in
+flask-script==2.0.6       # via -r common.in
+flask-sqlalchemy==2.4.1   # via flask-migrate
+flask==1.1.2              # via flask-migrate, flask-restx, flask-script, flask-sqlalchemy
+humanfriendly==8.2        # via coloredlogs
 idna==2.9                 # via requests
+importlib-metadata==1.6.0  # via jsonschema
+itsdangerous==1.1.0       # via flask
+jinja2==2.11.2            # via flask
+jsonschema==3.2.0         # via flask-restx
+mako==1.1.2               # via alembic
+markupsafe==1.1.1         # via jinja2, mako
 psycopg2-binary==2.8.4    # via -r common.in
 psycopg2==2.8.4           # via -r common.in
 pymongo==3.10.1           # via -r common.in
+pyrsistent==0.16.0        # via jsonschema
+python-dateutil==2.8.1    # via alembic
 python-dotenv==0.12.0     # via -r common.in
+python-editor==1.0.4      # via alembic
+pytz==2020.1              # via flask-restx
 requests==2.23.0          # via -r common.in
-sqlalchemy==1.3.10        # via -r common.in
+six==1.14.0               # via flask-restx, jsonschema, pyrsistent, python-dateutil
+sqlalchemy==1.3.10        # via alembic, flask-sqlalchemy
 urllib3==1.25.8           # via requests
+werkzeug==1.0.1           # via flask, flask-restx
+zipp==3.1.0               # via importlib-metadata
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
