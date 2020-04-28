@@ -1,7 +1,7 @@
 from flask import abort, request
 from flask_restx import Resource, Namespace
 
-api = Namespace('test', description='Hello World!')
+api = Namespace('test', description='Hello LTT-KGP!')
 
 @api.route('/')
 class TestController(Resource):
