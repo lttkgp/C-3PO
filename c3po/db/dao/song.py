@@ -8,7 +8,7 @@ class SongGenre(Base):
     __tablename__ = "song_genre"
 
     # Columns
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     song_id = Column(Integer, ForeignKey("song.id"), primary_key=True)
     genre_id = Column(Integer, ForeignKey("genre.id"), primary_key=True)
 

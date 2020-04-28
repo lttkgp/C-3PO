@@ -8,7 +8,7 @@ class ArtistGenre(Base):
     __tablename__ = "artist_genre"
 
     # Columns
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     artist_id = Column(Integer, ForeignKey("artist.id"), primary_key=True)
     genre_id = Column(Integer, ForeignKey("genre.id"), primary_key=True)
 
@@ -30,7 +30,7 @@ class ArtistSong(Base):
     __tablename__ = "artist_song"
 
     # Columns
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     artist_id = Column(Integer, ForeignKey("artist.id"), primary_key=True)
     song_id = Column(Integer, ForeignKey("song.id"), primary_key=True)
 
