@@ -48,11 +48,12 @@ class UserPosts(Base):
     )
 
     # Helper methods
-    def __init__(self, user=None, link=None, share_date=None, caption=None):
+    def __init__(self, user=None, link=None, share_date=None, caption=None, facebook_id=None):
         self.user = user
         self.link = link
         self.share_date = share_date
         self.caption = caption
+        self.facebook_id = facebook_id
 
 
 class User(Base):

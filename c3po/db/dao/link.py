@@ -1,8 +1,7 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, String, DateTime
+from sqlalchemy import Integer, String
 from sqlalchemy.orm import relationship, backref
 from c3po.db.common.base import Base
-from datetime import datetime
 
 class Link(Base):
     __tablename__ = "link"
@@ -20,22 +19,3 @@ class Link(Base):
     def __init__(self, url, platform):
         self.url = url
         self.platform = platform
-
-class Post(Base):
-    __tablename__ = "posted"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
-    date_time = Column("datetime", DateTime)
-    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
-
-    link = relationship(
-        "Link", backref=backref("link", cascade="all, delete-orphan")
-    )
-    user = relationship(
-        "User", backref=backref("user", cascade="all, delete-orphan")
-    )
-    def __init__(self, link, user, date_time=datetime.now()):
-        self.link = link
-        self.user = user
-        self.date_time = date_time
