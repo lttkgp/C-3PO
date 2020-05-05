@@ -22,16 +22,20 @@ class Link(Base):
         self.platform = platform
 
 class Post(Base):
-    __tablename__ = "post"
+    __tablename__ = "posted"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
     date_time = Column("datetime", DateTime)
+    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
 
     link = relationship(
         "Link", backref=backref("link", cascade="all, delete-orphan")
     )
-
-    def __init__(self, link, date_time=datetime.now()):
+    user = relationship(
+        "User", backref=backref("user", cascade="all, delete-orphan")
+    )
+    def __init__(self, link, user, date_time=datetime.now()):
         self.link = link
+        self.user = user
         self.date_time = date_time

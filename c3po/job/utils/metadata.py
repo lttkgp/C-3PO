@@ -3,10 +3,10 @@ from c3po.db.common.base import session_scope
 from datetime import datetime
 from music_metadata_extractor import SongData
 
-def insert(url, date_time=datetime.now()):
+def insert(url, user, date_time=datetime.now()):
     with session_scope() as session:
         data = SongData(url)
-        new_link = _insert_post(url, date_time, session)
+        new_link = _insert_post(url, user, date_time, session)
         if(new_link):
             new_song = _insert_song(data.track, session)
             new_link.song_id = new_song.id
@@ -15,14 +15,14 @@ def insert(url, date_time=datetime.now()):
                 _insert_artist_song(new_artist, new_song, session)
 
 
-def _insert_post(url, date_time, session):
+def _insert_post(url, user, date_time, session):
     new_link = _insert_link(url, session)
     if(not new_link):
         query = session.query(Link).filter(Link.url == url).first()
-        new_post = Post(query, date_time)
+        new_post = Post(query, user, date_time)
         session.add(new_post)
         return None
-    new_post = Post(new_link, date_time)
+    new_post = Post(new_link, user, date_time)
     session.add(new_post)
     return new_link
 
