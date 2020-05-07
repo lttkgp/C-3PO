@@ -31,7 +31,7 @@ class UserPosts(Base):
     __tablename__ = "user_posts"
 
     # Columns
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
     link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
     share_date = Column(Date)
