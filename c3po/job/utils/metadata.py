@@ -9,13 +9,13 @@ from isodate import parse_datetime, ISO8601Error
 from music_metadata_extractor import SongData
 
 
-def insert_metadata(data):
-    url = data["link"]
+def insert_metadata(raw_data):
+    url = raw_data["link"]
     with session_scope() as session:
         data = SongData(url)
         # This is a placeholder for until we can fetch real user details
         user = _insert_default_user(session)
-        new_link = _insert_post(url, user, data, session)
+        new_link = _insert_post(url, user, raw_data, session)
         if new_link:
             new_song = _insert_song(data.track, session)
             new_link.song_id = new_song.id
@@ -34,12 +34,12 @@ def _insert_post(url, user, data, session):
     likes_count = data["reactions"]["summary"]["total_count"]
     new_link = _insert_link(url, session)
     if not new_link:
-        query = session.query(Link).filter(Link.url == url).first()
-        new_post = UserPosts(user, query, date_time, caption, facebook_id)
+        new_link = session.query(Link).filter(Link.url == url).first()
+        new_post = UserPosts(user, new_link, date_time, caption, facebook_id)
         new_post.likes_count = likes_count
         session.add(new_post)
         return None
-    new_post = UserPosts(user, query, date_time, caption, facebook_id)
+    new_post = UserPosts(user, new_link, date_time, caption, facebook_id)
     new_post.likes_count = likes_count
     session.add(new_post)
     return new_link
