@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, String, Date
+from sqlalchemy import Integer, String, DateTime
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
 from c3po.db.common.base import Base
@@ -34,7 +34,7 @@ class UserPosts(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
     link_id = Column(Integer, ForeignKey("link.id"), primary_key=True)
-    share_date = Column(Date)
+    share_date = Column(DateTime)
     caption = Column(String(160))
     facebook_id = Column(String(160))
     likes_count = Column(Integer)
