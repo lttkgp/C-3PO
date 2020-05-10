@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask_restx import Api
 
 from api.controller.test_controller import api as test_ns
+from api.controller.feed_controller import api as feed_ns
 
 blueprint = Blueprint('api', __name__)
 
@@ -13,3 +14,4 @@ api = Api(blueprint,
           )
 
 api.add_namespace(test_ns, path='/api')
+api.add_namespace(feed_ns, path='/feed')
