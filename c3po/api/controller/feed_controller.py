@@ -10,15 +10,6 @@ parser.add_argument('genre', type=str)
 parser.add_argument('from', type=datetime_from_iso8601)
 parser.add_argument('to', type=datetime_from_iso8601)
 
-'''
-limit - to limit the number of responses (although we’ll use a default value if this is not specified)
-genre - this is self explanatory
-page - for pagination. Implementation of pagination can get quite tricky though - we’ll discuss this further / find reading material
-from - Time period start (default to 7 days back for all endpoints if not specified explicitly)
-to - Time period end (default to current time/date if not specified explicitly)
-'''
-
-
 
 @api.route('/popular')
 class FeedPopular(Resource):
