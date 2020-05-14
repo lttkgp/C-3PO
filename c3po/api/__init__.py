@@ -14,4 +14,4 @@ api = Api(blueprint,
           )
 
 api.add_namespace(test_ns, path='/api')
-api.add_namespace(feed_ns, path='/feed')
+api.add_namespace(feed_ns, path='/api/feed')
