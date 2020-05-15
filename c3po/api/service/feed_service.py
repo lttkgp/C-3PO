@@ -11,7 +11,7 @@ DEFAULT_TIME_PERIOD = timedelta(days=7)
 class FeedService:
 
     @staticmethod
-    def get_from_to(from_=datetime.now(), to_=datetime.now() - DEFAULT_TIME_PERIOD):
+    def get_posts_in_interval(from_=datetime.now(), to_=datetime.now() - DEFAULT_TIME_PERIOD):
         try:
             with session_scope() as session:
                 posts = session.query(UserPosts).filter(UserPosts.share_date >= from_)
@@ -20,7 +20,7 @@ class FeedService:
                 return posts, 200
                 
         except BaseException:
-            LOG.error('Failed to fetch data with params {from_}, {to_}. Try later.', exc_info=True)
+            LOG.error('Failed to fetch data with params from_ = {from_}, to_ = {to_}. Try later.', exc_info=True)
             response_object = {
                 'status': 'fail',
                 'message': 'Try again',

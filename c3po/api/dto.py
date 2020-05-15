@@ -4,9 +4,9 @@ from flask_restx import Namespace, fields
 
 
 class FeedDto:
-    api = Namespace('feed', description='Feed Related operations')
-    songObject = api.model('songObject', {
+    ns = Namespace('feed', description='Feed Related operations')
+    songObject = ns.model('songObject', {
         'caption': fields.String,
-        'link': fields.String()
+        'link': fields.String
     })
 

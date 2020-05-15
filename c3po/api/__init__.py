@@ -3,7 +3,7 @@ from flask import Blueprint
 from flask_restx import Api
 
 from api.controller.test_controller import api as test_ns
-from api.controller.feed_controller import api as feed_ns
+from api.controller.feed_controller import feed_ns
 
 blueprint = Blueprint('api', __name__)
 
@@ -13,5 +13,5 @@ api = Api(blueprint,
           description='a boilerplate for flask restplus web service'
           )
 
-api.add_namespace(test_ns, path='/api')
-api.add_namespace(feed_ns, path='/api/feed')
+api.add_namespace(test_ns, path='/v1')
+api.add_namespace(feed_ns, path='/v1/feed')

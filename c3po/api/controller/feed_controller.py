@@ -4,7 +4,7 @@ from flask_restx.inputs import datetime_from_iso8601
 from ..service.feed_service import FeedService
 from ..dto import FeedDto
 
-api = FeedDto.api
+feed_ns = FeedDto.ns
 songObject = FeedDto.songObject
 
 parser = reqparse.RequestParser()
@@ -14,29 +14,29 @@ parser.add_argument('from', type=datetime_from_iso8601)
 parser.add_argument('to', type=datetime_from_iso8601)
 
 
-@api.route('/popular')
+@feed_ns.route('/popular')
 class FeedPopular(Resource):
     """ User Login Resource """
-    @api.doc('Popular songs (most liked)')
-    @api.marshal_list_with(songObject)
-    @api.expect(parser)
+    @feed_ns.doc('Popular songs (most liked)')
+    @feed_ns.marshal_list_with(songObject)
+    @feed_ns.expect(parser)
     def get(self): 
         args = parser.parse_args()
-        resp = FeedService.get_from_to(args['from'], args['to'])
+        response, status = FeedService.get_posts_in_interval(args['from'], args['to'])
         
-        if resp[1] != 200:
-            abort(403, resp[0])
+        if status != 200:
+            abort(403, response)
         else:
-            return resp
+            return response, status
 
-@api.route('/latest')
+@feed_ns.route('/latest')
 class FeedLatest(Resource):
-    @api.doc('Latest feed')
+    @feed_ns.doc('Latest feed')
     def get(self):
-        resp = FeedService.get_latest_posts()
+        response, status = FeedService.get_latest_posts()
         #TODO: Complete the helper function used above
         
-        if resp[1] != 200:
-            abort(403, resp[0])
+        if status != 200:
+            abort(403, response)
         else:
-            return resp
+            return response, status
