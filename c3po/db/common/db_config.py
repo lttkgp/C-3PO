@@ -1,5 +1,5 @@
 from urllib.parse import quote_plus
-from c3po.utils.config import read_config
+from utils.config import read_config
 
 
 def _get_mongo_uri():

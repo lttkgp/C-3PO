@@ -2,7 +2,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy import Integer, String, DateTime
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
-from c3po.db.common.base import Base
+from db.common.base import Base
 
 
 class UserLikes(Base):

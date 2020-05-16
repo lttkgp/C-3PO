@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.associationproxy import association_proxy
-from c3po.db.common.base import Base
+from db.common.base import Base
 
 
 class Genre(Base):

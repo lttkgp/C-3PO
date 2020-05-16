@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import String, Integer, Date, Boolean, Float
 from sqlalchemy.orm import relationship, backref
-from c3po.db.common.base import Base
+from db.common.base import Base
 
 
 class SongGenre(Base):

@@ -1,8 +1,8 @@
 from flask import abort, request
 from flask_restx import Resource, Namespace, reqparse
 from flask_restx.inputs import datetime_from_iso8601
-from ..service.feed_service import FeedService
-from ..dto import FeedDto
+from api.service.feed_service import FeedService
+from api.dto import FeedDto
 
 feed_ns = FeedDto.ns
 songObject = FeedDto.songObject
