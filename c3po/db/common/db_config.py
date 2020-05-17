@@ -1,4 +1,5 @@
 from urllib.parse import quote_plus
+
 from c3po.utils.config import read_config
 
 

@@ -1,4 +1,5 @@
-''' Logging info, debug with coloredlogs '''
+"""Create logger config used project wide."""
+
 import logging.config
 
 from coloredlogs import ColoredFormatter

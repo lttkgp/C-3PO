@@ -1,7 +1,9 @@
 from flask import abort, request
-from flask_restx import Resource, Namespace, reqparse
+from flask_restx import Namespace, Resource, reqparse
 from flask_restx.inputs import datetime_from_iso8601
+
 from ..service.feed_service import get_from_to
+
 api = Namespace('feed', description='LTTKGP Feed')
 
 parser = reqparse.RequestParser()
@@ -16,10 +18,11 @@ class FeedPopular(Resource):
     """ User Login Resource """
     @api.doc('Popular songs (most liked)')
     @api.expect(parser)
-    def get(self): 
+    def get(self):
         args = parser.parse_args()
         response_object = get_from_to(args['from'], args['to'])
         return response_object, 200
+
 
 @api.route('/latest')
 class FeedLatest(Resource):

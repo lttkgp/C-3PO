@@ -40,12 +40,15 @@ def refresh_access_token():
                 "client_secret": FB_APP_SECRET,
                 "fb_exchange_token": FB_SHORT_ACCESS_TOKEN,
             }
-            response = REQ_SESSION.get(request_url, params=request_payload).json()
+            response = REQ_SESSION.get(
+                request_url, params=request_payload).json()
             dotenvfile = find_dotenv()
             load_dotenv(dotenvfile)
             print(response)
-            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN", response["access_token"])
-            PAYLOAD["access_token"] = dotenv.get_key(dotenvfile, "FB_LONG_ACCESS_TOKEN")
+            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN",
+                           response["access_token"])
+            PAYLOAD["access_token"] = dotenv.get_key(
+                dotenvfile, "FB_LONG_ACCESS_TOKEN")
 
 
 """
@@ -72,11 +75,13 @@ def build_feed_request():
     request_url = FB_URL + GROUP_ID + "/feed"
     request_params = PAYLOAD.copy()
     request_params["fields"] = constants.FACEBOOK_POST_FIELDS
-    request_params["fields"] = request_params["fields"] + ",reactions.summary(true){"
+    request_params["fields"] = request_params["fields"] + \
+        ",reactions.summary(true){"
     request_params["fields"] = (
         request_params["fields"] + constants.FACEBOOK_REACTION_FIELDS + "}"
     )
-    request_params["fields"] = request_params["fields"] + ",comments.summary(true){"
+    request_params["fields"] = request_params["fields"] + \
+        ",comments.summary(true){"
     request_params["fields"] = (
         request_params["fields"] + constants.FACEBOOK_COMMENT_FIELDS + "}"
     )
