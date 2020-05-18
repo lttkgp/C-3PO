@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, Date,BigInteger
 from sqlalchemy.orm import relationship
 from c3po.db.common.base import Base
 
@@ -16,6 +16,9 @@ class Link(Base):
 
     post_count = Column("post_count", Integer)
     likes_count = Column("likes_count", Integer)
+
+    yt_views = Column("yt_views", BigInteger)
+    yt_date = Column("yt_date", Date)
 
     def __init__(self, url, platform):
         self.url = url

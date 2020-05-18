@@ -6,7 +6,7 @@ from music_metadata_extractor import SongData
 def insert(url):
     with session_scope() as session:
         data = SongData(url)
-        new_link = _insert_link(url, session)
+        new_link = _insert_link(data.extraAttrs, url, session)
         if(new_link):
             new_song = _insert_song(data.track, session)
             new_link.song_id = new_song.id
@@ -19,11 +19,16 @@ def _insert_artist_song(new_artist, new_song, session):
     new_artist_song = artist.ArtistSong(new_artist, new_song)
     session.add(new_artist_song)
 
-def _insert_link(url, session):
+def _insert_link(extras, url, session):
     query = session.query(link.Link).filter(link.Link.url == url).first()
+    views = extras['youtube']['views']
+    date = extras['youtube']['posted_date']
     if(not query):
         temp_link = link.Link(url, 0)
         temp_link.post_count = 1
+        temp_link.yt_views = views
+        temp_link.yt_date = date
+
         session.add(temp_link)
         return temp_link
     else:
