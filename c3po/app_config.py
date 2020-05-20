@@ -1,13 +1,19 @@
+"""Define App level configuration for Dev, Testing and Production."""
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
+    """Base Config."""
+
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
 
 
 class DevelopmentConfig(Config):
+    """Development Config, don't use on prod."""
+
     DEBUG = True
     HOST = '0.0.0.0'
     PORT = 5000
@@ -15,6 +21,8 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    """Testing Config, use when running unit tests."""
+
     DEBUG = True
     TESTING = True
     HOST = '127.0.0.1'
@@ -25,6 +33,8 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
+    """Production config, use when deploying on server."""
+
     DEBUG = False
     HOST = '0.0.0.0'
     PORT = '443'

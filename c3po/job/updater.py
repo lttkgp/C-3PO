@@ -3,9 +3,9 @@ Core script. Structure to be changed later.
 """
 import argparse
 
+import c3po.constants as constants
 from c3po.job.utils import facebook as facebookutils
 from c3po.job.utils import lttkgp_archive
-import c3po.constants as constants
 
 
 def add_post_to_db(post):

@@ -1,8 +1,10 @@
-from urllib.parse import quote_plus
 from contextlib import contextmanager
+from urllib.parse import quote_plus
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from c3po.db.common.db_config import POSTGRES_URI
 
 engine = create_engine(POSTGRES_URI)
@@ -16,6 +18,7 @@ def session_factory():
 
     Base.metadata.create_all(engine)
     return _SessionFactory()
+
 
 @contextmanager
 def session_scope():
