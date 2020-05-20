@@ -8,7 +8,8 @@ env:
 
 # install the dependencies
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements/common.txt
+  - pip install -r requirements/dev.txt
 
 script:
-  - bash sanity.sh
+  - bash c3po/sanity.sh
