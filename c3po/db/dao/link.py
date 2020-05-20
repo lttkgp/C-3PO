@@ -19,3 +19,6 @@ class Link(Base):
     def __init__(self, url, platform):
         self.url = url
         self.platform = platform
+
+    def __str__(self):
+        return self.url
