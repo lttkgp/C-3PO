@@ -9,4 +9,3 @@ class FeedDto:
         'caption': fields.String,
         'link': fields.String
     })
-

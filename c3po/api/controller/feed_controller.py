@@ -1,9 +1,11 @@
-from flask import abort, request
-from flask_restx import Resource, Namespace, reqparse
-from flask_restx.inputs import datetime_from_iso8601
-from api.service.feed_service import FeedService
-from api.dto import FeedDto
 from datetime import datetime, timedelta
+
+from flask import abort, request
+from flask_restx import Namespace, Resource, reqparse
+from flask_restx.inputs import datetime_from_iso8601
+
+from api.dto import FeedDto
+from api.service.feed_service import FeedService
 
 feed_ns = FeedDto.ns
 songObject = FeedDto.songObject
@@ -21,7 +23,7 @@ class FeedPopular(Resource):
     @feed_ns.doc('Popular songs (most liked)')
     @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
-    def get(self): 
+    def get(self):
         args = parser.parse_args()
         if(args['from'] and args['to']):
             response, status = FeedService.get_posts_in_interval(args['from'], args['to'])
@@ -32,6 +34,7 @@ class FeedPopular(Resource):
             abort(403, response)
         else:
             return response, status
+
 
 @feed_ns.route('/latest')
 class FeedLatest(Resource):

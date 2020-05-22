@@ -1,6 +1,7 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.schema import UniqueConstraint
+
 from db.common.base import Base
 
 

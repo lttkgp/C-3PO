@@ -1,6 +1,6 @@
 """
 Entrypoint of the application.
- 
+
 Manager is set up and the blueprint for the
 application is created.
 """

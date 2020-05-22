@@ -4,6 +4,7 @@ from urllib.parse import quote_plus
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from db.common.db_config import POSTGRES_URI
 
 engine = create_engine(POSTGRES_URI)

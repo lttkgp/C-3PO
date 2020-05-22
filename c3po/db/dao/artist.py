@@ -1,6 +1,6 @@
-from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, String
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
+
 from db.common.base import Base
 
 
