@@ -8,6 +8,7 @@ LOG = getLogger(__name__)
 
 LOG.info('configured logger!')
 
+
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
@@ -15,5 +16,5 @@ def create_app(config_name):
 
     app.app_context().push()
     LOG.info('application context pushed')
-    
+
     return app

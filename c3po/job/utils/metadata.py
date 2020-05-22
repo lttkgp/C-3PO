@@ -1,12 +1,10 @@
-from c3po.db.common.base import session_scope
-from c3po.db.dao import Artist, ArtistGenre, ArtistSong
-from c3po.db.dao import Genre
-from c3po.db.dao import Link
-from c3po.db.dao import Song, SongGenre
-from c3po.db.dao import User, UserLikes, UserPosts
 from datetime import datetime
-from isodate import parse_datetime, ISO8601Error
+
+from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
+
+from c3po.db.common.base import session_scope
+from c3po.db.dao import Artist, ArtistGenre, ArtistSong, Genre, Link, Song, SongGenre, User, UserLikes, UserPosts
 
 
 def insert_metadata(raw_data):
@@ -67,7 +65,7 @@ def _insert_song(track_data, session):
         date = datetime.strptime(track_data.year, "%Y-%m-%d")
     except ValueError:
         date = datetime.strptime(track_data.year, "%Y")
-    except:
+    except BaseException:
         date = None
     new_song = Song(
         track_data.name,
@@ -84,7 +82,8 @@ def _insert_song(track_data, session):
 
 
 def _insert_artist(artist_data, session):
-    query = session.query(Artist).filter(Artist.name == artist_data.name).first()
+    query = session.query(Artist).filter(
+        Artist.name == artist_data.name).first()
     if not query:
         new_artist = Artist(artist_data.name, artist_data.image_id)
         session.add(new_artist)
