@@ -1,3 +1,4 @@
+"""Defines constants needed for fetch Data from FB."""
 # API version
 FACEBOOK_API_VERSION = "v6.0"
 

@@ -1,5 +1,6 @@
-from urllib.parse import quote_plus
 from contextlib import contextmanager
+from urllib.parse import quote_plus
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -16,6 +17,7 @@ def session_factory():
 
     Base.metadata.create_all(engine)
     return _SessionFactory()
+
 
 @contextmanager
 def session_scope():

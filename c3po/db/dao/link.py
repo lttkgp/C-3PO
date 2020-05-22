@@ -3,6 +3,7 @@ from sqlalchemy import Integer, String
 from sqlalchemy.orm import relationship, backref
 from db.common.base import Base
 
+
 class Link(Base):
     __tablename__ = "link"
 

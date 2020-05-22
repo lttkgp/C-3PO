@@ -1,4 +1,4 @@
-''' Logging info, debug with coloredlogs '''
+"""Logging info, debug with coloredlogs."""
 import logging.config
 
 from coloredlogs import ColoredFormatter

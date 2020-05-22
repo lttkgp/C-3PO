@@ -1,6 +1,5 @@
-from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, String, DateTime
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
 from sqlalchemy.schema import UniqueConstraint
 from db.common.base import Base
 
@@ -18,7 +17,8 @@ class UserLikes(Base):
     link = relationship(
         "Link", backref=backref("liked_by", cascade="all, delete-orphan")
     )
-    user = relationship("User", backref=backref("likes", cascade="all, delete-orphan"))
+    user = relationship("User", backref=backref(
+        "likes", cascade="all, delete-orphan"))
 
     # Helper methods
     def __init__(self, link=None, user=None, reaction_type=None):
