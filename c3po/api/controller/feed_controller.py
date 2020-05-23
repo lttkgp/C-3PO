@@ -26,7 +26,8 @@ class FeedPopular(Resource):
     def get(self):
         args = parser.parse_args()
         if(args['from'] and args['to']):
-            response, status = FeedService.get_posts_in_interval(args['from'], args['to'])
+            response, status = FeedService.get_posts_in_interval(
+                args['from'], args['to'])
         else:
             response, status = FeedService.get_posts_in_interval()
 
@@ -54,12 +55,28 @@ class FeedLatest(Resource):
 class FeedLatest(Resource):
     popular_parser = parser
     popular_parser.add_argument('past', type=int, help='Days in the past')
+
     @feed_ns.doc('Latest popular songs')
     @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
-        response, status = FeedService.get_popular_posts(args['to'], args['past'])
+        response, status = FeedService.get_popular_posts(
+            args['to'], args['past'])
+        if status != 200:
+            abort(403, response)
+        else:
+            return response, status
+
+
+@feed_ns.route('/frequent')
+class FeedFrequent(Resource):
+    @feed_ns.doc('Most frequent songs')
+    @feed_ns.marshal_list_with(songObject)
+    @feed_ns.expect(parser)
+    def get(self):
+        args = parser.parse_args()
+        response, status = FeedService.get_frequent_posts(args['limit'])
         if status != 200:
             abort(403, response)
         else:
