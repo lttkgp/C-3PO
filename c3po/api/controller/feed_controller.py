@@ -17,7 +17,7 @@ parser.add_argument('from', type=datetime_from_iso8601, help="Inclusive")
 parser.add_argument('to', type=datetime_from_iso8601, help="Exclusive")
 
 
-@feed_ns.route('/popular')
+@feed_ns.route('/interval')
 class FeedPopular(Resource):
     """ User Login Resource """
     @feed_ns.doc('Popular songs (most liked)')
@@ -44,6 +44,22 @@ class FeedLatest(Resource):
     def get(self):
         args = parser.parse_args()
         response, status = FeedService.get_latest_posts(args['limit'])
+        if status != 200:
+            abort(403, response)
+        else:
+            return response, status
+
+
+@feed_ns.route('/popular')
+class FeedLatest(Resource):
+    popular_parser = parser
+    popular_parser.add_argument('past', type=int, help='Days in the past')
+    @feed_ns.doc('Latest popular songs')
+    @feed_ns.marshal_list_with(songObject)
+    @feed_ns.expect(parser)
+    def get(self):
+        args = parser.parse_args()
+        response, status = FeedService.get_popular_posts(args['to'], args['past'])
         if status != 200:
             abort(403, response)
         else:

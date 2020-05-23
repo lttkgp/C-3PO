@@ -42,3 +42,22 @@ class FeedService:
                 'message': 'Try again',
             }
             return response_object, 500
+
+    @staticmethod
+    def get_popular_posts(to_=datetime.now(), past=1):
+        try:
+            session = session_factory()
+            posts = session.query(UserPosts)\
+                    .filter(UserPosts.share_date <= to_ + timedelta(days=1))\
+                    .filter(UserPosts.share_date >= to_ - timedelta(days=past))\
+                    .order_by(UserPosts.likes_count.desc()).all()
+
+            return posts, 200
+
+        except BaseException:
+            LOG.error(f'Failed to fetch data with param to_ = {to_}, past = {past}. Try later.', exc_info=True)
+            response_object = {
+                'status': 'fail',
+                'message': 'Try again',
+            }
+            return response_object, 500
