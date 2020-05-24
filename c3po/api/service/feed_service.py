@@ -24,6 +24,7 @@ def format(post):
 
     return {
         'link': link.url,
+        'post_count': link.post_count,
         'postdata': post_dto.dump(post),
         'metadata': {
             'song': song_dto.dump(link.song),
