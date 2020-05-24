@@ -7,14 +7,17 @@ from marshmallow import Schema, fields
 class FeedDto:
     ns = Namespace('feed', description='Feed Related operations')
 
+
 class PostDto(Schema):
     caption = fields.String()
     share_date = fields.DateTime()
     likes_count = fields.Integer()
 
+
 class ArtistDto(Schema):
     name = fields.String()
     image = fields.String()
+
 
 class SongDto(Schema):
     name = fields.String()
