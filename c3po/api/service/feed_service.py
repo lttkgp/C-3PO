@@ -2,11 +2,33 @@ from datetime import datetime, timedelta
 from logging import getLogger
 
 from db.common.base import session_factory
-from db.dao.artist import ArtistSong
+from db.dao.artist import ArtistSong, ArtistGenre
 from db.dao.user import UserPosts
+from db.dao.link import Link
+
+from api.dto import post_dto, artist_dto, song_dto
 
 LOG = getLogger(__name__)
 
+def format(post):
+    session = session_factory()
+    link = post.link
+    song = link.song
+    artists = [artist_song.artist for artist_song in session.query(ArtistSong).filter(ArtistSong.song == song).all()]
+    genres = []
+    for artist in artists:
+        artist_genres = [artist_genre.genre for artist_genre in session.query(ArtistGenre).filter(ArtistGenre.artist == artist).all()]
+        genres += artist_genres
+     
+    return {
+        'link': link.url,
+        'postdata': post_dto.dump(post),
+        'metadata': {
+            'song': song_dto.dump(link.song),
+            'artists': [artist_dto.dump(artist) for artist in artists],
+            'genre': [genre.name for genre in genres]
+        }
+    }
 
 class FeedService:
 
@@ -16,8 +38,9 @@ class FeedService:
             session = session_factory()
             posts = session.query(UserPosts).filter(UserPosts.share_date >= from_) \
                 .filter(UserPosts.share_date <= to_).all()
-
-            return posts, 200
+            
+            response = [format(post) for post in posts]
+            return response, 200
 
         except BaseException:
             LOG.error(
@@ -34,8 +57,9 @@ class FeedService:
             session = session_factory()
             posts = session.query(UserPosts).filter(
                 UserPosts.share_date <= datetime.now()).limit(limit_).all()
-
-            return posts, 200
+            
+            response = [format(post) for post in posts]
+            return response, 200
 
         except BaseException:
             LOG.error(
@@ -54,8 +78,9 @@ class FeedService:
                 .filter(UserPosts.share_date <= to_ + timedelta(days=1))\
                 .filter(UserPosts.share_date >= to_ - timedelta(days=past))\
                 .order_by(UserPosts.likes_count.desc()).all()
-
-            return posts, 200
+            
+            response = [format(post) for post in posts]
+            return response, 200
 
         except BaseException:
             LOG.error(
@@ -88,8 +113,9 @@ class FeedService:
             for url, countURL in postURLFreq.items():
                 postsWithURL = [post for post in posts if post.link.url == url]
                 freqPosts.extend(postsWithURL)
-
-            return freqPosts, 200
+            
+            response = [format(post) for post in freqPosts]
+            return response, 200
 
         except BaseException:
             LOG.error(
