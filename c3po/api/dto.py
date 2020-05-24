@@ -1,7 +1,6 @@
 # Data Transfer Object- Responsible for carrying data between processes
 from flask import current_app
 from flask_restx import Namespace
-
 from marshmallow import Schema, fields
 
 
@@ -25,4 +24,3 @@ class SongDto(Schema):
 post_dto = PostDto()
 artist_dto = ArtistDto()
 song_dto = SongDto()
-genre_dto = GenreDto()
