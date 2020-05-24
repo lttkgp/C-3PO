@@ -1,8 +1,8 @@
 # Data Transfer Object- Responsible for carrying data between processes
 from flask import current_app
 from flask_restx import Namespace
-
 from marshmallow import Schema, fields
+
 
 class PostDto(Schema):
     caption = fields.String()

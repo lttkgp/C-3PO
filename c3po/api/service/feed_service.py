@@ -1,12 +1,11 @@
 from datetime import datetime, timedelta
 from logging import getLogger
 
+from api.dto import artist_dto, post_dto, song_dto
 from db.common.base import session_factory
-from db.dao.artist import ArtistSong, ArtistGenre
-from db.dao.user import UserPosts
+from db.dao.artist import ArtistGenre, ArtistSong
 from db.dao.link import Link
-
-from api.dto import post_dto, artist_dto, song_dto
+from db.dao.user import UserPosts
 
 LOG = getLogger(__name__)
 
