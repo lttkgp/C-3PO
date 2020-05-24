@@ -99,25 +99,12 @@ class FeedService:
         try:
             session = session_factory()
             posts = session.query(UserPosts)\
-                .filter(UserPosts.share_date <= datetime.now()).limit(limit_).all()
+                .filter(UserPosts.share_date <= datetime.now())\
+                .join(UserPosts.link)\
+                .order_by(Link.post_count.desc())\
+                .limit(limit_).all()
 
-            postURLFreq = {}
-            for post in posts:
-                if post in postURLFreq:
-                    postURLFreq[post.link.url] += 1
-                else:
-                    postURLFreq[post.link.url] = 1
-
-            postURLFreq = {k: v for k, v in sorted(
-                postURLFreq.items(), key=lambda x: x[1], reverse=True)}
-
-            freqPosts = []
-
-            for url, countURL in postURLFreq.items():
-                postsWithURL = [post for post in posts if post.link.url == url]
-                freqPosts.extend(postsWithURL)
-
-            response = [format(post) for post in freqPosts]
+            response = [format(post) for post in posts]
             return response, 200
 
         except BaseException:
