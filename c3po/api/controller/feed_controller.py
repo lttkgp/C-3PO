@@ -8,7 +8,6 @@ from api.dto import FeedDto
 from api.service.feed_service import FeedService
 
 feed_ns = FeedDto.ns
-# songObject = FeedDto.songObject
 
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=int, default=10)
@@ -21,7 +20,6 @@ parser.add_argument('to', type=datetime_from_iso8601, help="Exclusive")
 class FeedPopular(Resource):
     """ User Login Resource """
     @feed_ns.doc('Popular songs (most liked)')
-    # @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
@@ -40,7 +38,6 @@ class FeedPopular(Resource):
 @feed_ns.route('/latest')
 class FeedLatest(Resource):
     @feed_ns.doc('Latest feed')
-    # @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
@@ -57,7 +54,6 @@ class FeedLatest(Resource):
     popular_parser.add_argument('past', type=int, help='Days in the past')
 
     @feed_ns.doc('Latest popular songs')
-    # @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
@@ -72,7 +68,6 @@ class FeedLatest(Resource):
 @feed_ns.route('/frequent')
 class FeedFrequent(Resource):
     @feed_ns.doc('Most frequent songs')
-    # @feed_ns.marshal_list_with(songObject)
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
