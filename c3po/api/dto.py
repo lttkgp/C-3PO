@@ -12,6 +12,7 @@ class PostDto(Schema):
     caption = fields.String()
     share_date = fields.DateTime()
     likes_count = fields.Integer()
+    permalink_url = fields.String()
 
 
 class ArtistDto(Schema):
