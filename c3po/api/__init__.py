@@ -2,8 +2,8 @@
 from flask import Blueprint
 from flask_restx import Api
 
-from api.controller.feed_controller import feed_ns
-from api.controller.test_controller import api as test_ns
+from c3po.api.controller.feed_controller import feed_ns
+from c3po.api.controller.test_controller import api as test_ns
 
 blueprint = Blueprint('api', __name__)
 

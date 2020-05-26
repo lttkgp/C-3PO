@@ -4,8 +4,8 @@ from flask import abort, request
 from flask_restx import Namespace, Resource, reqparse
 from flask_restx.inputs import datetime_from_iso8601
 
-from api.dto import FeedDto
-from api.service.feed_service import FeedService
+from c3po.api.dto import FeedDto
+from c3po.api.service.feed_service import FeedService
 
 feed_ns = FeedDto.ns
 

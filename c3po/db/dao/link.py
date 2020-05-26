@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 
-from db.common.base import Base
+from c3po.db.common.base import Base
 
 
 class Link(Base):

@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from db.common.db_config import POSTGRES_URI
+from c3po.db.common.db_config import POSTGRES_URI
 
 engine = create_engine(POSTGRES_URI)
 # use session_factory() to get a new Session
@@ -14,7 +14,7 @@ Base = declarative_base()
 
 
 def session_factory():
-    from db.dao import artist, genre, link, song, user
+    from c3po.db.dao import artist, genre, link, song, user
 
     Base.metadata.create_all(engine)
     return _SessionFactory()
