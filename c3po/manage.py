@@ -14,7 +14,7 @@ from flask_script import Manager
 
 from c3po.api import blueprint
 from c3po.api.create_app import create_app
-from logging_config import setup_logger
+from c3po.logging_config import setup_logger
 
 setup_logger()
 LOG = getLogger(__name__)
