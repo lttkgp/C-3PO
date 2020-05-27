@@ -1,4 +1,4 @@
-from c3po.db.common.base import session_factory
+from db.common.base import session_factory
 
 
 def start():
