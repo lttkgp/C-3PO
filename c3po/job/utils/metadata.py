@@ -30,14 +30,15 @@ def _insert_post(url, user, data, session):
     caption = "" if data["message"] is None else data["message"].strip()
     facebook_id = data["id"]
     likes_count = data["reactions"]["summary"]["total_count"]
+    permalink_url = data["permalink_url"]
     new_link = _insert_link(url, session)
     if not new_link:
         new_link = session.query(Link).filter(Link.url == url).first()
-        new_post = UserPosts(user, new_link, date_time, caption, facebook_id)
+        new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
         new_post.likes_count = likes_count
         session.add(new_post)
         return None
-    new_post = UserPosts(user, new_link, date_time, caption, facebook_id)
+    new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
     new_post.likes_count = likes_count
     session.add(new_post)
     return new_link

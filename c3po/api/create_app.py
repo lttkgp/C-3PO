@@ -3,7 +3,7 @@ from logging import getLogger
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from app_config import config_by_name
+from c3po.app_config import config_by_name
 
 LOG = getLogger(__name__)
 

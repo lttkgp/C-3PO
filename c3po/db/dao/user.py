@@ -39,6 +39,7 @@ class UserPosts(Base):
     caption = Column(String(160))
     facebook_id = Column(String(160))
     likes_count = Column(Integer)
+    permalink_url = Column(String)
 
     # Relationships
     link = relationship(
@@ -49,12 +50,13 @@ class UserPosts(Base):
     )
 
     # Helper methods
-    def __init__(self, user=None, link=None, share_date=None, caption=None, facebook_id=None):
+    def __init__(self, user=None, link=None, share_date=None, caption=None, facebook_id=None, permalink_url=None):
         self.user = user
         self.link = link
         self.share_date = share_date
         self.caption = caption
         self.facebook_id = facebook_id
+        self.permalink_url = permalink_url
 
 
 class User(Base):
