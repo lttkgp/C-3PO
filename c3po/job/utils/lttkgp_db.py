@@ -10,10 +10,12 @@ MC = MongoClient(MONGO_URI).get_database()
 def first_time_init():
     posts = MC["posts"]
     for data in posts.find():
-        print(data)
-        insert_metadata(data)
+        try:
+            insert_metadata(data)
+            print(data['id'])
         # TODO: Remove break after testing
-        break
+        except Exception as e:
+            pass
 
 
 if __name__ == "__main__":

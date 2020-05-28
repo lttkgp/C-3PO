@@ -36,7 +36,7 @@ class Song(Base):
     explicit = Column("explicit", Boolean)
     popularity = Column("popularity", Float)
     image = Column("Image", String(160))
-    yt_popularity = Column("yt_popularity", Float)
+    custom_popularity = Column("custom_popularity", Float)
 
     # Self-referential relationship to model song covers
     cover = Column("cover", Boolean)
@@ -47,13 +47,13 @@ class Song(Base):
     links = relationship("Link", backref="song")
 
     def __init__(
-        self, name, release_date, explicit, popularity, image, yt_popularity, cover, original_id
+        self, name, release_date, explicit, popularity, image, custom_popularity, cover, original_id
     ):
         self.name = name
         self.release_date = release_date
         self.explicit = explicit
         self.popularity = popularity
         self.image = image
-        self.yt_popularity = yt_popularity
+        self.custom_popularity = custom_popularity
         self.cover = cover
         self.original_id = original_id
