@@ -15,7 +15,7 @@ def insert_metadata(raw_data):
         user = _insert_default_user(session)
         new_link = _insert_post(url, user, raw_data, session)
         if new_link:
-            new_song = _insert_song(data.track, session)
+            new_song = _insert_song(data.track, data.extraAttrs, session)
             new_link.song_id = new_song.id
             for artist_data in data.artists:
                 new_artist = _insert_artist(artist_data, session)
@@ -60,20 +60,22 @@ def _insert_link(url, session):
         query.post_count += 1
         return None
 
-
-def _insert_song(track_data, session):
+def _insert_song(track_data, extras, session):
     try:
         date = datetime.strptime(track_data.year, "%Y-%m-%d")
     except ValueError:
         date = datetime.strptime(track_data.year, "%Y")
     except BaseException:
         date = None
+    custom_popularity = get_custom_popularity(extras)
+
     new_song = Song(
         track_data.name,
         date,
         track_data.explicit,
         track_data.popularity,
         track_data.image_id,
+        custom_popularity,
         track_data.is_cover,
         track_data.original_id,
     )
@@ -121,3 +123,9 @@ def _insert_default_user(session):
         "https://user-images.githubusercontent.com/10023615/77320178-19fe9e00-6d36-11ea-9c0c-45f652a6da78.png",
         session,
     )
+
+def get_custom_popularity (extras):
+    delta = datetime.now() - extras['youtube']['posted_date']
+    factor = 24*60*60
+    score = float(extras['youtube']['views'] /(delta.days*factor))
+    return score

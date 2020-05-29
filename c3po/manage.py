@@ -13,7 +13,7 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
 from c3po.api import blueprint
-from c3po.api.create_app import create_app
+from c3po.api.create_app import create_app, db
 from c3po.logging_config import setup_logger
 
 setup_logger()
@@ -25,6 +25,9 @@ app.register_blueprint(blueprint)
 
 manager = Manager(app)
 
+migrate = Migrate(app, db)
+
+manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
