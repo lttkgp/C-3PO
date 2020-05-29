@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Date, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 
-from c3po.db.common.base import Base
+from c3po.db.base import Base
 
 
 class SongGenre(Base):
@@ -47,7 +47,15 @@ class Song(Base):
     links = relationship("Link", backref="song")
 
     def __init__(
-        self, name, release_date, explicit, popularity, image, custom_popularity, cover, original_id
+        self,
+        name,
+        release_date,
+        explicit,
+        popularity,
+        image,
+        custom_popularity,
+        cover,
+        original_id,
     ):
         self.name = name
         self.release_date = release_date

@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from c3po.db.common.db_config import POSTGRES_URI
+from c3po.db.db_config import POSTGRES_URI
 
 engine = create_engine(POSTGRES_URI)
 # use session_factory() to get a new Session

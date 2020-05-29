@@ -3,8 +3,19 @@ from datetime import datetime
 from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
 
-from c3po.db.common.base import session_scope
-from c3po.db.dao import Artist, ArtistGenre, ArtistSong, Genre, Link, Song, SongGenre, User, UserLikes, UserPosts
+from c3po.db.base import session_scope
+from c3po.db.dao import (
+    Artist,
+    ArtistGenre,
+    ArtistSong,
+    Genre,
+    Link,
+    Song,
+    SongGenre,
+    User,
+    UserLikes,
+    UserPosts,
+)
 
 
 def insert_metadata(raw_data):
@@ -34,7 +45,9 @@ def _insert_post(url, user, data, session):
     new_link = _insert_link(url, session)
     if not new_link:
         new_link = session.query(Link).filter(Link.url == url).first()
-        new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
+        new_post = UserPosts(
+            user, new_link, date_time, caption, facebook_id, permalink_url
+        )
         new_post.likes_count = likes_count
         session.add(new_post)
         return None
@@ -59,6 +72,7 @@ def _insert_link(url, session):
     else:
         query.post_count += 1
         return None
+
 
 def _insert_song(track_data, extras, session):
     try:
@@ -85,8 +99,7 @@ def _insert_song(track_data, extras, session):
 
 
 def _insert_artist(artist_data, session):
-    query = session.query(Artist).filter(
-        Artist.name == artist_data.name).first()
+    query = session.query(Artist).filter(Artist.name == artist_data.name).first()
     if not query:
         new_artist = Artist(artist_data.name, artist_data.image_id)
         session.add(new_artist)
@@ -124,8 +137,9 @@ def _insert_default_user(session):
         session,
     )
 
-def get_custom_popularity (extras):
-    delta = datetime.now() - extras['youtube']['posted_date']
-    factor = 24*60*60
-    score = float(extras['youtube']['views'] /(delta.days*factor))
+
+def get_custom_popularity(extras):
+    delta = datetime.now() - extras["youtube"]["posted_date"]
+    factor = 24 * 60 * 60
+    score = float(extras["youtube"]["views"] / (delta.days * factor))
     return score

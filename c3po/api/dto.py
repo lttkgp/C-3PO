@@ -5,7 +5,7 @@ from marshmallow import Schema, fields
 
 
 class FeedDto:
-    ns = Namespace('feed', description='Feed Related operations')
+    ns = Namespace("feed", description="Feed Related operations")
 
 
 class PostDto(Schema):

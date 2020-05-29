@@ -2,7 +2,7 @@ from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.schema import UniqueConstraint
 
-from c3po.db.common.base import Base
+from c3po.db.base import Base
 
 
 class UserLikes(Base):
@@ -18,8 +18,7 @@ class UserLikes(Base):
     link = relationship(
         "Link", backref=backref("liked_by", cascade="all, delete-orphan")
     )
-    user = relationship("User", backref=backref(
-        "likes", cascade="all, delete-orphan"))
+    user = relationship("User", backref=backref("likes", cascade="all, delete-orphan"))
 
     # Helper methods
     def __init__(self, link=None, user=None, reaction_type=None):
@@ -50,7 +49,15 @@ class UserPosts(Base):
     )
 
     # Helper methods
-    def __init__(self, user=None, link=None, share_date=None, caption=None, facebook_id=None, permalink_url=None):
+    def __init__(
+        self,
+        user=None,
+        link=None,
+        share_date=None,
+        caption=None,
+        facebook_id=None,
+        permalink_url=None,
+    ):
         self.user = user
         self.link = link
         self.share_date = share_date

@@ -2,7 +2,7 @@ import json
 
 from pymongo import MongoClient
 
-from c3po.db.common.db_config import MONGO_URI
+from c3po.db.db_config import MONGO_URI
 
 MC = MongoClient(MONGO_URI).get_database()
 
