@@ -13,12 +13,14 @@ These instructions will get you a copy of the project up and running on your loc
 - MongoDB (can be local or remote)
 - <details>
     <summary> Facebook Graph API Credentials </summary>
+
     You will need 'User access tokens' to work with the Graph API. You can find more information here: [Graph API documentation](https://developers.facebook.com/docs/graph-api/overview#step2).
 
     As explained in the link above, create a new Facebook app (My Apps -> Add a new app) and generate user access tokens through the Graph API explorer.
   </details>
 - <details>
     <summary> Spotify Web API Credentials </summary>
+
     You will also need Spotify authorization for fetching song metadata. The prodcude is very straightforward. Register a new application here:
     [Spotify for Developers](https://developer.spotify.com/my-applications)
 
