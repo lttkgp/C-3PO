@@ -4,7 +4,7 @@ from c3po.utils.config import read_config
 
 
 def _get_mongo_uri():
-    MONGO_CONFIG = read_config("database.ini", "mongo")
+    MONGO_CONFIG = read_config("config.ini", "mongo")
     if "user" in MONGO_CONFIG:
         mongo_uri = "mongodb+srv://{user}:{password}@{host}/{database}".format(
             user=MONGO_CONFIG["user"],
@@ -23,7 +23,7 @@ def _get_mongo_uri():
 
 
 def _get_postgres_uri():
-    POSTGRES_CONFIG = read_config("database.ini", "postgresql")
+    POSTGRES_CONFIG = read_config("config.ini", "postgresql")
     postgres_uri = "postgresql://{user}:{password}@{host}/{database}".format(
         user=POSTGRES_CONFIG["user"],
         password=quote_plus(POSTGRES_CONFIG["password"]),

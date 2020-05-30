@@ -3,9 +3,9 @@ from logging import getLogger
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
 from c3po.db.base import session_factory
-from c3po.db.dao.artist import ArtistGenre, ArtistSong
-from c3po.db.dao.link import Link
-from c3po.db.dao.user import UserPosts
+from c3po.db.models.artist import ArtistGenre, ArtistSong
+from c3po.db.models.link import Link
+from c3po.db.models.user import UserPosts
 
 LOG = getLogger(__name__)
 

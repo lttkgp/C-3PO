@@ -1,5 +1,6 @@
 """Define App level configuration for Dev, Testing and Production."""
 import os
+
 from c3po.db.db_config import POSTGRES_URI
 
 basedir = os.path.abspath(os.path.dirname(__file__))

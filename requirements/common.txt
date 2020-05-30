@@ -1,4 +1,5 @@
 alembic
+apscheduler
 coloredlogs
 dnspython
 flask-restx
@@ -10,3 +11,4 @@ pymongo
 python-dotenv
 requests
 marshmallow
+uwsgi

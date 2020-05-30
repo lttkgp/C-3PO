@@ -4,7 +4,7 @@ from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
 
 from c3po.db.base import session_scope
-from c3po.db.dao import (
+from c3po.db.models import (
     Artist,
     ArtistGenre,
     ArtistSong,

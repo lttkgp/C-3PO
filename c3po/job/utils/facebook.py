@@ -6,20 +6,22 @@ import dotenv
 import requests
 from dotenv import find_dotenv, load_dotenv
 
-import c3po.constants as constants
+from c3po.utils.config import read_config
+
+constants = read_config("config.ini", "facebook")
 
 load_dotenv(find_dotenv())
 
 REQ_SESSION = requests.Session()
-FB_URL = "https://graph.facebook.com/" + constants.FACEBOOK_API_VERSION + "/"
+FB_URL = "https://graph.facebook.com/" + constants.get("FACEBOOK_API_VERSION") + "/"
 FB_SHORT_ACCESS_TOKEN = os.environ.get("FB_SHORT_ACCESS_TOKEN")
 FB_LONG_ACCESS_TOKEN = os.environ.get("FB_LONG_ACCESS_TOKEN")
 FB_APP_ID = os.environ.get("FB_APP_ID")
 FB_APP_SECRET = os.environ.get("FB_APP_SECRET")
-GROUP_ID = constants.FACEBOOK_GROUP_ID
+GROUP_ID = constants.get("FACEBOOK_GROUP_ID")
 PAYLOAD = {"access_token": FB_LONG_ACCESS_TOKEN}
-COMMENT_LOCKDOWN = constants.FACEBOOK_COMMENT_LOCKDOWN
-REACTION_LOCKDOWN = constants.FACEBOOK_REACTION_LOCKDOWN
+COMMENT_LOCKDOWN = constants.get("FACEBOOK_COMMENT_LOCKDOWN")
+REACTION_LOCKDOWN = constants.get("FACEBOOK_REACTION_LOCKDOWN")
 
 
 def refresh_access_token():
@@ -71,14 +73,14 @@ def make_request(request_url, request_params):
 def build_feed_request():
     request_url = FB_URL + GROUP_ID + "/feed"
     request_params = PAYLOAD.copy()
-    request_params["fields"] = constants.FACEBOOK_POST_FIELDS
+    request_params["fields"] = constants.get("FACEBOOK_POST_FIELDS")
     request_params["fields"] = request_params["fields"] + ",reactions.summary(true){"
     request_params["fields"] = (
-        request_params["fields"] + constants.FACEBOOK_REACTION_FIELDS + "}"
+        request_params["fields"] + constants.get("FACEBOOK_REACTION_FIELDS") + "}"
     )
     request_params["fields"] = request_params["fields"] + ",comments.summary(true){"
     request_params["fields"] = (
-        request_params["fields"] + constants.FACEBOOK_COMMENT_FIELDS + "}"
+        request_params["fields"] + constants.get("FACEBOOK_COMMENT_FIELDS") + "}"
     )
     return request_url, request_params
 

@@ -1,11 +1,16 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 
+# add your model's MetaData object here
+# for 'autogenerate' support
+# from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
+from c3po.db import db_config
+from c3po.db.base import Base
 from c3po.db.db_config import POSTGRES_URI
+from c3po.db.models import artist, genre, link, song, user
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -15,13 +20,6 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-from c3po.db import db_config
-from c3po.db.dao import artist, genre, link, song, user
-from c3po.db.base import Base
 
 config.set_main_option("sqlalchemy.url", db_config.POSTGRES_URI)
 target_metadata = Base.metadata

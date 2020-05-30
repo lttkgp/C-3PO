@@ -14,7 +14,7 @@ Base = declarative_base()
 
 
 def session_factory():
-    from c3po.db.dao import artist, genre, link, song, user
+    from c3po.db.models import artist, genre, link, song, user
 
     Base.metadata.create_all(engine)
     return _SessionFactory()
