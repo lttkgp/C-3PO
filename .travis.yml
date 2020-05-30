@@ -12,4 +12,4 @@ install:
   - pip install -r requirements/dev.txt
 
 script:
-  - bash c3po/sanity.sh
+  - bash bin/sanity.sh
