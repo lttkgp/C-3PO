@@ -1,8 +1,7 @@
+alembic
 coloredlogs
 dnspython
-Flask-Migrate
 flask-restx
-Flask-Script
 isodate
 music_metadata_extractor
 psycopg2
