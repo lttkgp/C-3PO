@@ -14,13 +14,22 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
 
 ##################
 # Job Definitions
 ##################
 jobs:
-  build: &build-template
+  build:
     docker:
       - image: circleci/python:3.6.2-stretch-browsers
     steps:
@@ -46,6 +55,13 @@ jobs:
           command: |
             . env/bin/activate
             ./bin/sanity.sh 
+  deploy: 
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+    steps:
+      - checkout
+      - run: ssh -oStrictHostKeyChecking=no -v $AWS_USER@$AWS_IP "/bin/sh /home/ubuntu/C-3PO/bin/deploy.sh"
       - slack/status:
-          success_message: C-3PO built successfully
-          failure_message: Build failed, check logs.
+          success_message: C-3PO deployed successfully
+          failure_message: Auto-Deploy failed, check logs.
+      
