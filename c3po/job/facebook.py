@@ -9,7 +9,6 @@ from dotenv import find_dotenv, load_dotenv
 from c3po.utils.config import read_config
 
 constants = read_config("config.ini", "facebook")
-
 load_dotenv(find_dotenv())
 
 REQ_SESSION = requests.Session()

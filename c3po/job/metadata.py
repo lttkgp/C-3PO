@@ -81,7 +81,7 @@ def _insert_song(track_data, extras, session):
         date = datetime.strptime(track_data.year, "%Y")
     except BaseException:
         date = None
-    custom_popularity = get_custom_popularity(extras)
+    custom_popularity = _get_custom_popularity(extras)
 
     new_song = Song(
         track_data.name,
@@ -138,7 +138,7 @@ def _insert_default_user(session):
     )
 
 
-def get_custom_popularity(extras):
+def _get_custom_popularity(extras):
     delta = datetime.now() - extras["youtube"]["posted_date"]
     factor = 24 * 60 * 60
     score = float(extras["youtube"]["views"] / (delta.days * factor))

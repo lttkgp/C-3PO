@@ -10,6 +10,7 @@ from logging import getLogger
 from flask import Flask, current_app
 
 from c3po.app_config import config_by_name
+from c3po.job import sched
 from c3po.logging_config import setup_logger
 
 setup_logger()
@@ -38,3 +39,4 @@ def create_app(config_name):
 
 
 app = create_app(os.getenv("FLASK_ENV") or "development")
+sched.start()
