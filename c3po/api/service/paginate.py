@@ -2,7 +2,7 @@ from urllib.parse import  urlparse , urlunparse, parse_qs
 from collections import OrderedDict
 from urllib.parse import urlencode
 
-def get_paginated_response(posts, url, start=0, limit=24):
+def get_paginated_response(posts, url, start=0, limit=24, offset=False):
     total = len(posts)
     if limit > total:
         return None
@@ -16,8 +16,10 @@ def get_paginated_response(posts, url, start=0, limit=24):
     else:
         next_start = start + limit
         response['next'] = _build_url(url, start + limit, limit)
-    
-    response['posts'] = posts[start: start + limit]
+    if(offset):
+        response['posts'] = posts
+    else:    
+        response['posts'] = posts[start: start + limit]
     return response
 
 def _build_url(url, start, limit):

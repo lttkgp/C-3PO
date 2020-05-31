@@ -2,10 +2,10 @@ from datetime import datetime, timedelta
 from logging import getLogger
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
-from c3po.db.common.base import session_factory
-from c3po.db.dao.artist import ArtistGenre, ArtistSong
-from c3po.db.dao.link import Link
-from c3po.db.dao.user import UserPosts
+from c3po.db.base import session_factory
+from c3po.db.models.artist import ArtistGenre, ArtistSong
+from c3po.db.models.link import Link
+from c3po.db.models.user import UserPosts
 from c3po.api.service.paginate import get_paginated_response
 
 LOG = getLogger(__name__)
@@ -71,21 +71,25 @@ class FeedService:
             return response_object, 500
 
     @staticmethod
-    def get_latest_posts(limit_):
+    def get_latest_posts(url, start, limit):
         try:
             session = session_factory()
             posts = (
                 session.query(UserPosts)
                 .filter(UserPosts.share_date <= datetime.now())
-                .limit(limit_)
+                .offset(start)
+                .limit(limit)
                 .all()
             )
 
-            return posts, 200
+            paginated_response = get_paginated_response(posts, url, start, limit, offset=True)
+            paginated_response['posts'] = [format(post) for post in paginated_response['posts']]
+
+            return paginated_response, 200
 
         except BaseException:
             LOG.error(
-                f"Failed to fetch data with param limit_ = {limit_}. Try later.",
+                f"Failed to fetch data with param start = {start}, limit = {limit}. Try later.",
                 exc_info=True,
             )
             response_object = {
@@ -135,7 +139,7 @@ class FeedService:
 
         except BaseException:
             LOG.error(
-                f"Failed to fetch data with param limit_ = {limit_}. Try later.",
+                f"Failed to fetch data with param limit_ = {limit}. Try later.",
                 exc_info=True,
             )
             response_object = {
