@@ -11,10 +11,10 @@ def first_time_init():
     posts = MC["posts"]
     for data in posts.find():
         try:
-            print(data)
             insert_metadata(data)
         except Exception as ex:
             print("Metadata fetch failed")
+            print(ex)
             pass
 
 
