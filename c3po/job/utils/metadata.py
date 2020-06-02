@@ -31,6 +31,7 @@ def insert_metadata(raw_data):
             for artist_data in data.artists:
                 new_artist = _insert_artist(artist_data, session)
                 _insert_artist_song(new_artist, new_song, session)
+                _insert_song_genre(artist_data, new_song, session)
 
 
 def _insert_post(url, user, data, session):
@@ -93,6 +94,7 @@ def _insert_song(track_data, extras, session):
         track_data.is_cover,
         track_data.original_id,
     )
+
     session.add(new_song)
     session.flush()
     return new_song
@@ -143,3 +145,21 @@ def get_custom_popularity(extras):
     factor = 24 * 60 * 60
     score = float(extras["youtube"]["views"] / (delta.days * factor))
     return score
+
+
+def _insert_song_genre(artist_data, new_song, session):
+    for temp_genre in artist_data.genres:
+        new_genre = _insert_genre(temp_genre, session)
+        query = (
+            session.query(SongGenre)
+            .filter(SongGenre.song_id == new_song.id)
+            .filter(SongGenre.genre_id == new_genre.id)
+            .first()
+        )
+
+        if not query:
+            new_song_genre = SongGenre(new_genre, new_song)
+            new_song_genre.genre_count = 1
+            session.add(new_song_genre)
+        else:
+            query.genre_count += 1

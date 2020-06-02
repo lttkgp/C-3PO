@@ -11,6 +11,7 @@ class SongGenre(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     song_id = Column(Integer, ForeignKey("song.id"), primary_key=True)
     genre_id = Column(Integer, ForeignKey("genre.id"), primary_key=True)
+    genre_count = Column(Integer, default=0)
 
     # Relationships
     genre = relationship(
