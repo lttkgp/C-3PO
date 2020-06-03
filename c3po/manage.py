@@ -8,6 +8,7 @@ import os
 from logging import getLogger
 
 from flask import Flask, current_app
+from flask_cors import CORS
 
 from c3po.app_config import config_by_name
 from c3po.logging_config import setup_logger
@@ -32,6 +33,8 @@ def create_app(config_name):
     app.config.from_object(config_by_name[config_name])
     LOG.info("app loaded with configuration {}!".format(config_name))
 
+    CORS(app)
+    LOG.info("Flask CORS setup successfully")
     with app.app_context():
         register_blueprints(app)
     return app
