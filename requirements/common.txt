@@ -12,3 +12,4 @@ python-dotenv
 requests
 marshmallow
 uwsgi
+flask-cors
