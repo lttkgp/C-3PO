@@ -11,15 +11,16 @@ feed_ns = FeedDto.ns
 
 parser = reqparse.RequestParser()
 
-parser.add_argument('genre', type=str)
-parser.add_argument('start', type=int, default=0)
-parser.add_argument('limit', type=int, default=25)
+parser.add_argument("genre", type=str)
+parser.add_argument("start", type=int, default=0)
+parser.add_argument("limit", type=int, default=25)
+
 
 @feed_ns.route("/interval")
 class FeedPopular(Resource):
     interval_parser = parser
-    interval_parser.add_argument('from', type=datetime_from_iso8601, help="Inclusive")
-    interval_parser.add_argument('to', type=datetime_from_iso8601, help="Exclusive")
+    interval_parser.add_argument("from", type=datetime_from_iso8601, help="Inclusive")
+    interval_parser.add_argument("to", type=datetime_from_iso8601, help="Exclusive")
     """ User Login Resource """
 
     @feed_ns.doc("Popular songs (most liked)")
@@ -45,7 +46,9 @@ class FeedLatest(Resource):
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
-        response, status = FeedService.get_latest_posts(request.url, args['start'], args["limit"])
+        response, status = FeedService.get_latest_posts(
+            request.url, args["start"], args["limit"]
+        )
         if status != 200:
             abort(403, response)
         else:
@@ -55,14 +58,15 @@ class FeedLatest(Resource):
 @feed_ns.route("/popular")
 class FeedLatest(Resource):
     popular_parser = parser
-    popular_parser.add_argument('n', type=int, help='Days in the past')
+    popular_parser.add_argument("n", type=int, help="Days in the past")
 
-    @feed_ns.doc('Latest popular songs')
+    @feed_ns.doc("Latest popular songs")
     @feed_ns.expect(popular_parser)
     def get(self):
         args = parser.parse_args()
         response, status = FeedService.get_popular_posts(
-            request.url, args['n'], args['start'], args['limit'])
+            request.url, args["n"], args["start"], args["limit"]
+        )
         if status != 200:
             abort(403, response)
         else:
@@ -75,7 +79,9 @@ class FeedFrequent(Resource):
     @feed_ns.expect(parser)
     def get(self):
         args = parser.parse_args()
-        response, status = FeedService.get_frequent_posts(request.url, args['start'], args["limit"])
+        response, status = FeedService.get_frequent_posts(
+            request.url, args["start"], args["limit"]
+        )
         if status != 200:
             abort(403, response)
         else:

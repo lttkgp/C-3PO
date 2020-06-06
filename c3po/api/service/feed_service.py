@@ -2,11 +2,11 @@ from datetime import datetime, timedelta
 from logging import getLogger
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
+from c3po.api.service.paginate import get_paginated_response
 from c3po.db.base import session_factory, session_scope
 from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
 from c3po.db.models.user import UserPosts
-from c3po.api.service.paginate import get_paginated_response
 
 LOG = getLogger(__name__)
 
@@ -80,11 +80,15 @@ class FeedService:
                     .limit(limit)
                     .all()
                 )
-                paginated_response = get_paginated_response(posts, url, start, limit, offset=True)
-                paginated_response['posts'] = [format(session, post) for post in paginated_response['posts']]
+                paginated_response = get_paginated_response(
+                    posts, url, start, limit, offset=True
+                )
+                paginated_response["posts"] = [
+                    format(session, post) for post in paginated_response["posts"]
+                ]
 
                 session.close()
-                print('Session closed!')
+                print("Session closed!")
                 return paginated_response, 200
 
             except BaseException:
@@ -103,20 +107,29 @@ class FeedService:
         """ Retrieves the most popular posts in the past n days"""
         with session_scope() as session:
             try:
-                posts = session.query(UserPosts)\
-                    .filter(UserPosts.share_date <= datetime.now() + timedelta(days=1))\
-                    .filter(UserPosts.share_date >= datetime.now() - timedelta(days=n))\
-                    .order_by(UserPosts.likes_count.desc()).all()
+                posts = (
+                    session.query(UserPosts)
+                    .filter(UserPosts.share_date <= datetime.now() + timedelta(days=1))
+                    .filter(UserPosts.share_date >= datetime.now() - timedelta(days=n))
+                    .order_by(UserPosts.likes_count.desc())
+                    .all()
+                )
 
-                paginated_response = get_paginated_response(posts, url, start=start, limit=limit)
-                paginated_response['posts'] = [format(session, post) for post in paginated_response['posts']]
-                
+                paginated_response = get_paginated_response(
+                    posts, url, start=start, limit=limit
+                )
+                paginated_response["posts"] = [
+                    format(session, post) for post in paginated_response["posts"]
+                ]
+
                 session.close()
                 return paginated_response, 200
 
             except BaseException:
                 LOG.error(
-                    f'Failed to fetch data with param n = {n}, start = {start}, limit = {limit} . Try later.', exc_info=True)
+                    f"Failed to fetch data with param n = {n}, start = {start}, limit = {limit} . Try later.",
+                    exc_info=True,
+                )
                 response_object = {
                     "status": "fail",
                     "message": "Try again",
@@ -137,9 +150,13 @@ class FeedService:
                     .all()
                 )
 
-                paginated_response = get_paginated_response(posts, url, start=start, limit=limit, offset=True)
-                paginated_response['posts'] = [format(session, post) for post in paginated_response['posts']]
-                
+                paginated_response = get_paginated_response(
+                    posts, url, start=start, limit=limit, offset=True
+                )
+                paginated_response["posts"] = [
+                    format(session, post) for post in paginated_response["posts"]
+                ]
+
                 session.close()
                 return paginated_response, 200
 
