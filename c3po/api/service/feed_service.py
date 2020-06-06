@@ -73,22 +73,22 @@ class FeedService:
     def get_latest_posts(url, start, limit):
         with session_scope() as session:
             try:
+                total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
                     .filter(UserPosts.share_date <= datetime.now())
+                    .order_by(UserPosts.share_date.desc())
                     .offset(start)
                     .limit(limit)
                     .all()
                 )
                 paginated_response = get_paginated_response(
-                    posts, url, start, limit, offset=True
+                    posts, url, total, start, limit
                 )
                 paginated_response["posts"] = [
                     format(session, post) for post in paginated_response["posts"]
                 ]
 
-                session.close()
-                print("Session closed!")
                 return paginated_response, 200
 
             except BaseException:
@@ -107,22 +107,22 @@ class FeedService:
         """ Retrieves the most popular posts in the past n days"""
         with session_scope() as session:
             try:
-                posts = (
+                all_posts = (
                     session.query(UserPosts)
                     .filter(UserPosts.share_date <= datetime.now() + timedelta(days=1))
                     .filter(UserPosts.share_date >= datetime.now() - timedelta(days=n))
                     .order_by(UserPosts.likes_count.desc())
-                    .all()
                 )
+                total = all_posts.count()
+                posts = all_posts.offset(start).limit(limit).all()
 
                 paginated_response = get_paginated_response(
-                    posts, url, start=start, limit=limit
+                    posts, url, start=start, limit=limit, total=total
                 )
                 paginated_response["posts"] = [
                     format(session, post) for post in paginated_response["posts"]
                 ]
 
-                session.close()
                 return paginated_response, 200
 
             except BaseException:
@@ -157,7 +157,6 @@ class FeedService:
                     format(session, post) for post in paginated_response["posts"]
                 ]
 
-                session.close()
                 return paginated_response, 200
 
             except BaseException:

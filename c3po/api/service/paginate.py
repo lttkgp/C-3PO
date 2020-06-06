@@ -2,28 +2,20 @@ from collections import OrderedDict
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 
-def get_paginated_response(posts, url, start=0, limit=24, offset=False):
-    total = len(posts)
+def get_paginated_response(posts, url, total, start=0, limit=24):
+    response = {}
     if limit > total:
         return None
-    response = {}
-    response["start"] = start
-    response["limit"] = limit
-    if not offset:
-        response["total"] = total
-    if start + limit > total and not offset:
-        response["next"] = ""
+    response['total'] = total
+    if start + limit > total:
+        response['next'] = ''
     else:
-        next_start = start + limit
-        response["next"] = _build_url(url, start + limit, limit)
-    if offset:
-        response["posts"] = posts
-    else:
-        response["posts"] = posts[start : start + limit]
+        response["next"] = _build_next_url(url, start + limit, limit)
+    response["posts"] = posts
     return response
 
 
-def _build_url(url, start, limit):
+def _build_next_url(url, start, limit):
     base_url = url[: url.find("?") + 1]
     query_params = OrderedDict(parse_qs(urlparse(url).query))
 
