@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from isodate import ISO8601Error, parse_datetime
+from music_metadata_extractor import SongData
 
 from c3po.db.base import session_scope
 from c3po.db.models import (
@@ -15,7 +16,6 @@ from c3po.db.models import (
     UserLikes,
     UserPosts,
 )
-from music_metadata_extractor import SongData
 
 
 def insert_metadata(raw_data):
