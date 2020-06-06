@@ -140,6 +140,7 @@ class FeedService:
     def get_frequent_posts(url, start, limit):
         with session_scope() as session:
             try:
+                total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
                     .filter(UserPosts.share_date <= datetime.now())
@@ -151,7 +152,7 @@ class FeedService:
                 )
 
                 paginated_response = get_paginated_response(
-                    posts, url, start=start, limit=limit, offset=True
+                    posts, url, total, start=start, limit=limit
                 )
                 paginated_response["posts"] = [
                     format(session, post) for post in paginated_response["posts"]

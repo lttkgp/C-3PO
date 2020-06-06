@@ -6,9 +6,9 @@ def get_paginated_response(posts, url, total, start=0, limit=24):
     response = {}
     if limit > total:
         return None
-    response['total'] = total
+    response["total"] = total
     if start + limit > total:
-        response['next'] = ''
+        response["next"] = ""
     else:
         response["next"] = _build_next_url(url, start + limit, limit)
     response["posts"] = posts
