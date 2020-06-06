@@ -9,9 +9,9 @@ def get_paginated_response(posts, url, start=0, limit=24, offset=False):
     response = {}
     response['start'] = start
     response['limit'] = limit
-    response['total'] = total
-
-    if start + limit > total:
+    if not offset:
+        response['total'] = total
+    if start + limit > total and not offset:
         response['next'] = ''
     else:
         next_start = start + limit
