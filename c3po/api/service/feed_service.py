@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timedelta
 from logging import getLogger
 
@@ -42,6 +43,16 @@ def format(session, post):
     }
 
 
+def post_genre_filter(post, query_genre):
+
+    if not query_genre or not query_genre.strip():
+        return post
+
+    post_genres = post["metadata"]["genre"]
+    if any(re.search(query_genre, genre) for genre in post_genres):
+        return post
+
+
 class FeedService:
     @staticmethod
     def get_posts_in_interval(
@@ -70,7 +81,7 @@ class FeedService:
             return response_object, 500
 
     @staticmethod
-    def get_latest_posts(url, start, limit):
+    def get_latest_posts(url, start, limit, genre_):
         with session_scope() as session:
             try:
                 total = session.query(UserPosts).count()
@@ -85,8 +96,15 @@ class FeedService:
                 paginated_response = get_paginated_response(
                     posts, url, total, start, limit
                 )
-                paginated_response["posts"] = [
+
+                formatted_posts = [
                     format(session, post) for post in paginated_response["posts"]
+                ]
+
+                paginated_response["posts"] = [
+                    post_genre_filter(post, genre_)
+                    for post in formatted_posts
+                    if post_genre_filter(post, genre_) is not None
                 ]
 
                 return paginated_response, 200
@@ -103,7 +121,7 @@ class FeedService:
                 return response_object, 500
 
     @staticmethod
-    def get_popular_posts(url, n, start, limit):
+    def get_popular_posts(url, n, start, limit, genre_):
         """ Retrieves the most popular posts in the past n days"""
         with session_scope() as session:
             try:
@@ -119,8 +137,15 @@ class FeedService:
                 paginated_response = get_paginated_response(
                     posts, url, start=start, limit=limit, total=total
                 )
-                paginated_response["posts"] = [
+
+                formatted_posts = [
                     format(session, post) for post in paginated_response["posts"]
+                ]
+
+                paginated_response["posts"] = [
+                    post_genre_filter(post, genre_)
+                    for post in formatted_posts
+                    if post_genre_filter(post, genre_) is not None
                 ]
 
                 return paginated_response, 200
@@ -137,7 +162,7 @@ class FeedService:
                 return response_object, 500
 
     @staticmethod
-    def get_frequent_posts(url, start, limit):
+    def get_frequent_posts(url, start, limit, genre_):
         with session_scope() as session:
             try:
                 total = session.query(UserPosts).count()
@@ -154,15 +179,21 @@ class FeedService:
                 paginated_response = get_paginated_response(
                     posts, url, total, start=start, limit=limit
                 )
-                paginated_response["posts"] = [
+                formatted_posts = [
                     format(session, post) for post in paginated_response["posts"]
+                ]
+
+                paginated_response["posts"] = [
+                    post_genre_filter(post, genre_)
+                    for post in formatted_posts
+                    if post_genre_filter(post, genre_) is not None
                 ]
 
                 return paginated_response, 200
 
             except BaseException:
                 LOG.error(
-                    f"Failed to fetch data with param limit_ = {limit}. Try later.",
+                    f"Failed to fetch data with param limit_ = {limit} and genre_ = {genre_}. Try later.",
                     exc_info=True,
                 )
                 response_object = {

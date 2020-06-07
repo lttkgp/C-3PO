@@ -47,7 +47,7 @@ class FeedLatest(Resource):
     def get(self):
         args = parser.parse_args()
         response, status = FeedService.get_latest_posts(
-            request.url, args["start"], args["limit"]
+            request.url, args["start"], args["limit"], args["genre"]
         )
         if status != 200:
             abort(403, response)
@@ -65,7 +65,7 @@ class FeedLatest(Resource):
     def get(self):
         args = parser.parse_args()
         response, status = FeedService.get_popular_posts(
-            request.url, args["n"], args["start"], args["limit"]
+            request.url, args["n"], args["start"], args["limit"], args["genre"]
         )
         if status != 200:
             abort(403, response)
@@ -80,7 +80,7 @@ class FeedFrequent(Resource):
     def get(self):
         args = parser.parse_args()
         response, status = FeedService.get_frequent_posts(
-            request.url, args["start"], args["limit"]
+            request.url, args["start"], args["limit"], args["genre"]
         )
         if status != 200:
             abort(403, response)
