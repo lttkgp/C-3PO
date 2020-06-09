@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from logging import getLogger
+import re
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
 from c3po.api.service.paginate import get_paginated_response
@@ -10,10 +11,17 @@ from c3po.db.models.user import UserPosts
 
 LOG = getLogger(__name__)
 
+def get_yt_id(url):
+    pattern = re.compile(r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})')
+    match = pattern.match(url)
+    if not match:
+        return None
+    return match.group('id')
 
 def format(session, post):
     link = post.link
     song = link.song
+    id = get_yt_id(post.link.url)
     artists = [
         artist_song.artist
         for artist_song in session.query(ArtistSong)
@@ -32,6 +40,7 @@ def format(session, post):
 
     return {
         "link": link.url,
+        "id": id,
         "post_count": link.post_count,
         "postdata": post_dto.dump(post),
         "metadata": {
@@ -40,6 +49,7 @@ def format(session, post):
             "genre": [genre.name for genre in genres],
         },
     }
+
 
 
 class FeedService:
