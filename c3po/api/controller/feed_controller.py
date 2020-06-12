@@ -58,7 +58,7 @@ class FeedLatest(Resource):
 @feed_ns.route("/popular")
 class FeedLatest(Resource):
     popular_parser = parser
-    popular_parser.add_argument("n", type=int, help="Days in the past")
+    popular_parser.add_argument("n", type=int, help="Days in the past", default=7)
 
     @feed_ns.doc("Latest popular songs")
     @feed_ns.expect(popular_parser)

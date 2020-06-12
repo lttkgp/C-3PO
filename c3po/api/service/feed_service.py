@@ -14,7 +14,8 @@ LOG = getLogger(__name__)
 
 def get_yt_id(url):
     pattern = re.compile(
-        r"(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})"
+        r"(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\
+            .(com|be)/(watch\?v=|embed/|v/|.+\?v=)?(?P<id>[A-Za-z0-9\-=_]{11})"
     )
     match = pattern.match(url)
     if not match:
