@@ -69,7 +69,6 @@ class FeedService:
                 .order_by(UserPosts.likes_count.desc())
             )
             total = query_posts.count()
-            print(total)
             posts = query_posts.all()
             
             paginated_response = get_paginated_response(
