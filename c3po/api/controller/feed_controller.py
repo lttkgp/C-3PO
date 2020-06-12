@@ -29,10 +29,12 @@ class FeedPopular(Resource):
         args = parser.parse_args()
         if args["from"] and args["to"]:
             response, status = FeedService.get_posts_in_interval(
-                args["from"], args["to"]
+                request.url, args["start"], args["limit"], args["from"], args["to"]
             )
         else:
-            response, status = FeedService.get_posts_in_interval()
+            response, status = FeedService.get_posts_in_interval(
+                request.url, args["start"], args["limit"]
+            )
 
         if status != 200:
             abort(403, response)

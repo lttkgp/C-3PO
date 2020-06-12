@@ -59,18 +59,25 @@ def format(session, post):
 class FeedService:
     @staticmethod
     def get_posts_in_interval(
-        from_=datetime.now() - timedelta(days=3), to_=datetime.now()
+        url, start, limit, from_=datetime.now() - timedelta(days=7), to_=datetime.now()
     ):
         try:
             session = session_factory()
-            posts = (
+            query_posts = (
                 session.query(UserPosts)
                 .filter(UserPosts.share_date >= from_)
                 .filter(UserPosts.share_date <= to_)
-                .all()
+                .order_by(UserPosts.likes_count.desc())
             )
+            total = query_posts.count()
+            posts = query_posts.all()
 
-            return posts, 200
+            paginated_response = get_paginated_response(posts, url, total, start, limit)
+
+            paginated_response["posts"] = [
+                format(session, post) for post in paginated_response["posts"]
+            ]
+            return paginated_response, 200
 
         except BaseException:
             LOG.error(
