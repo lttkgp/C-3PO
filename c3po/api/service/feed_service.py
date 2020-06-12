@@ -70,13 +70,11 @@ class FeedService:
             )
             total = query_posts.count()
             posts = query_posts.all()
-            
-            paginated_response = get_paginated_response(
-                posts, url, total, start, limit
-            )
 
-            paginated_response['posts'] = [
-                format(session, post) for post in paginated_response['posts']
+            paginated_response = get_paginated_response(posts, url, total, start, limit)
+
+            paginated_response["posts"] = [
+                format(session, post) for post in paginated_response["posts"]
             ]
             return paginated_response, 200
 
