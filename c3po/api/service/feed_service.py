@@ -7,6 +7,8 @@ from c3po.api.service.paginate import get_paginated_response
 from c3po.db.base import session_factory, session_scope
 from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
+from c3po.db.models.song import Song, SongGenre
+from c3po.db.models.genre import Genre
 from c3po.db.models.user import UserPosts
 
 LOG = getLogger(__name__)
@@ -43,16 +45,6 @@ def format(session, post):
     }
 
 
-def post_genre_filter(post, query_genre):
-
-    if not query_genre or not query_genre.strip():
-        return post
-
-    post_genres = post["metadata"]["genre"]
-    if any(re.search(query_genre, genre) for genre in post_genres):
-        return post
-
-
 class FeedService:
     @staticmethod
     def get_posts_in_interval(
@@ -84,27 +76,30 @@ class FeedService:
     def get_latest_posts(url, start, limit, genre_):
         with session_scope() as session:
             try:
+                if genre_ is None:
+                    genre_ = ""
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
+                    .join(Link, UserPosts.link_id == Link.id)
+                    .join(Song, Link.song_id == Song.id)
+                    .join(SongGenre, Song.id == SongGenre.song_id)
+                    .join(Genre, SongGenre.genre_id == Genre.id)
+                    .filter(Genre.name.like("%{}%".format(genre_)))
                     .filter(UserPosts.share_date <= datetime.now())
                     .order_by(UserPosts.share_date.desc())
                     .offset(start)
                     .limit(limit)
                     .all()
                 )
+                
+                print(len(posts))
                 paginated_response = get_paginated_response(
                     posts, url, total, start, limit
                 )
 
-                formatted_posts = [
-                    format(session, post) for post in paginated_response["posts"]
-                ]
-
                 paginated_response["posts"] = [
-                    post_genre_filter(post, genre_)
-                    for post in formatted_posts
-                    if post_genre_filter(post, genre_) is not None
+                    format(session, post) for post in paginated_response["posts"]
                 ]
 
                 return paginated_response, 200
@@ -127,6 +122,11 @@ class FeedService:
             try:
                 all_posts = (
                     session.query(UserPosts)
+                    .join(Link, UserPosts.link_id == Link.id)
+                    .join(Song, Link.song_id == Song.id)
+                    .join(SongGenre, Song.id == SongGenre.song_id)
+                    .join(Genre, SongGenre.genre_id == Genre.id)
+                    .filter(Genre.name.like("%{}%".format(genre_)))
                     .filter(UserPosts.share_date <= datetime.now() + timedelta(days=1))
                     .filter(UserPosts.share_date >= datetime.now() - timedelta(days=n))
                     .order_by(UserPosts.likes_count.desc())
@@ -138,14 +138,8 @@ class FeedService:
                     posts, url, start=start, limit=limit, total=total
                 )
 
-                formatted_posts = [
-                    format(session, post) for post in paginated_response["posts"]
-                ]
-
                 paginated_response["posts"] = [
-                    post_genre_filter(post, genre_)
-                    for post in formatted_posts
-                    if post_genre_filter(post, genre_) is not None
+                    format(session, post) for post in paginated_response["posts"]
                 ]
 
                 return paginated_response, 200
@@ -168,8 +162,12 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
+                    .join(Link, UserPosts.link_id == Link.id)
+                    .join(Song, Link.song_id == Song.id)
+                    .join(SongGenre, Song.id == SongGenre.song_id)
+                    .join(Genre, SongGenre.genre_id == Genre.id)
+                    .filter(Genre.name.like("%{}%".format(genre_)))
                     .filter(UserPosts.share_date <= datetime.now())
-                    .join(UserPosts.link)
                     .order_by(Link.post_count.desc())
                     .offset(start)
                     .limit(limit)
@@ -179,14 +177,8 @@ class FeedService:
                 paginated_response = get_paginated_response(
                     posts, url, total, start=start, limit=limit
                 )
-                formatted_posts = [
-                    format(session, post) for post in paginated_response["posts"]
-                ]
-
                 paginated_response["posts"] = [
-                    post_genre_filter(post, genre_)
-                    for post in formatted_posts
-                    if post_genre_filter(post, genre_) is not None
+                    format(session, post) for post in paginated_response["posts"]
                 ]
 
                 return paginated_response, 200
