@@ -7,8 +7,8 @@ from c3po.api.service.paginate import get_paginated_response
 from c3po.db.base import session_factory, session_scope
 from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
-from c3po.db.models.user import UserPosts
 from c3po.db.models.song import Song
+from c3po.db.models.user import UserPosts
 
 LOG = getLogger(__name__)
 
@@ -76,9 +76,7 @@ class FeedService:
             total = query_posts.count()
             posts = query_posts.all()
 
-            paginated_response = get_paginated_response(
-                posts, url, total, start, limit
-            )
+            paginated_response = get_paginated_response(posts, url, total, start, limit)
 
             paginated_response["posts"] = [
                 format(session, post) for post in paginated_response["posts"]
@@ -205,7 +203,7 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
-                    .order_by(UserPosts.share_date.desc(), Song.custom_popularity.asc())
+                    .order_by(Song.custom_popularity.asc(), UserPosts.share_date.desc())
                     .join(Link, UserPosts.link_id == Link.id)
                     .join(Song, Link.song_id == Song.id)
                     .offset(start)

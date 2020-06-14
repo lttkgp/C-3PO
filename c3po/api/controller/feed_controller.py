@@ -89,8 +89,9 @@ class FeedFrequent(Resource):
         else:
             return response, status
 
+
 @feed_ns.route("/underrated")
-class FeedUnderrated(resource):
+class FeedUnderrated(Resource):
     @feed_ns.doc("Underrated songs")
     @feed_ns.expect(parser)
     def get(self):
