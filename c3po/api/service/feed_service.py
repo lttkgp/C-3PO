@@ -205,12 +205,11 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
-                    .order_by(UserPosts.share_date.desc())
+                    .order_by(UserPosts.share_date.desc(), Song.custom_popularity.asc())
                     .join(Link, UserPosts.link_id == Link.id)
                     .join(Song, Link.song_id == Song.id)
                     .offset(start)
                     .limit(limit)
-                    .order_by(Song.custom_popularity)
                 )
 
                 paginated_response = get_paginated_response(
