@@ -8,6 +8,7 @@ from c3po.db.base import session_factory, session_scope
 from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
 from c3po.db.models.user import UserPosts
+from c3po.db.models.song import Song
 
 LOG = getLogger(__name__)
 
@@ -75,7 +76,9 @@ class FeedService:
             total = query_posts.count()
             posts = query_posts.all()
 
-            paginated_response = get_paginated_response(posts, url, total, start, limit)
+            paginated_response = get_paginated_response(
+                posts, url, total, start, limit
+            )
 
             paginated_response["posts"] = [
                 format(session, post) for post in paginated_response["posts"]
@@ -187,6 +190,42 @@ class FeedService:
             except BaseException:
                 LOG.error(
                     f"Failed to fetch data with param limit_ = {limit}. Try later.",
+                    exc_info=True,
+                )
+                response_object = {
+                    "status": "fail",
+                    "message": "Try again",
+                }
+                return response_object, 500
+
+    @staticmethod
+    def get_underrated_posts(url, start, limit):
+        with session_scope() as session:
+            try:
+                total = session.query(UserPosts).count()
+                posts = (
+                    session.query(UserPosts)
+                    .order_by(UserPosts.share_date.desc())
+                    .join(Link, UserPosts.link_id == Link.id)
+                    .join(Song, Link.song_id == Song.id)
+                    .offset(start)
+                    .limit(limit)
+                    .order_by(Song.custom_popularity)
+                )
+
+                paginated_response = get_paginated_response(
+                    posts, url, total, start=start, limit=limit
+                )
+
+                paginated_response["posts"] = [
+                    format(session, post) for post in paginated_response["posts"]
+                ]
+
+                return paginated_response, 200
+
+            except BaseException:
+                LOG.error(
+                    f"Failed to fetch data with param start = {start} limit_ = {limit}. Try later.",
                     exc_info=True,
                 )
                 response_object = {
