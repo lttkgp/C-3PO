@@ -19,27 +19,35 @@ from music_metadata_extractor import SongData
 
 
 def insert_metadata(raw_data):
-    url = raw_data["link"]
-    with session_scope() as session:
-        data = SongData(url)
-        # This is a placeholder for until we can fetch real user details
-        user = _insert_default_user(session)
-        new_link = _insert_post(url, user, raw_data, session)
-        if new_link:
-            new_song = _insert_song(data.track, data.extraAttrs, session)
-            new_link.song_id = new_song.id
-            for artist_data in data.artists:
-                new_artist = _insert_artist(artist_data, session)
-                _insert_artist_song(new_artist, new_song, session)
-                _insert_song_genre(artist_data, new_song, session)
-
+    url = raw_data.get('url')
+    if(url):
+        with session_scope() as session:
+            try:
+                data = SongData(url)
+                # This is a placeholder for until we can fetch real user details
+                user = _insert_default_user(session)
+                new_link = _insert_post(url, user, raw_data, session)
+                if new_link:
+                    new_song = _insert_song(data.track, data.extraAttrs, session)
+                    new_link.song_id = new_song.id
+                    for artist_data in data.artists:
+                        new_artist = _insert_artist(artist_data, session)
+                        _insert_artist_song(new_artist, new_song, session)
+                        _insert_song_genre(artist_data, new_song, session)
+            except Exception as e:
+                if(str(e) != 'Unsupported URL!'):
+                    print(e)
+                    user = _insert_default_user(session)
+                    new_link = _insert_post(url, user, raw_data, session)
+                else:
+                    pass
 
 def _insert_post(url, user, data, session):
     try:
         date_time = parse_datetime(data["created_time"])
     except ISO8601Error:
         date_time = datetime.now()
-    caption = "" if data["message"] is None else data["message"].strip()
+    caption = "" if data.get("message") is None else data.get("message").strip()
     facebook_id = data["id"]
     likes_count = data["reactions"]["summary"]["total_count"]
     permalink_url = data["permalink_url"]
