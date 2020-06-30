@@ -19,7 +19,7 @@ from c3po.db.models import (
 
 
 def insert_metadata(raw_data):
-    url = raw_data.get("url")
+    url = raw_data.get("link")
     if url:
         with session_scope() as session:
             try:
@@ -36,7 +36,6 @@ def insert_metadata(raw_data):
                         _insert_song_genre(artist_data, new_song, session)
             except Exception as e:
                 if str(e) != "Unsupported URL!":
-                    print(e)
                     user = _insert_default_user(session)
                     new_link = _insert_post(url, user, raw_data, session)
                 else:
@@ -48,7 +47,10 @@ def _insert_post(url, user, data, session):
         date_time = parse_datetime(data["created_time"])
     except ISO8601Error:
         date_time = datetime.now()
-    caption = "" if data.get("message") is None else data.get("message").strip()
+    if not data.get("message") or len(data.get("message")) > 160:
+        caption = ""
+    else:
+        caption = data.get("message").strip()
     facebook_id = data["id"]
     likes_count = data["reactions"]["summary"]["total_count"]
     permalink_url = data["permalink_url"]
