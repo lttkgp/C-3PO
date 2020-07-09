@@ -203,9 +203,9 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
-                    .order_by(Song.custom_popularity.asc(), UserPosts.share_date.desc())
                     .join(Link, UserPosts.link_id == Link.id)
-                    .join(Song, Link.song_id == Song.id)
+                    .filter(Link.custom_popularity < 0.5)
+                    .order_by(UserPosts.share_date.desc())
                     .offset(start)
                     .limit(limit)
                 )
