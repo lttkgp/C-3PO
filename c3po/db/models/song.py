@@ -37,8 +37,6 @@ class Song(Base):
     explicit = Column("explicit", Boolean)
     popularity = Column("popularity", Float)
     image = Column("Image", String(160))
-    custom_popularity = Column("custom_popularity", Float)
-
     # Self-referential relationship to model song covers
     cover = Column("cover", Boolean)
     original_id = Column(Integer, ForeignKey("song.id"))
@@ -54,7 +52,6 @@ class Song(Base):
         explicit,
         popularity,
         image,
-        custom_popularity,
         cover,
         original_id,
     ):
@@ -63,6 +60,5 @@ class Song(Base):
         self.explicit = explicit
         self.popularity = popularity
         self.image = image
-        self.custom_popularity = custom_popularity
         self.cover = cover
         self.original_id = original_id

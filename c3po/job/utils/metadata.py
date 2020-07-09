@@ -1,4 +1,6 @@
 from datetime import datetime
+from httplib2 import ServerNotFoundError
+import time
 
 from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
@@ -26,35 +28,38 @@ def insert_metadata(raw_data):
                 data = SongData(url)
                 # This is a placeholder for until we can fetch real user details
                 user = _insert_default_user(session)
-                new_link = _insert_post(url, user, raw_data, session)
+                new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
                 if new_link:
-                    new_song = _insert_song(data.track, data.extraAttrs, session)
-                    new_link.song_id = new_song.id
-                    for artist_data in data.artists:
-                        new_artist = _insert_artist(artist_data, session)
-                        _insert_artist_song(new_artist, new_song, session)
-                        _insert_song_genre(artist_data, new_song, session)
+                    if(data.track and data.artists):
+                        new_song = _insert_song(data.track, session)
+                        new_link.song_id = new_song.id
+                        for artist_data in data.artists:
+                            new_artist = _insert_artist(artist_data, session)
+                            _insert_artist_song(new_artist, new_song, session)
+                            _insert_song_genre(artist_data, new_song, session)
+            except ServerNotFoundError:
+                print("Google API unreachable!")
+                time.sleep(30)
             except Exception as e:
-                if str(e) != "Unsupported URL!":
-                    user = _insert_default_user(session)
-                    new_link = _insert_post(url, user, raw_data, session)
-                else:
+                if str(e) == "Unsupported URL!" or str(e) == 'Video unavailable!':
                     pass
+                else:
+                    user = _insert_default_user(session)
+                    new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
 
-
-def _insert_post(url, user, data, session):
+def _insert_post(url, user, extras, raw_data, session):
     try:
-        date_time = parse_datetime(data["created_time"])
+        date_time = parse_datetime(raw_data["created_time"])
     except ISO8601Error:
         date_time = datetime.now()
-    if not data.get("message") or len(data.get("message")) > 160:
+    if not raw_data.get("message") or len(raw_data.get("message")) > 160:
         caption = ""
     else:
-        caption = data.get("message").strip()
-    facebook_id = data["id"]
-    likes_count = data["reactions"]["summary"]["total_count"]
-    permalink_url = data["permalink_url"]
-    new_link = _insert_link(url, session)
+        caption = raw_data.get("message").strip()
+    facebook_id = raw_data["id"]
+    likes_count = raw_data["reactions"]["summary"]["total_count"]
+    permalink_url = raw_data["permalink_url"]
+    new_link = _insert_link(url, extras, session)
     if not new_link:
         new_link = session.query(Link).filter(Link.url == url).first()
         new_post = UserPosts(
@@ -74,10 +79,12 @@ def _insert_artist_song(new_artist, new_song, session):
     session.add(new_artist_song)
 
 
-def _insert_link(url, session):
+def _insert_link(url, extras, session):
     query = session.query(Link).filter(Link.url == url).first()
     if not query:
-        temp_link = Link(url, 0)
+        views = int(extras['youtube']['views'])
+        custom_popularity = get_custom_popularity(extras)
+        temp_link = Link(url, 0, custom_popularity, views)
         temp_link.post_count = 1
         session.add(temp_link)
         return temp_link
@@ -86,14 +93,13 @@ def _insert_link(url, session):
         return None
 
 
-def _insert_song(track_data, extras, session):
+def _insert_song(track_data, session):
     try:
         date = datetime.strptime(track_data.year, "%Y-%m-%d")
     except ValueError:
         date = datetime.strptime(track_data.year, "%Y")
     except BaseException:
         date = None
-    custom_popularity = get_custom_popularity(extras)
 
     new_song = Song(
         track_data.name,
@@ -101,7 +107,6 @@ def _insert_song(track_data, extras, session):
         track_data.explicit,
         track_data.popularity,
         track_data.image_id,
-        custom_popularity,
         track_data.is_cover,
         track_data.original_id,
     )
@@ -152,9 +157,10 @@ def _insert_default_user(session):
 
 
 def get_custom_popularity(extras):
-    delta = datetime.now() - extras["youtube"]["posted_date"]
+    tz = extras["youtube"]["posted_date"].tzinfo
+    delta = datetime.now(tz) - extras["youtube"]["posted_date"]
     factor = 24 * 60 * 60
-    score = float(extras["youtube"]["views"] / (delta.days * factor))
+    score = float(int(extras["youtube"]["views"]) / (delta.days * factor))
     return score
 
 
