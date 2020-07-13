@@ -11,6 +11,7 @@ from flask import Flask, current_app
 from flask_cors import CORS
 
 from c3po.app_config import config_by_name
+from c3po.job.scheduler import setup_scheduler
 from c3po.logging_config import setup_logger
 
 setup_logger()
@@ -37,7 +38,11 @@ def create_app(config_name):
     LOG.info("Flask CORS setup successfully")
     with app.app_context():
         register_blueprints(app)
-    return app
+
+    sched = setup_scheduler(fetch_fb_posts=True, process_posts=True)
+    LOG.info("Scheduler setup successfully")
+
+    return app, sched
 
 
-app = create_app(os.getenv("FLASK_ENV") or "development")
+app, sched = create_app(os.getenv("FLASK_ENV") or "development")
