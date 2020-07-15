@@ -19,10 +19,20 @@ FB_LONG_ACCESS_TOKEN = os.environ.get("FB_LONG_ACCESS_TOKEN")
 FB_APP_ID = os.environ.get("FB_APP_ID")
 FB_APP_SECRET = os.environ.get("FB_APP_SECRET")
 GROUP_ID = constants.get("FACEBOOK_GROUP_ID")
-PAYLOAD = {"access_token": FB_LONG_ACCESS_TOKEN}
 COMMENT_LOCKDOWN = constants.get("FACEBOOK_COMMENT_LOCKDOWN")
 REACTION_LOCKDOWN = constants.get("FACEBOOK_REACTION_LOCKDOWN")
 
+def make_payload():
+    """
+    Use Short Access Token when Long Access Token is unavailable
+    """
+    PAYLOAD = {"access_token": FB_LONG_ACCESS_TOKEN}
+    if not FB_LONG_ACCESS_TOKEN:
+        PAYLOAD["access_token"] = FB_SHORT_ACCESS_TOKEN
+    
+    return PAYLOAD
+
+PAYLOAD = make_payload()
 
 def refresh_access_token():
     """
