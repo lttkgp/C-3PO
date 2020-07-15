@@ -42,6 +42,8 @@ def create_app(config_name):
     sched = setup_scheduler(fetch_fb_posts=True, process_posts=True)
     LOG.info("Scheduler setup successfully")
 
+    sched.start()
+
     return app, sched
 
 
