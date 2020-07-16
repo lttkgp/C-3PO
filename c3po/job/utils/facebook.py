@@ -13,15 +13,29 @@ constants = read_config("config.ini", "facebook")
 load_dotenv(find_dotenv())
 
 REQ_SESSION = requests.Session()
-FB_URL = "https://graph.facebook.com/" + constants.get("FACEBOOK_API_VERSION") + "/"
+FB_URL = "https://graph.facebook.com/" + \
+    constants.get("FACEBOOK_API_VERSION") + "/"
 FB_SHORT_ACCESS_TOKEN = os.environ.get("FB_SHORT_ACCESS_TOKEN")
 FB_LONG_ACCESS_TOKEN = os.environ.get("FB_LONG_ACCESS_TOKEN")
 FB_APP_ID = os.environ.get("FB_APP_ID")
 FB_APP_SECRET = os.environ.get("FB_APP_SECRET")
 GROUP_ID = constants.get("FACEBOOK_GROUP_ID")
-PAYLOAD = {"access_token": FB_LONG_ACCESS_TOKEN}
 COMMENT_LOCKDOWN = constants.get("FACEBOOK_COMMENT_LOCKDOWN")
 REACTION_LOCKDOWN = constants.get("FACEBOOK_REACTION_LOCKDOWN")
+
+
+def make_payload():
+    """
+    Use Short Access Token when Long Access Token is unavailable
+    """
+    PAYLOAD = {"access_token": FB_LONG_ACCESS_TOKEN}
+    if not FB_LONG_ACCESS_TOKEN:
+        PAYLOAD["access_token"] = FB_SHORT_ACCESS_TOKEN
+
+    return PAYLOAD
+
+
+PAYLOAD = make_payload()
 
 
 def refresh_access_token():
@@ -42,12 +56,15 @@ def refresh_access_token():
                 "client_secret": FB_APP_SECRET,
                 "fb_exchange_token": FB_SHORT_ACCESS_TOKEN,
             }
-            response = REQ_SESSION.get(request_url, params=request_payload).json()
+            response = REQ_SESSION.get(
+                request_url, params=request_payload).json()
             dotenvfile = find_dotenv()
             load_dotenv(dotenvfile)
             print(response)
-            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN", response["access_token"])
-            PAYLOAD["access_token"] = dotenv.get_key(dotenvfile, "FB_LONG_ACCESS_TOKEN")
+            dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN",
+                           response["access_token"])
+            PAYLOAD["access_token"] = dotenv.get_key(
+                dotenvfile, "FB_LONG_ACCESS_TOKEN")
 
 
 """
@@ -74,13 +91,17 @@ def build_feed_request():
     request_url = FB_URL + GROUP_ID + "/feed"
     request_params = PAYLOAD.copy()
     request_params["fields"] = constants.get("FACEBOOK_POST_FIELDS")
-    request_params["fields"] = request_params["fields"] + ",reactions.summary(true){"
+    request_params["fields"] = request_params["fields"] + \
+        ",reactions.summary(true){"
     request_params["fields"] = (
-        request_params["fields"] + constants.get("FACEBOOK_REACTION_FIELDS") + "}"
+        request_params["fields"] +
+        constants.get("FACEBOOK_REACTION_FIELDS") + "}"
     )
-    request_params["fields"] = request_params["fields"] + ",comments.summary(true){"
+    request_params["fields"] = request_params["fields"] + \
+        ",comments.summary(true){"
     request_params["fields"] = (
-        request_params["fields"] + constants.get("FACEBOOK_COMMENT_FIELDS") + "}"
+        request_params["fields"] +
+        constants.get("FACEBOOK_COMMENT_FIELDS") + "}"
     )
     return request_url, request_params
 
