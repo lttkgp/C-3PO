@@ -55,7 +55,6 @@ jobs:
           command: |
             . env/bin/activate
             ./bin/sanity.sh 
-            alembic upgrade head
   deploy: 
     docker:
       - image: circleci/python:3.6.2-stretch-browsers
