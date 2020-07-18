@@ -44,6 +44,7 @@ def insert_metadata(raw_data):
                 if str(e) == "Unsupported URL!" or str(e) == 'Video unavailable!':
                     pass
                 else:
+                    data = SongData(url)
                     user = _insert_default_user(session)
                     new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
 

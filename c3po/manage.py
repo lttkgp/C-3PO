@@ -39,12 +39,13 @@ def create_app(config_name):
     with app.app_context():
         register_blueprints(app)
 
+    return app
+
+app = create_app(os.getenv("FLASK_ENV") or "development")
+
+@app.cli.command()
+def schedule():
+    """Start the scheduler"""
     sched = setup_scheduler(fetch_fb_posts=True, process_posts=True)
     LOG.info("Scheduler setup successfully")
-
     sched.start()
-
-    return app, sched
-
-
-app, sched = create_app(os.getenv("FLASK_ENV") or "development")

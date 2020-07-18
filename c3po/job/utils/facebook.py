@@ -90,6 +90,7 @@ def build_feed_request():
     request_url = FB_URL + GROUP_ID + "/feed"
     request_params = PAYLOAD.copy()
     request_params["fields"] = constants.get("FACEBOOK_POST_FIELDS")
+    print(f"Yo: {constants.get('FACEBOOK_POST_FIELDS')}")
     request_params["fields"] = request_params["fields"] + \
         ",reactions.summary(true){"
     request_params["fields"] = (
