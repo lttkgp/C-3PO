@@ -13,8 +13,8 @@ constants = read_config("config.ini", "facebook")
 load_dotenv(find_dotenv())
 
 REQ_SESSION = requests.Session()
-FB_URL = "https://graph.facebook.com/" + \
-    constants.get("FACEBOOK_API_VERSION") + "/"
+FB_BASE_URL = "https://graph.facebook.com/"
+FB_URL = FB_BASE_URL + constants.get("FACEBOOK_API_VERSION") + "/"
 FB_SHORT_ACCESS_TOKEN = os.environ.get("FB_SHORT_ACCESS_TOKEN")
 FB_LONG_ACCESS_TOKEN = os.environ.get("FB_LONG_ACCESS_TOKEN")
 FB_APP_ID = os.environ.get("FB_APP_ID")
@@ -49,7 +49,7 @@ def refresh_access_token():
         dotenv.get_key(dotenvfile, "FB_LONG_ACCESS_TOKEN")
         warns = filter(lambda i: issubclass(i.category, UserWarning), warns)
         if warns:
-            request_url = FB_URL + "oauth/access_token"
+            request_url = FB_BASE_URL + "oauth/access_token"
             request_payload = {
                 "grant_type": "fb_exchange_token",
                 "client_id": FB_APP_ID,
@@ -60,7 +60,6 @@ def refresh_access_token():
                 request_url, params=request_payload).json()
             dotenvfile = find_dotenv()
             load_dotenv(dotenvfile)
-            print(response)
             dotenv.set_key(dotenvfile, "FB_LONG_ACCESS_TOKEN",
                            response["access_token"])
             PAYLOAD["access_token"] = dotenv.get_key(

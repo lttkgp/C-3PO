@@ -11,6 +11,6 @@ pyenv local C-3PO
 pip install -r requirements/common.txt
 pip install -r requirements/dev.txt
 pip install -e .
+alembic upgrade head
 
 sudo systemctl restart c3po.service
-
