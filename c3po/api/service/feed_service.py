@@ -12,7 +12,9 @@ from c3po.db.models.song import Song
 from c3po.db.models.user import UserPosts
 
 LOG = getLogger(__name__)
+
 MAX_UNDERRATED_CUSTOM_POPULARITY = read_config(section="api")['MAX_UNDERRATED_CUSTOM_POPULARITY']
+MAX_UNDERRATED_VIEWS = read_config(section="api")['MAX_UNDERRATED_VIEWS']
 
 def get_yt_id(url):
     pattern = re.compile(
@@ -206,6 +208,7 @@ class FeedService:
                     session.query(UserPosts)
                     .join(Link, UserPosts.link_id == Link.id)
                     .filter(Link.custom_popularity < MAX_UNDERRATED_CUSTOM_POPULARITY)
+                    .filter(Link.views < MAX_UNDERRATED_VIEWS)
                     .order_by(UserPosts.share_date.desc())
                     .offset(start)
                     .limit(limit)
