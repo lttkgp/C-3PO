@@ -171,8 +171,8 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
-                    .filter(UserPosts.share_date <= datetime.now())
-                    .join(UserPosts.link)
+                    .join(Link)
+                    .distinct(Link.url, Link.post_count)
                     .order_by(Link.post_count.desc())
                     .offset(start)
                     .limit(limit)
