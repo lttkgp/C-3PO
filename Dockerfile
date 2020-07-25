@@ -10,10 +10,11 @@ RUN mkdir -p /c3po
 # Copy and install requirements
 ADD requirements /c3po/requirements
 RUN pip install --upgrade pip
-RUN pip install -r /c3po/requirements/common.txt && pip install -r /c3po/requirements/dev.txt && pip install -e .
+RUN pip install -r /c3po/requirements/common.txt && pip install -r /c3po/requirements/dev.txt
 
 # Copy emplate config file
 COPY config.template.ini /c3po/config.ini
 
 ADD . /c3po/
 WORKDIR /c3po
+RUN pip install -e .
