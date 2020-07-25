@@ -1,0 +1,19 @@
+# Base Python image for container
+FROM python:3.7
+
+# Set unbuffered output to make sure all logs are printed and not stuck in buffer
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update
+RUN mkdir -p /c3po
+
+# Copy and install requirements
+ADD requirements /c3po/requirements
+RUN pip install --upgrade pip
+RUN pip install -r /c3po/requirements/common.txt && pip install -r /c3po/requirements/dev.txt && pip install -e .
+
+# Copy emplate config file
+COPY config.template.ini /c3po/config.ini
+
+ADD . /c3po/
+WORKDIR /c3po
