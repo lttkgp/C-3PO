@@ -111,7 +111,7 @@ def _insert_song(track_data, session):
 
         session.add(new_song)
         session.flush()
-        return new_song 
+        return new_song
     try:
         date = datetime.strptime(track_data.year, "%Y-%m-%d")
     except ValueError:
