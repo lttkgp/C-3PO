@@ -37,6 +37,9 @@ def insert_metadata(raw_data):
                             new_artist = _insert_artist(artist_data, session)
                             _insert_artist_song(new_artist, new_song, session)
                             _insert_song_genre(artist_data, new_song, session)
+                    else:
+                        new_song = _insert_song(data.extraAttrs, session)
+                        new_link.song_id = new_song.id
             except ServerNotFoundError:
                 print("Google API unreachable!")
                 time.sleep(30)
@@ -95,6 +98,20 @@ def _insert_link(url, extras, session):
 
 
 def _insert_song(track_data, session):
+    if(isinstance(track_data, dict)):
+        new_song = Song(
+            track_data['youtube']['title'],
+            track_data['youtube']['posted_date'],
+            None,
+            None,
+            None,
+            None,
+            None,
+        )
+
+        session.add(new_song)
+        session.flush()
+        return new_song
     try:
         date = datetime.strptime(track_data.year, "%Y-%m-%d")
     except ValueError:
