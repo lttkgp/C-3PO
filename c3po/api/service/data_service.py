@@ -10,5 +10,5 @@ class DataService:
             json_data = json.loads(data)
             insert_metadata(json_data["facebook_post"])
             return {"success": True}, 200
-        except expression as identifier:
+        except Exception:
             return {"success": False}, 500
