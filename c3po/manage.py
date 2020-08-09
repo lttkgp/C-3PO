@@ -19,6 +19,7 @@ LOG = getLogger(__name__)
 
 def register_blueprints(app):
     from c3po.api import api_bp
+
     app.register_blueprint(api_bp)
     LOG.info("API blueprint registered!")
 
@@ -34,5 +35,6 @@ def create_app(config_name):
         register_blueprints(app)
 
     return app
+
 
 app = create_app(os.getenv("FLASK_ENV") or "development")

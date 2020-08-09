@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Float, BigInteger
+from sqlalchemy import BigInteger, Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 
 from c3po.db.base import Base
@@ -17,7 +17,7 @@ class Link(Base):
     post_count = Column("post_count", Integer)
     likes_count = Column("likes_count", Integer)
     views = Column("views", BigInteger)
-    custom_popularity = Column('custom_popularity', Float)
+    custom_popularity = Column("custom_popularity", Float)
 
     def __init__(self, url, platform, custom_popularity, views):
         self.url = url
