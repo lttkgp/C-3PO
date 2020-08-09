@@ -177,8 +177,9 @@ def _insert_default_user(session):
 def get_custom_popularity(extras):
     tz = extras["youtube"]["posted_date"].tzinfo
     delta = datetime.now(tz) - extras["youtube"]["posted_date"]
+    days_since_posted = delta.days if delta.days > 0 else 1
     factor = 24 * 60 * 60
-    score = float(int(extras["youtube"]["views"]) / (delta.days * factor))
+    score = float(int(extras["youtube"]["views"]) / (days_since_posted * factor))
     return score
 
 
