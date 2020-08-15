@@ -18,3 +18,9 @@ COPY config.template.ini /c3po/config.ini
 ADD . /c3po/
 WORKDIR /c3po
 RUN pip install -e .
+
+ENV PYTHONPATH=/c3po
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT "/entrypoint.sh"

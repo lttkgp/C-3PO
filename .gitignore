@@ -126,4 +126,4 @@ database.ini
 fbresponse.json
 
 # Postgres
-postgres-data
+postgres_data
