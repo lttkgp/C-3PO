@@ -2,6 +2,7 @@
 from flask import Blueprint
 from flask_restx import Api
 
+from c3po.api.controller.data_controller import data_ns
 from c3po.api.controller.feed_controller import feed_ns
 
 api_bp = Blueprint("api", __name__)
@@ -14,3 +15,4 @@ api = Api(
 )
 
 api.add_namespace(feed_ns, path="/v1/feed")
+api.add_namespace(data_ns, path="/v1/data")

@@ -2,7 +2,6 @@ import re
 from datetime import datetime, timedelta
 from logging import getLogger
 
-from c3po.utils.config import read_config
 from c3po.api.dto import artist_dto, post_dto, song_dto
 from c3po.api.service.paginate import get_paginated_response
 from c3po.db.base import session_factory, session_scope
@@ -10,11 +9,15 @@ from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
 from c3po.db.models.song import Song
 from c3po.db.models.user import UserPosts
+from c3po.utils.config import read_config
 
 LOG = getLogger(__name__)
 
-MAX_UNDERRATED_CUSTOM_POPULARITY = read_config(section="api")['MAX_UNDERRATED_CUSTOM_POPULARITY']
-MAX_UNDERRATED_VIEWS = read_config(section="api")['MAX_UNDERRATED_VIEWS']
+MAX_UNDERRATED_CUSTOM_POPULARITY = read_config(section="api")[
+    "MAX_UNDERRATED_CUSTOM_POPULARITY"
+]
+MAX_UNDERRATED_VIEWS = read_config(section="api")["MAX_UNDERRATED_VIEWS"]
+
 
 def get_yt_id(url):
     pattern = re.compile(
@@ -171,8 +174,8 @@ class FeedService:
                 total = session.query(UserPosts).count()
                 posts = (
                     session.query(UserPosts)
-                    .filter(UserPosts.share_date <= datetime.now())
-                    .join(UserPosts.link)
+                    .join(Link)
+                    .distinct(Link.url, Link.post_count)
                     .order_by(Link.post_count.desc())
                     .offset(start)
                     .limit(limit)
