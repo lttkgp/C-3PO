@@ -124,3 +124,6 @@ database.ini
 
 # Sample response from Facebook
 fbresponse.json
+
+# Postgres
+postgres-data
