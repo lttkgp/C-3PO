@@ -1,7 +1,7 @@
-from datetime import datetime
-from httplib2 import ServerNotFoundError
 import time
+from datetime import datetime
 
+from httplib2 import ServerNotFoundError
 from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
 
@@ -30,7 +30,7 @@ def insert_metadata(raw_data):
                 user = _insert_default_user(session)
                 new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
                 if new_link:
-                    if(data.track and data.artists):
+                    if data.track and data.artists:
                         new_song = _insert_song(data.track, session)
                         new_link.song_id = new_song.id
                         for artist_data in data.artists:
@@ -44,12 +44,15 @@ def insert_metadata(raw_data):
                 print("Google API unreachable!")
                 time.sleep(30)
             except Exception as e:
-                if str(e) == "Unsupported URL!" or str(e) == 'Video unavailable!':
+                if str(e) == "Unsupported URL!" or str(e) == "Video unavailable!":
                     pass
                 else:
                     data = SongData(url)
                     user = _insert_default_user(session)
-                    new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
+                    new_link = _insert_post(
+                        url, user, data.extraAttrs, raw_data, session
+                    )
+
 
 def _insert_post(url, user, extras, raw_data, session):
     try:
@@ -86,7 +89,7 @@ def _insert_artist_song(new_artist, new_song, session):
 def _insert_link(url, extras, session):
     query = session.query(Link).filter(Link.url == url).first()
     if not query:
-        views = int(extras['youtube']['views'])
+        views = int(extras["youtube"]["views"])
         custom_popularity = get_custom_popularity(extras)
         temp_link = Link(url, 0, custom_popularity, views)
         temp_link.post_count = 1

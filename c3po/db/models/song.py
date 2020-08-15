@@ -46,14 +46,7 @@ class Song(Base):
     links = relationship("Link", backref="song")
 
     def __init__(
-        self,
-        name,
-        release_date,
-        explicit,
-        popularity,
-        image,
-        cover,
-        original_id,
+        self, name, release_date, explicit, popularity, image, cover, original_id,
     ):
         self.name = name
         self.release_date = release_date
