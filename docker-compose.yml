@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - c3po-network
+  api:
+    build: .
+    command: /bin/sh -c "/c3po/entrypoint.sh"
+    restart: always
+    volumes:
+      - .:/c3po/
+    ports:
+      - "8000:8000"
+    networks:
+      - c3po-network
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+
+networks:
+  c3po-network:
+    driver: bridge
