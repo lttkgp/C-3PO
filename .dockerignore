@@ -20,10 +20,8 @@ coverage.xml
 # Random stuff
 *.log
 .python-version
-.env
 .venv
 env/
 venv/
 .vscode
 *.db
-config.ini
