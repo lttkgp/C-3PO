@@ -119,7 +119,6 @@ venv.bak/
 lttkgp.db
 
 # Config file
-config.ini
 database.ini
 
 # Sample response from Facebook

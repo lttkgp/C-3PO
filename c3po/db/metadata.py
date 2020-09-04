@@ -101,10 +101,10 @@ def _insert_link(url, extras, session):
 
 
 def _insert_song(track_data, session):
-    if(isinstance(track_data, dict)):
+    if isinstance(track_data, dict):
         new_song = Song(
-            track_data['youtube']['title'],
-            track_data['youtube']['posted_date'],
+            track_data["youtube"]["title"],
+            track_data["youtube"]["posted_date"],
             None,
             None,
             None,

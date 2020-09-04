@@ -10,8 +10,8 @@ from logging import getLogger
 from flask import Flask, current_app
 from flask_cors import CORS
 
-from c3po.app_config import config_by_name
-from c3po.logging_config import setup_logger
+from c3po.config.app_config import config_by_name
+from c3po.config.logging_config import setup_logger
 
 setup_logger()
 LOG = getLogger(__name__)

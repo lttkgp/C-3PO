@@ -11,6 +11,7 @@ class FeedDto:
 class DataDto:
     ns = Namespace("Data", description="Data Related operations")
 
+
 class HealthDto:
     ns = Namespace("Health", description="Health check APIs")
 

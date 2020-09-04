@@ -5,6 +5,7 @@ from c3po.api.dto import HealthDto
 
 health_ns = HealthDto.ns
 
+
 @health_ns.route("/")
 class HealthCheck(Resource):
     """ Check API health """

@@ -1,4 +1,5 @@
 from logging.config import fileConfig
+import os
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
@@ -7,9 +8,7 @@ from sqlalchemy import engine_from_config, pool
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from c3po.db import db_config
 from c3po.db.base import Base
-from c3po.db.db_config import POSTGRES_URI
 from c3po.db.models import artist, genre, link, song, user
 
 # this is the Alembic Config object, which provides
@@ -21,7 +20,7 @@ config = context.config
 fileConfig(config.config_file_name)
 
 
-config.set_main_option("sqlalchemy.url", db_config.POSTGRES_URI)
+config.set_main_option("sqlalchemy.url", os.getenv("POSTGRES_URI"))
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -68,8 +67,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection,
-                          target_metadata=target_metadata)
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

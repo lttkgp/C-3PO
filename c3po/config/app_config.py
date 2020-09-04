@@ -1,8 +1,6 @@
 """Define App level configuration for Dev, Testing and Production."""
 import os
 
-from c3po.db.db_config import POSTGRES_URI
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -10,7 +8,7 @@ class Config:
     """Base Config."""
 
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = POSTGRES_URI
+    SQLALCHEMY_DATABASE_URI = os.getenv("POSTGRES_URI")
 
 
 class DevelopmentConfig(Config):

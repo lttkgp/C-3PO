@@ -1,4 +1,0 @@
-[pydocstyle]
-convention=numpy
-add-ignore=D401 
-match-dir="^(?!migrations).*"
