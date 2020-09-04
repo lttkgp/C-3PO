@@ -3,6 +3,9 @@ import os
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 # add your model's MetaData object here
 # for 'autogenerate' support
