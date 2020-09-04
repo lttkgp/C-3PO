@@ -5,4 +5,4 @@ sleep 10;
 # Run migrations
 alembic upgrade head
 # Start uWSGI
-uwsgi --ini config.ini
+exec uwsgi --ini config.ini
