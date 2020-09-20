@@ -67,18 +67,24 @@ def _insert_post(url, user, extras, raw_data, session):
     likes_count = raw_data["reactions"]["summary"]["total_count"]
     permalink_url = raw_data["permalink_url"]
     new_link = _insert_link(url, extras, session)
-    if not new_link:
-        new_link = session.query(Link).filter(Link.url == url).first()
-        new_post = UserPosts(
-            user, new_link, date_time, caption, facebook_id, permalink_url
-        )
+    existing_post = session.query(UserPosts).filter(UserPosts.facebook_id == facebook_id).first()
+    if not existing_post:
+        if not new_link:
+            new_link = session.query(Link).filter(Link.url == url).first()
+            new_post = UserPosts(
+                user, new_link, date_time, caption, facebook_id, permalink_url
+            )
+            new_post.likes_count = likes_count
+            session.add(new_post)
+            return None
+        new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
         new_post.likes_count = likes_count
         session.add(new_post)
-        return None
-    new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
-    new_post.likes_count = likes_count
-    session.add(new_post)
-    return new_link
+        return new_link
+    else:
+        if(likes_count != existing_post.likes_count):
+            existing_post.likes_count = likes_count
+            return None         
 
 
 def _insert_artist_song(new_artist, new_song, session):
