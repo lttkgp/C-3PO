@@ -81,6 +81,10 @@ def _insert_post(url, user, extras, raw_data, session):
         new_post.likes_count = likes_count
         session.add(new_post)
         return new_link
+    else:
+        if(likes_count != existing_post.likes_count):
+            existing_post.likes_count = likes_count
+            return None         
 
 
 def _insert_artist_song(new_artist, new_song, session):
