@@ -103,3 +103,18 @@ class FeedUnderrated(Resource):
             abort(403, response)
         else:
             return response, status
+
+
+@feed_ns.route("/random")
+class FeedUnderrated(Resource):
+    @feed_ns.doc("Randomly shuffled songs")
+    @feed_ns.expect(parser)
+    def get(self):
+        args = parser.parse_args()
+        response, status = FeedService.get_random_posts(
+            request.url, args["start"], args["limit"]
+        )
+        if status != 200:
+            abort(403, response)
+        else:
+            return response, status
