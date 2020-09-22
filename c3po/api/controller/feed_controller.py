@@ -106,7 +106,7 @@ class FeedUnderrated(Resource):
 
 
 @feed_ns.route("/random")
-class FeedUnderrated(Resource):
+class FeedRandom(Resource):
     @feed_ns.doc("Randomly shuffled songs")
     @feed_ns.expect(parser)
     def get(self):
