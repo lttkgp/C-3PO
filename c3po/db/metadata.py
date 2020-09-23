@@ -66,9 +66,9 @@ def _insert_post(url, user, extras, raw_data, session):
     facebook_id = raw_data["id"]
     likes_count = raw_data["reactions"]["summary"]["total_count"]
     permalink_url = raw_data["permalink_url"]
-    new_link = _insert_link(url, extras, session)
     existing_post = session.query(UserPosts).filter(UserPosts.facebook_id == facebook_id).first()
     if not existing_post:
+        new_link = _insert_link(url, extras, session)
         if not new_link:
             new_link = session.query(Link).filter(Link.url == url).first()
             new_post = UserPosts(
