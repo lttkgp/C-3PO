@@ -1,0 +1,162 @@
+{
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::848472830311:role/AWSTaskRoleForECS",
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/c3po-taskdef",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 8000,
+          "protocol": "tcp",
+          "containerPort": 8000
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 512,
+      "environment": [],
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:GOOGLE_APPLICATION_CREDENTIALS-2Vfxxs",
+          "name": "GOOGLE_APPLICATION_CREDENTIALS"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:POSTGRES_URI-hVBEcw",
+          "name": "POSTGRES_URI"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIFY_REDIRECT_URI-Iy9mbt",
+          "name": "SPOTIFY_REDIRECT_URI"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIPY_CLIENT_ID-k3Igtf",
+          "name": "SPOTIPY_CLIENT_ID"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIPY_CLIENT_SECRET-pSc1p0",
+          "name": "SPOTIPY_CLIENT_SECRET"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:WHOAMI-HS4gPo",
+          "name": "WHOAMI"
+        }
+      ],
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": 1024,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "848472830311.dkr.ecr.ap-south-1.amazonaws.com/c3po:latest",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "c3po-container"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "1024",
+  "taskRoleArn": "arn:aws:iam::848472830311:role/AWSTaskRoleForECS",
+  "compatibilities": ["EC2", "FARGATE"],
+  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:848472830311:task-definition/c3po-taskdef:6",
+  "family": "c3po-taskdef",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.secrets.asm.environment-variables"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "pidMode": null,
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "512",
+  "revision": 6,
+  "status": "ACTIVE",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": []
+}
