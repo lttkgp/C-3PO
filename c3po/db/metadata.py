@@ -6,18 +6,8 @@ from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
 
 from c3po.db.base import session_scope
-from c3po.db.models import (
-    Artist,
-    ArtistGenre,
-    ArtistSong,
-    Genre,
-    Link,
-    Song,
-    SongGenre,
-    User,
-    UserLikes,
-    UserPosts,
-)
+from c3po.db.models import (Artist, ArtistGenre, ArtistSong, Genre, Link, Song,
+                            SongGenre, User, UserLikes, UserPosts)
 
 
 def insert_metadata(raw_data):
@@ -84,7 +74,7 @@ def _insert_post(url, user, extras, raw_data, session):
     else:
         if(likes_count != existing_post.likes_count):
             existing_post.likes_count = likes_count
-            return None         
+            return None
 
 
 def _insert_artist_song(new_artist, new_song, session):
