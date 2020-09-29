@@ -1,6 +1,6 @@
+import os
 from contextlib import contextmanager
 from urllib.parse import quote_plus
-import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base

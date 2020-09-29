@@ -5,12 +5,12 @@ from sqlalchemy import func
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
 from c3po.api.service.paginate import get_paginated_response
+from c3po.config.config import read_config
 from c3po.db.base import session_factory, session_scope
 from c3po.db.models.artist import ArtistGenre, ArtistSong
 from c3po.db.models.link import Link
 from c3po.db.models.song import Song
 from c3po.db.models.user import UserPosts
-from c3po.config.config import read_config
 
 LOG = getLogger(__name__)
 
