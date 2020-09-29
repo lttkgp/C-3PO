@@ -1,0 +1,24 @@
+name: Build and Test
+
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: ' 3.7'
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements/common.txt
+        pip install -r requirements/dev.txt
