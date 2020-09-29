@@ -2,9 +2,9 @@ name: Build and Test C-3PO
 
 on:
     push:
-        branches: [ master, add-codedeploy]
+        branches: [ master ]
     pull_request:
-        branches: [ master, add-codedeploy ]
+        branches: [ master ]
 
 jobs:
   build:

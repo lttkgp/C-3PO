@@ -1,16 +1,11 @@
 name: Deploy C-3PO to Amazon ECS
 
-# Temporary code. To be removed
 on:
-  push:
-      branches: [ add-codedeploy ]
-
-# on:
-#   workflow_run:
-#     workflows: [ "Build and Test C-3PO" ]
-#     branches: [ master, add-codedeploy ]
-#     types:
-#       - completed
+  workflow_run:
+    workflows: [ "Build and Test C-3PO" ]
+    branches: [ master, add-codedeploy ]
+    types:
+      - completed
 
 jobs:
   deploy:
