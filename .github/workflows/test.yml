@@ -2,21 +2,24 @@ name: Build and Test C-3PO
 
 on:
     push:
-        branches: [ master ]
+        branches: [ master, add-codedeploy]
     pull_request:
-        branches: [ master ]
+        branches: [ master, add-codedeploy ]
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.7
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: ' 3.7'
+        python-version: ${{ matrix.python-version }}
   
     - name: Cache Python Dependencies
       uses: actions/cache@v2
