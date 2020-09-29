@@ -1,6 +1,7 @@
 import re
 from datetime import datetime, timedelta
 from logging import getLogger
+from sqlalchemy import func
 
 from c3po.api.dto import artist_dto, post_dto, song_dto
 from c3po.api.service.paginate import get_paginated_response
@@ -213,6 +214,39 @@ class FeedService:
                     .filter(Link.custom_popularity < MAX_UNDERRATED_CUSTOM_POPULARITY)
                     .filter(Link.views < MAX_UNDERRATED_VIEWS)
                     .order_by(UserPosts.share_date.desc())
+                    .offset(start)
+                    .limit(limit)
+                )
+
+                paginated_response = get_paginated_response(
+                    posts, url, total, start=start, limit=limit
+                )
+
+                paginated_response["posts"] = [
+                    format(session, post) for post in paginated_response["posts"]
+                ]
+
+                return paginated_response, 200
+
+            except BaseException:
+                LOG.error(
+                    f"Failed to fetch data with param start = {start} limit_ = {limit}. Try later.",
+                    exc_info=True,
+                )
+                response_object = {
+                    "status": "fail",
+                    "message": "Try again",
+                }
+                return response_object, 500
+
+    @staticmethod
+    def get_random_posts(url, start, limit):
+        with session_scope() as session:
+            try:
+                total = session.query(UserPosts).count()
+                posts = (
+                    session.query(UserPosts)
+                    .order_by(func.random())
                     .offset(start)
                     .limit(limit)
                 )
