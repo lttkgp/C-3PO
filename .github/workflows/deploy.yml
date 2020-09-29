@@ -3,7 +3,7 @@ name: Deploy C-3PO to Amazon ECS
 on:
   workflow_run:
     workflows: [ "Build and Test C-3PO" ]
-    branches: [ master, add-codedeploy ]
+    branches: [ master ]
     types:
       - completed
 
