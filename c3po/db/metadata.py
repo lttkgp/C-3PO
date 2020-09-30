@@ -1,3 +1,4 @@
+import logging
 import time
 from datetime import datetime
 
@@ -8,6 +9,8 @@ from music_metadata_extractor import SongData
 from c3po.db.base import session_scope
 from c3po.db.models import (Artist, ArtistGenre, ArtistSong, Genre, Link, Song,
                             SongGenre, User, UserLikes, UserPosts)
+
+logger = logging.getLogger(__name__)
 
 
 def insert_metadata(raw_data):
@@ -66,12 +69,15 @@ def _insert_post(url, user, extras, raw_data, session):
             )
             new_post.likes_count = likes_count
             session.add(new_post)
+            logger.info(f"New post added. facebook_id: {facebook_id}")
             return None
         new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
         new_post.likes_count = likes_count
         session.add(new_post)
+        logger.info(f"New post added. facebook_id: {facebook_id}")
         return new_link
     else:
+        logger.info(f"Existing post with facebook_id {facebook_id} found")
         if(likes_count != existing_post.likes_count):
             existing_post.likes_count = likes_count
             return None
@@ -90,9 +96,11 @@ def _insert_link(url, extras, session):
         temp_link = Link(url, 0, custom_popularity, views)
         temp_link.post_count = 1
         session.add(temp_link)
+        logger.info(f"New link added. URL: {url}")
         return temp_link
     else:
         query.post_count += 1
+        logger.info(f"Existing link found. URL: {url}")
         return None
 
 
