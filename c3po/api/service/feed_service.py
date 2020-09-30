@@ -1,6 +1,7 @@
 import re
 from datetime import datetime, timedelta
 from logging import getLogger
+
 from sqlalchemy import func
 
 from c3po.api.dto import artist_dto, post_dto, song_dto

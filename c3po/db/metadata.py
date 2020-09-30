@@ -1,3 +1,4 @@
+import logging
 import time
 from datetime import datetime
 
@@ -9,8 +10,8 @@ from c3po.db.base import session_scope
 from c3po.db.models import (Artist, ArtistGenre, ArtistSong, Genre, Link, Song,
                             SongGenre, User, UserLikes, UserPosts)
 
-import logging
 logger = logging.getLogger(__name__)
+
 
 def insert_metadata(raw_data):
     url = raw_data.get("link")
