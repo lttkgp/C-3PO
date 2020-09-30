@@ -33,9 +33,9 @@ def insert_metadata(raw_data):
                     else:
                         new_song = _insert_song(data.extraAttrs, session)
                         new_link.song_id = new_song.id
-            except ServerNotFoundError:
+            except ServerNotFoundError as e:
                 logger.error("Google API unreachable!")
-                raise ServerNotFoundError
+                raise e
             except Exception as e:
                 if str(e) == "Unsupported URL!" or str(e) == "Video unavailable!":
                     logger.error(str(e))
