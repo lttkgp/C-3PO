@@ -25,7 +25,16 @@
       "command": null,
       "linuxParameters": null,
       "cpu": 512,
-      "environment": [],
+      "environment": [
+        {
+          "name": "SPOTIFY_REDIRECT_URI",
+          "value": "http://localhost:5000"
+        },
+        {
+          "name": "SPOTIPY_CLIENT_ID",
+          "value": "e02422b74f7c4179b3c3c8e3acb6c4fa"
+        }
+      ],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
@@ -39,14 +48,6 @@
         {
           "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:POSTGRES_URI-hVBEcw",
           "name": "POSTGRES_URI"
-        },
-        {
-          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIFY_REDIRECT_URI-Iy9mbt",
-          "name": "SPOTIFY_REDIRECT_URI"
-        },
-        {
-          "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIPY_CLIENT_ID-k3Igtf",
-          "name": "SPOTIPY_CLIENT_ID"
         },
         {
           "valueFrom": "arn:aws:secretsmanager:ap-south-1:848472830311:secret:SPOTIPY_CLIENT_SECRET-pSc1p0",
@@ -85,77 +86,11 @@
   "placementConstraints": [],
   "memory": "1024",
   "taskRoleArn": "arn:aws:iam::848472830311:role/AWSTaskRoleForECS",
-  "compatibilities": ["EC2", "FARGATE"],
-  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:848472830311:task-definition/c3po-taskdef:6",
   "family": "c3po-taskdef",
-  "requiresAttributes": [
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.secrets.asm.environment-variables"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.task-eni"
-    }
-  ],
   "pidMode": null,
   "requiresCompatibilities": ["FARGATE"],
   "networkMode": "awsvpc",
   "cpu": "512",
-  "revision": 6,
-  "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
   "volumes": []
