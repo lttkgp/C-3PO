@@ -48,8 +48,18 @@ jobs:
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        id: ecs-deploy
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: c3po
           cluster: lttkgp
           wait-for-service-stability: true
+
+      - name: Notify Slack
+        uses: act10ns/slack@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: always()

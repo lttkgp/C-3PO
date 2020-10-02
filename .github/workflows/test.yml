@@ -17,6 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
+      id: setup-python
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -31,10 +32,21 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install dependencies
+      id: install-dependencies
       run: |
         pip install --upgrade pip
         pip install -r requirements/common.txt
         pip install -r requirements/dev.txt
     
     - name: Test
+      id: run-sanity-test
       run: sh ./bin/sanity.sh
+
+    - name: Notify Slack
+      uses: act10ns/slack@v1
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      with:
+        status: ${{ job.status }}
+        steps: ${{ toJson(steps) }}
+      if: failure()
