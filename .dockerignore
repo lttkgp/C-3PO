@@ -25,3 +25,6 @@ env/
 venv/
 .vscode
 *.db
+
+# Docker compose
+postgres_data
