@@ -17,10 +17,12 @@ services:
       - lttkgp-network
   c3po:
     build: .
-    command: /bin/sh -c "/c3po/entrypoint.sh"
+    environment:
+      FLASK_DEBUG: 1
     restart: always
     volumes:
       - .:/c3po/
+      - ./entrypoint_dev.sh:/entrypoint.sh
     ports:
       - "8000:8000"
     networks:
