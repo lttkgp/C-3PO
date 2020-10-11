@@ -5,10 +5,10 @@ from music_metadata_extractor import SongData
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
-# env variables: SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIFY_USERNAME, PLAYLIST_ID
+# env variables: SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIFY_USERNAME, SPOTIFY_PLAYLIST_ID
 load_dotenv(find_dotenv())
 USERNAME = os.getenv('SPOTIPY_USERNAME')
-PLAYLIST_ID = os,getenv('PLAYLIST_ID')
+PLAYLIST_ID = os,getenv('SPOTIFY_PLAYLIST_ID')
 SCOPE='playlist-modify-public'
 
 
