@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - <details>
     <summary>Google Application Credentials</summary>
-    
+
     Google Application Credentials is an API key that is required to extract YouTube metadata from the Youtube Data API. To get the key, create a new project on the [Google Developer Console](https://console.developers.google.com/), enable the YouTube Data API and proceed to `Credentials` and create a new API key.
   </details>
 
@@ -35,6 +35,20 @@ These instructions will get you a copy of the project up and running on your loc
   ```
 
   Fill all the fields using the credentials created as part of the pre-requisites.
+
+### Developing
+
+- Install Development Dependencies
+
+  ```sh
+  pip install -e . -r requirements/dev.txt
+  ```
+
+- Install pre-commit hooks
+
+  ```sh
+  pre-commit install
+  ```
 
 ### Starting the server
 
