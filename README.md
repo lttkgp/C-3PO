@@ -44,7 +44,7 @@ Run the server with:
 docker-compose up
 ```
 
-The API server should be accessible at http://localhost:5000/.
+The API server should be accessible at http://localhost:8000/.
 
 ### Populating the database
 
