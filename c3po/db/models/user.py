@@ -38,7 +38,7 @@ class UserPosts(Base):
     caption = Column(String(160))
     facebook_id = Column(String(160))
     likes_count = Column(Integer)
-    # permalink_url = Column(String)
+    permalink_url = Column(String)
 
     # Relationships
     link = relationship(
