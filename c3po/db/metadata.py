@@ -3,12 +3,22 @@ import time
 from datetime import datetime
 
 from httplib2 import ServerNotFoundError
-from isodate import ISO8601Error, parse_datetime
+from isodate import ISO8601Error
+from isodate import parse_datetime
 from music_metadata_extractor import SongData
 
 from c3po.db.base import session_scope
-from c3po.db.models import (Artist, ArtistGenre, ArtistSong, Genre, Link, Song,
-                            SongGenre, User, UserLikes, UserPosts)
+from c3po.db.models import Artist
+from c3po.db.models import ArtistGenre
+from c3po.db.models import ArtistSong
+from c3po.db.models import Genre
+from c3po.db.models import Link
+from c3po.db.models import Song
+from c3po.db.models import SongGenre
+from c3po.db.models import User
+from c3po.db.models import UserLikes
+from c3po.db.models import UserPosts
+
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +49,7 @@ def insert_metadata(raw_data):
             except Exception as e:
                 if str(e) == "Unsupported URL!" or str(e) == "Video unavailable!":
                     logger.error(str(e))
+                    logger.error(f"FB Post URL: {raw_data['id']}")
                     raise e
                 else:
                     data = SongData(url)
@@ -60,7 +71,9 @@ def _insert_post(url, user, extras, raw_data, session):
     facebook_id = raw_data["id"]
     likes_count = raw_data["reactions"]["summary"]["total_count"]
     permalink_url = raw_data["permalink_url"]
-    existing_post = session.query(UserPosts).filter(UserPosts.facebook_id == facebook_id).first()
+    existing_post = (
+        session.query(UserPosts).filter(UserPosts.facebook_id == facebook_id).first()
+    )
     if not existing_post:
         new_link = _insert_link(url, extras, session)
         if not new_link:
@@ -72,14 +85,16 @@ def _insert_post(url, user, extras, raw_data, session):
             session.add(new_post)
             logger.info(f"New post added. facebook_id: {facebook_id}")
             return None
-        new_post = UserPosts(user, new_link, date_time, caption, facebook_id, permalink_url)
+        new_post = UserPosts(
+            user, new_link, date_time, caption, facebook_id, permalink_url
+        )
         new_post.likes_count = likes_count
         session.add(new_post)
         logger.info(f"New post added. facebook_id: {facebook_id}")
         return new_link
     else:
         logger.info(f"Existing post with facebook_id {facebook_id} found")
-        if(likes_count != existing_post.likes_count):
+        if likes_count != existing_post.likes_count:
             existing_post.likes_count = likes_count
             return None
 
@@ -90,16 +105,25 @@ def _insert_artist_song(new_artist, new_song, session):
 
 
 def _insert_link(url, extras, session):
-    query = session.query(Link).filter(Link.url == url).first()
+    query = (
+        session.query(Link)
+        .filter(Link.url == extras["youtube"]["converted_link"])
+        .first()
+    )
+
     if not query:
         views = int(extras["youtube"]["views"])
         custom_popularity = get_custom_popularity(extras)
-        temp_link = Link(url, 0, custom_popularity, views)
+        temp_link = Link(
+            extras["youtube"]["converted_link"], 0, custom_popularity, views, url
+        )
+
         temp_link.post_count = 1
         session.add(temp_link)
         logger.info(f"New link added. URL: {url}")
         return temp_link
     else:
+
         query.post_count += 1
         logger.info(f"Existing link found. URL: {url}")
         return None
