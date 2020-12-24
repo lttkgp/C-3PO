@@ -1,11 +1,5 @@
-from sqlalchemy import BigInteger
-from sqlalchemy import Column
-from sqlalchemy import Float
-from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy.orm import backref
-from sqlalchemy.orm import relationship
+from sqlalchemy import BigInteger, Column, Float, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
 
 from c3po.db.base import Base
 

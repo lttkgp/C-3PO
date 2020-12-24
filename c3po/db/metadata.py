@@ -3,22 +3,12 @@ import time
 from datetime import datetime
 
 from httplib2 import ServerNotFoundError
-from isodate import ISO8601Error
-from isodate import parse_datetime
+from isodate import ISO8601Error, parse_datetime
 from music_metadata_extractor import SongData
 
 from c3po.db.base import session_scope
-from c3po.db.models import Artist
-from c3po.db.models import ArtistGenre
-from c3po.db.models import ArtistSong
-from c3po.db.models import Genre
-from c3po.db.models import Link
-from c3po.db.models import Song
-from c3po.db.models import SongGenre
-from c3po.db.models import User
-from c3po.db.models import UserLikes
-from c3po.db.models import UserPosts
-
+from c3po.db.models import (Artist, ArtistGenre, ArtistSong, Genre, Link, Song,
+                            SongGenre, User, UserLikes, UserPosts)
 
 logger = logging.getLogger(__name__)
 
