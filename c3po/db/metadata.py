@@ -21,8 +21,7 @@ def insert_metadata(raw_data):
                 data = SongData(url)
                 # This is a placeholder for until we can fetch real user details
                 user = _insert_default_user(session)
-                new_link = _insert_post(
-                    url, user, data.extraAttrs, raw_data, session)
+                new_link = _insert_post(url, user, data.extraAttrs, raw_data, session)
                 if new_link:
                     if data.track and data.artists:
                         new_song = _insert_song(data.track, session)
@@ -40,7 +39,6 @@ def insert_metadata(raw_data):
             except Exception as e:
                 if str(e) == "Unsupported URL!" or str(e) == "Video unavailable!":
                     logger.error(str(e))
-                    logger.error(f"FB Post URL: {raw_data['id']}")
                     raise e
                 else:
                     data = SongData(url)
@@ -62,8 +60,9 @@ def _insert_post(url, user, extras, raw_data, session):
     facebook_id = raw_data["id"]
     likes_count = raw_data["reactions"]["summary"]["total_count"]
     permalink_url = raw_data["permalink_url"]
-    existing_post = session.query(UserPosts).filter(
-        UserPosts.facebook_id == facebook_id).first()
+    existing_post = (
+        session.query(UserPosts).filter(UserPosts.facebook_id == facebook_id).first()
+    )
     if not existing_post:
         new_link = _insert_link(url, extras, session)
         if not new_link:
@@ -75,15 +74,16 @@ def _insert_post(url, user, extras, raw_data, session):
             session.add(new_post)
             logger.info(f"New post added. facebook_id: {facebook_id}")
             return None
-        new_post = UserPosts(user, new_link, date_time,
-                             caption, facebook_id, permalink_url)
+        new_post = UserPosts(
+            user, new_link, date_time, caption, facebook_id, permalink_url
+        )
         new_post.likes_count = likes_count
         session.add(new_post)
         logger.info(f"New post added. facebook_id: {facebook_id}")
         return new_link
     else:
         logger.info(f"Existing post with facebook_id {facebook_id} found")
-        if(likes_count != existing_post.likes_count):
+        if likes_count != existing_post.likes_count:
             existing_post.likes_count = likes_count
             return None
 
@@ -94,16 +94,25 @@ def _insert_artist_song(new_artist, new_song, session):
 
 
 def _insert_link(url, extras, session):
-    query = session.query(Link).filter(Link.url == url).first()
+    query = (
+        session.query(Link)
+        .filter(Link.url == extras["youtube"]["converted_link"])
+        .first()
+    )
+
     if not query:
         views = int(extras["youtube"]["views"])
         custom_popularity = get_custom_popularity(extras)
-        temp_link = Link(url, 0, custom_popularity, views)
+        temp_link = Link(
+            extras["youtube"]["converted_link"], 0, custom_popularity, views, url
+        )
+
         temp_link.post_count = 1
         session.add(temp_link)
         logger.info(f"New link added. URL: {url}")
         return temp_link
     else:
+
         query.post_count += 1
         logger.info(f"Existing link found. URL: {url}")
         return None
@@ -147,8 +156,7 @@ def _insert_song(track_data, session):
 
 
 def _insert_artist(artist_data, session):
-    query = session.query(Artist).filter(
-        Artist.name == artist_data.name).first()
+    query = session.query(Artist).filter(Artist.name == artist_data.name).first()
     if not query:
         new_artist = Artist(artist_data.name, artist_data.image_id)
         session.add(new_artist)
@@ -192,8 +200,7 @@ def get_custom_popularity(extras):
     delta = datetime.now(tz) - extras["youtube"]["posted_date"]
     days_since_posted = delta.days if delta.days > 0 else 1
     factor = 24 * 60 * 60
-    score = float(int(extras["youtube"]["views"]) /
-                  (days_since_posted * factor))
+    score = float(int(extras["youtube"]["views"]) / (days_since_posted * factor))
     return score
 
 
