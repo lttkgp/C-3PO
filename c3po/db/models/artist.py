@@ -53,7 +53,7 @@ class Artist(Base):
 
     # Columns
     id = Column(Integer, primary_key=True)
-    name = Column("name", String(32))
+    name = Column("name", String(160))
     image = Column("image", String(160))
 
     # Helper methods

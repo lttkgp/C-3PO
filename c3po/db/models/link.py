@@ -11,7 +11,7 @@ class Link(Base):
     id = Column(Integer, primary_key=True)
     url = Column("url", String(160))
     platform = Column("platform", Integer)
-    original_url = Column("original_url", String)
+    original_url = Column("original_url", String(160))
     song_id = Column(Integer, ForeignKey("song.id"))
 
     post_count = Column("post_count", Integer)
