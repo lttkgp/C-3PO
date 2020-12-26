@@ -1,3 +1,5 @@
+from c3po.db.models import artist, genre, link, song, user
+from c3po.db.base import Base
 from logging.config import fileConfig
 import os
 
@@ -11,8 +13,6 @@ load_dotenv(find_dotenv())
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from c3po.db.base import Base
-from c3po.db.models import artist, genre, link, song, user
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -50,6 +50,7 @@ def run_migrations_offline():
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        compare_type=True
     )
 
     with context.begin_transaction():
@@ -70,7 +71,8 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(connection=connection,
+                          target_metadata=target_metadata, compare_type=True)
 
         with context.begin_transaction():
             context.run_migrations()
