@@ -15,6 +15,7 @@ class HealthCheck(Resource):
     def get(self):
         return {"success": True}, 200
 
+
 @health_ns.route("/status")
 class StatusCheck(Resource):
     """ Check if posts are active or stale """

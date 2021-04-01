@@ -7,6 +7,7 @@ from c3po.config.config import read_config
 LOG = getLogger(__name__)
 MAX_ACTIVE_DAYS = read_config(section="api")["MAX_ACTIVE_DAYS"]
 
+
 def get_active_status():
     """ Checks the share_date of the latest post. """
     with session_scope() as session:
@@ -17,7 +18,7 @@ def get_active_status():
             .all()
         )
         latest_post = posts[0]
-        print(type(MAX_ACTIVE_DAYS))
-        if datetime.now() - latest_post.share_date <= timedelta(days=int(MAX_ACTIVE_DAYS)):
+        if datetime.now() - latest_post.share_date <= timedelta(
+                days=int(MAX_ACTIVE_DAYS)):
             return True
         return False
