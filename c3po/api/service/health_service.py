@@ -12,11 +12,12 @@ def get_active_status():
     with session_scope() as session:
         posts = (
             session.query(UserPosts)
-            .order_by(UserPosts.share_date.desc)
+            .order_by(UserPosts.share_date.desc())
             .limit(1)
             .all()
         )
         latest_post = posts[0]
-        if datetime.now() - latest_post.share_date <= timedelta(days=MAX_ACTIVE_DAYS):
+        print(type(MAX_ACTIVE_DAYS))
+        if datetime.now() - latest_post.share_date <= timedelta(days=int(MAX_ACTIVE_DAYS)):
             return True
         return False
