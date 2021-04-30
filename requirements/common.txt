@@ -10,6 +10,6 @@ isodate==0.6.0
 coloredlogs==14.0
 httplib2==0.19.0
 Flask_Cors==3.0.8
-psycopg2==2.8.5
+#psycopg2==2.8.5
 psycopg2-binary==2.8.5
 python-dotenv==0.14.0
