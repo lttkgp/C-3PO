@@ -1,16 +1,24 @@
 # Base Python image for container
-FROM python:3.7
+FROM python:3.7-slim AS builder
+RUN apt-get update \
+    && apt-get install gcc -y \
+    && apt-get clean
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements/common.txt requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+
+FROM python:3.7-slim
 
 # Set unbuffered output to make sure all logs are printed and not stuck in buffer
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update
 RUN mkdir -p /c3po
-
-# Copy and install requirements
-ADD requirements /c3po/requirements
-RUN pip install --upgrade pip
-RUN pip install -r /c3po/requirements/common.txt && pip install -r /c3po/requirements/dev.txt
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 ADD . /c3po/
 WORKDIR /c3po
