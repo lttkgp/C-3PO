@@ -3,7 +3,7 @@ SQLAlchemy==1.3.18
 marshmallow==3.7.1
 alembic==1.4.2
 music-metadata-extractor==1.3.4
-lxml==4.6.2
+lxml==4.6.3
 flask_restx==0.5.1
 Flask==1.1.2
 isodate==0.6.0
